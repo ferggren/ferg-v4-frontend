@@ -1,5 +1,7 @@
 import fetch from 'node-fetch';
 
+/* global API_HOST */
+
 const Request = {
   /**
    *  Fetch request
@@ -28,7 +30,7 @@ const Request = {
         throw new Error('internal_server_error');
       }
 
-      if (json.status != 'success') {
+      if (json.status !== 'success') {
         throw new Error(json.response ? json.response : 'internal_server_error');
       }
 
@@ -36,9 +38,9 @@ const Request = {
         options.success(json.response);
       }
     })
-    .catch(err => {
-      if (typeof options.error == 'function') {
-        options.error(err);
+    .catch((error) => {
+      if (typeof options.error === 'function') {
+        options.error(error);
       }
     });
   },
@@ -46,7 +48,7 @@ const Request = {
   /**
    *  Placeholder
    */
-  promise(url, options) {
+  promise() {
     throw new Error('not supported');
   },
 
@@ -61,19 +63,21 @@ const Request = {
    *  Placeholder
    */
   getProgress() {
-    return progress = {
+    const progress = {
       loaded: 0,
       loaded_total: 0,
       uploaded: 0,
       uploaded_total: 0,
     };
+
+    return progress;
   },
 
   /**
    *  Placeholder
    */
   getTotalProgress() {
-    return progress = {
+    const progress = {
       requests_total: 0,
       requests_loading: 0,
       loaded: 0,
@@ -81,6 +85,8 @@ const Request = {
       uploaded: 0,
       uploaded_total: 0,
     };
+
+    return progress;
   },
 
   /**
@@ -98,12 +104,12 @@ const Request = {
     }
 
     return {
+      Cookie: cookie.join('; '),
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      'Cookie': cookie.join('; '),
       'X-Requested-With': 'XMLHttpRequest',
       'X-Csrf-Token': csrf_token,
       'X-Forwarded-For': options.remote_ip,
-    }
+    };
   },
 
   /**
@@ -157,7 +163,9 @@ const Request = {
       token.push(set.charAt(Math.floor(Math.random() * set.length)));
     }
 
-    return Request._csrf = token.join('');
+    Request._csrf = token.join('');
+
+    return Request._csrf;
   },
 
   /**
@@ -167,40 +175,40 @@ const Request = {
    *  @return {object} validated options
    */
   _validateOptions(options) {
-    if (typeof options != 'object') {
+    if (typeof options !== 'object') {
       options = {};
     }
 
     if (typeof options.success !== 'function') {
-      request.success = false;
+      options.success = false;
     }
 
     if (typeof options.error !== 'function') {
       options.error = false;
     }
 
-    if (typeof options.data === 'undefined') {
+    if (options.data === undefined) {
       options.data = {};
     }
 
-    if (typeof options.remote_ip === 'undefined') {
+    if (options.remote_ip === undefined) {
       options.remote_ip = '0.0.0.0';
     }
 
-    if (typeof options.session === 'undefined') {
+    if (options.session === undefined) {
       options.session = '';
     }
 
-    if (typeof options.timeout === 'undefined') {
+    if (options.timeout === undefined) {
       options.timeout = 60;
     }
 
-    if (typeof options.method === 'undefined') {
+    if (options.method === undefined) {
       options.method = 'GET';
     }
 
     return options;
   },
-}
+};
 
 export default Request;

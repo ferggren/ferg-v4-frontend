@@ -12,6 +12,8 @@ import {
   loadUserData,
 } from 'utils/server';
 
+/* global NODE_ENV */
+
 const server = express();
 server.disable('x-powered-by');
 
@@ -37,12 +39,14 @@ server.use((req, res) => {
     res.status(200).end('it works!');
   })
   .catch((err) => {
-    console.log(err);
+    if (NODE_ENV === 'dev') console.log(`request error: ${err}`);
     res.status(500).end('Internal server error');
   });
 });
 
 /* global NODE_PORT */
 server.listen(NODE_PORT, () => {
-  console.log(`Server listening on: ${NODE_PORT}`);
+  if (NODE_ENV === 'dev') {
+    console.log(`Server listening on: ${NODE_PORT}`);
+  }
 });

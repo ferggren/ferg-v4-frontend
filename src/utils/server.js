@@ -52,19 +52,19 @@ export function loadUserData(user_session, user_ip) {
     new Promise((resolve, reject) => {
       Request.fetch(
         '/api/user/getInfo', {
+          success: (user_info) => {
+            resolve(user_info);
+          },
 
-        success: (user_info) => {
-          resolve(user_info);
-        },
+          error: (error) => {
+            reject(error);
+          },
 
-        error: (error) => {
-          reject(error);
-        },
-
-        method: 'GET',
-        remote_ip: user_ip,
-        session: user_session,
-      });
+          method: 'GET',
+          remote_ip: user_ip,
+          session: user_session,
+        }
+      );
     })
   );
 

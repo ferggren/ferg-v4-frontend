@@ -9,12 +9,16 @@ export default function () {
     session,
   });
 
-  const window = window || {};
+  let win = {};
   let state = {};
 
+  if (typeof window !== 'undefined') {
+    win = window;
+  }
+
   /* global NODE_ENV */  
-  if (NODE_ENV === 'dev' && window.__REDUX_DEVTOOLS_EXTENSION__) {
-    state = window.__REDUX_DEVTOOLS_EXTENSION__();
+  if (NODE_ENV === 'dev' && win.__REDUX_DEVTOOLS_EXTENSION__) {
+    state = win.__REDUX_DEVTOOLS_EXTENSION__();
   }
 
   return createStore(root_reducer, state, applyMiddleware(thunk));

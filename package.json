@@ -6,6 +6,7 @@
   "license": "MIT",
   "homepage": "https://ferg.in/",
   "scripts": {
+    "lint": "./node_modules/.bin/eslint ./src",
     "build": "NODE_ENV='production' WEBPACK_MODE='build' node build.js",
     "dev-watch": "NODE_ENV='dev' WEBPACK_MODE='watch' node build.js",
     "dev-server": "NODE_ENV='dev' WEBPACK_MODE='server' node build.js",
@@ -13,7 +14,7 @@
     "nodemon": "NODE_ENV='dev' NODE_PATH=./:./src nodemon server.js",
     "server-start": "NODE_ENV='production' API_HOST='https://ferg.in' NODE_PATH='./:./src' pm2 start server.js",
     "server-restart": "NODE_ENV='production' API_HOST='https://ferg.in' NODE_PATH='./:./src' pm2 restart server.js",
-    "server-stop": "pm2 stop server"
+    "server-stop": "NODE_ENV='production' pm2 stop server"
   },
   "dependencies": {
     "babel-core": "^6.7.7",
