@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import express from 'express';
@@ -13,6 +15,8 @@ import {
 } from 'utils/server';
 
 /* global NODE_ENV */
+/* global NODE_PORT */
+/* eslint no-console: "off" */
 
 const server = express();
 server.disable('x-powered-by');
@@ -44,7 +48,6 @@ server.use((req, res) => {
   });
 });
 
-/* global NODE_PORT */
 server.listen(NODE_PORT, () => {
   if (NODE_ENV === 'dev') {
     console.log(`Server listening on: ${NODE_PORT}`);

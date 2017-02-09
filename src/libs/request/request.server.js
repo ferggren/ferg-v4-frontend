@@ -1,3 +1,5 @@
+'use strict';
+
 import fetch from 'node-fetch';
 
 /* global API_HOST */

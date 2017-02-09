@@ -1,3 +1,5 @@
+'use strict';
+
 import ServerRequest from './request.server.js';
 import ClientRequest from './request.client.js';
 

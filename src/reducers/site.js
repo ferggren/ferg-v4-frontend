@@ -1,3 +1,5 @@
+'use strict';
+
 import thunk from 'redux-thunk';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import user_ip from './user_ip';
