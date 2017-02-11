@@ -1,6 +1,8 @@
 'use strict';
 
 import Request from 'libs/request';
+import FS from 'fs';
+import md5File from 'md5-file';
 
 /**
  *  Check if user browser have support of modern JS
@@ -71,4 +73,82 @@ export function loadUserData(user_session, user_ip) {
   );
 
   return promise;
+}
+
+/**
+ *  Make file hash
+ */
+const _file_hashes = {};
+export function makeFileHash(file) {
+  const time = Math.round(new Date().getTime() / 1000);
+
+  if (_file_hashes[file] !== undefined) {
+    if ((time - _file_hashes[file].time) <= 30) {
+      return _file_hashes[file].hash;
+    }
+  }
+
+  if (!FS.existsSync()) {
+    _file_hashes[file] = { time, hash: false };
+    return false;
+  }
+
+  const hash = md5File.sync(file);
+
+  _file_hashes[file] = {
+    time,
+    hash: hash || false,
+  };
+
+  return _file_hashes[file].hash;
+}
+
+/**
+ *  Make path to script
+ */
+export function makePathToAsset(script) {
+  /* global NODE_ENV */
+  if (NODE_ENV === 'dev') {
+    return `/assets/${script}?v=${Math.random()}`;
+  }
+
+  let hash = makeFileHash(`./public/assets/${script}`);
+  hash = hash ? `v_${hash}/` : '';
+
+  return `/assets/${hash}${script}`;
+}
+
+/**
+ *  Render admin HTML
+ */
+export function renderAdminHTML() {
+  let styles = '';
+
+  if (NODE_ENV) {
+    styles = `<link href="${makePathToAsset('admin/admin.css')}" rel="stylesheet" />`;
+  }
+
+  const html = `
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+      <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0" />
+        <link rel="alternate" hreflang="x-default" href="//ferg.in/admin/" />
+        <link rel="alternate" hreflang="ru-ru" href="//ferg.in/admin/ru/" />
+        <link rel="alternate" hreflang="en-us" href="//ferg.in/admin/en/" />
+        <title>Admin CP // Ferg.in</title>
+        ${styles}
+        <script src="${makePathToAsset('admin/admin.js')}" async defer></script>
+      </head>
+      <body>
+        <div class="react-root" id="react-root">
+          <div class="react-loading">Loading...</div>
+        </div>
+      </body>
+    </html>
+  `.trim().replace(/^ {4}/gm, '');
+
+  return html;
 }

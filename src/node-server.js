@@ -7,11 +7,13 @@ import configureStore from 'reducers/site';
 import { match, RouterContext } from 'react-router';
 import { setUserIp } from 'actions/user_ip';
 import { setSession } from 'actions/session';
+import { userLogin } from 'actions/user';
 import {
   areScriptsEnabled,
   getUserIp,
   getUserSession,
   loadUserData,
+  renderAdminHTML,
 } from 'utils/server';
 
 /* global NODE_ENV */
@@ -33,13 +35,27 @@ server.use((req, res) => {
   store.dispatch(setUserIp(user_ip));
   store.dispatch(setSession(user_session));
 
-  console.log(`[${user_ip}, ${scripts_enabled}] new request`);
+  console.log(`[${user_ip}] new request: ${req.url}`);
 
-  const user_promise = loadUserData(user_session, user_ip);
-
-  Promise.all(user_promise)
+  Promise.all(loadUserData(user_session, user_ip))
   .then((user_info) => {
-    console.log(user_info);
+    let is_admin = false;
+
+    if (typeof user_info === 'object' && user_info.length) {
+      store.dispatch(userLogin(user_info[0]));
+      is_admin = user_info[0].groups.indexOf('admin') !== -1;
+    }
+
+    if (req.url.match(/^\/admin/)) {
+      if (is_admin) {
+        res.status(200).end(renderAdminHTML());
+        return;
+      }
+      
+      res.redirect(301, '/');
+      return;
+    }
+
     res.status(200).end('it works!');
   })
   .catch((err) => {
