@@ -1,3 +1,3 @@
 'use strict';
 
-export { default as default } from 'site-gallery';
+export { default as default } from './site-gallery';

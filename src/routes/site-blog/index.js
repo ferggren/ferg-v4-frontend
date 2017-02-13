@@ -1,3 +1,3 @@
 'use strict';
 
-export { default as default } from 'site-blog';
+export { default as default } from './site-blog';

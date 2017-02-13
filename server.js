@@ -21,4 +21,4 @@ extensions_ignore.forEach((ext) => {
 
 require('babel-core/register');
 require('babel-polyfill');
-require('./src/node-server.js');
+require('./src/node-server');

@@ -1,3 +1,3 @@
 'use strict';
 
-export { default as default } from 'site-365';
+export { default as default } from './site-365';
