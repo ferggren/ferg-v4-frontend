@@ -168,7 +168,7 @@ export function renderAdminHTML() {
   let styles = '';
 
   if (NODE_ENV !== 'dev') {
-    styles = `<link href="${makePathToAsset('admin/admin.css')}" rel="stylesheet" />`;
+    styles = `<link href="${makePathToAsset('admin.css')}" rel="stylesheet" />`;
   }
 
   const html = `
@@ -177,13 +177,13 @@ export function renderAdminHTML() {
       <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <link rel="alternate" hreflang="x-default" href="//ferg.in/admin/" />
         <link rel="alternate" hreflang="ru-ru" href="//ferg.in/admin/ru/" />
         <link rel="alternate" hreflang="en-us" href="//ferg.in/admin/en/" />
         <title>Admin CP // Ferg.in</title>
         ${styles}
-        <script src="${makePathToAsset('admin/admin.js')}" async defer></script>
+        <script src="${makePathToAsset('admin.js')}" async defer></script>
       </head>
       <body>
         <div class="react-root" id="react-root">
@@ -202,7 +202,7 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
   let analytics = '';
 
   if (NODE_ENV !== 'dev') {
-    styles = `<link href="${makePathToAsset('site/site.css')}" rel="stylesheet" />`;
+    styles = `<link href="${makePathToAsset('site.css')}" rel="stylesheet" />`;
 
     if (counters) {
       const keys = Object.keys(counters);
@@ -216,7 +216,7 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
   if (scriptsEnabled) {
     scripts += `<script>window.REDUX_INITIAL_STATE=${JSON.stringify(state)};</script>`;
     scripts += `<script>window.USER_LANG="${state.lang}";</script>`;
-    scripts += `<script src="${makePathToAsset('site/site.js')}" async defer></script>`;
+    scripts += `<script src="${makePathToAsset('site.js')}" async defer></script>`;
   }
 
   const html = `
@@ -225,7 +225,7 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
       <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <link rel="alternate" hreflang="x-default" href="//ferg.in/" />
         <link rel="alternate" hreflang="ru-ru" href="//ferg.in/ru/" />
         <link rel="alternate" hreflang="en-us" href="//ferg.in/en/" />
@@ -233,9 +233,7 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
         ${styles}
       </head>
       <body>
-        <div class="react-root" id="react-root">
-          ${clientHTML}
-        </div>
+        <div class="react-root" id="react-root">${clientHTML}</div>
         ${scripts}
         <div class="site-counters">
           ${analytics}

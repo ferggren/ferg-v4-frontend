@@ -10,12 +10,12 @@ import SiteGallery from './site-gallery';
 import SiteGalleryPhoto from './site-gallery-photo';
 import SiteLanding from './site-landing';
 
-/* global SCRIPT_ENV */
+/* global NODE_MODE */
 let siteStore = false;
 
 function fetchData(nextState, replace, callback) {
   // we dont need fetchData on server side
-  if (!siteStore || SCRIPT_ENV === 'server') {
+  if (!siteStore || NODE_MODE === 'server') {
     callback();
     return;
   }

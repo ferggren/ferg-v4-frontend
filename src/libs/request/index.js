@@ -3,6 +3,6 @@
 import ServerRequest from './request.server.js';
 import ClientRequest from './request.client.js';
 
-/* global SCRIPT_ENV */
-const Request = SCRIPT_ENV === 'server' ? ServerRequest : ClientRequest;
+/* global NODE_MODE */
+const Request = NODE_MODE === 'server' ? ServerRequest : ClientRequest;
 export default Request;

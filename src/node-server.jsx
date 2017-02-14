@@ -30,9 +30,7 @@ import { userLogin } from 'actions/user';
 const server = express();
 server.disable('x-powered-by');
 
-/**
- *  Process requests
- */
+// process request
 server.use((req, res) => {
   const store = configureStore();
   const scripts_enabled = areScriptsEnabled(req.headers);
@@ -88,18 +86,21 @@ server.use((req, res) => {
         return;
       }
 
+      // rendering client html
       const clientHTML = ReactDOM.renderToString(
         <Provider store={store}>
           <RouterContext {...renderProps} />
         </Provider>
       );
 
+      // making response
       const content = renderClientHTML(
         clientHTML,
         store.getState(),
         scripts_enabled
       );
 
+      // additional stuff
       res.set({
         'Content-Type': 'text/html; charset=utf-8',
         'Content-Length': content.length,

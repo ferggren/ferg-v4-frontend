@@ -2,8 +2,6 @@
 
 import thunk from 'redux-thunk';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-import user_ip from './user_ip';
-import session from './session';
 import lang from './lang';
 import location from './location';
 
@@ -11,8 +9,6 @@ import location from './location';
 
 export default function () {
   const root_reducer = combineReducers({
-    user_ip,
-    session,
     lang,
     location,
   });
