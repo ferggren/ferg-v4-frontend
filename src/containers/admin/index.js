@@ -1,5 +1,5 @@
 'use strict';
 
-export { AdminNavigation } from './admin-navigation';
-export { AdminFooter } from './admin-footer';
-export { AdminContainer } from './admin-container';
+export { default as AdminNavigation } from './admin-navigation';
+export { default as AdminFooter } from './admin-footer';
+export { default as AdminContainer } from './admin-container';

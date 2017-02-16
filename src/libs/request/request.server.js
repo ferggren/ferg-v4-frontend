@@ -28,17 +28,15 @@ const Request = {
       return res.json();
     })
     .then((json) => {
-      if (!json.status) {
-        throw new Error('internal_server_error');
-      }
-
-      if (json.status !== 'success') {
-        throw new Error(json.response ? json.response : 'internal_server_error');
+      if (!json.status || json.status !== 'success') {
+        return Promise.reject('internal_server_error');
       }
 
       if (typeof options.success === 'function') {
         options.success(json.response);
       }
+
+      return json.response;
     })
     .catch((error) => {
       if (typeof options.error === 'function') {

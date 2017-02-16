@@ -1,5 +1,5 @@
 'use strict';
 
-export { SiteNavigation } from './site-navigation';
-export { SiteFooter } from './site-footer';
-export { SiteContainer } from './site-container';
+export { default as SiteNavigation } from './site-navigation';
+export { default as SiteFooter } from './site-footer';
+export { default as SiteContainer } from './site-container';

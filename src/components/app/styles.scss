@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=cyrillic');
+@import 'styles/variables';
+@import 'styles/mixins';
+
+body { line-height: 1; }
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, 
+form, fieldset, input, p, blockquote, table, th, td, embed, object { padding: 0; margin: 0; }
+a { text-decoration: none; }
+a:hover { text-decoration: none; }
+h1, h2, h3, h4, h5, h6, strong, th, var, address, caption, cite, code, dfn, em { font-weight: normal; font-style: normal; }
+h1, h2, h3, h4, h5, h6 { font-size:100%; }
+table { border-collapse: collapse; border-spacing: 0; }
+ol,ul { list-style: none; }
+fieldset, img, abbr, acronym { border: 0; }
+q:before,q:after { content: ''; }
+caption, th { text-align: left; }
+input, textarea { outline:none!important; }
+textarea { resize:none; }
+a { outline: none; }
+
+html, body, .react-root {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.react-loader {
+  font-family: $font_default;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.app {
+  &__wrapper {
+    position: relative;
+    padding-top: $header_height;
+    padding-bottom: $footer_height + $screen_padding;
+    width: 100%;
+    min-height: 100%;
+    font-family: $font_default;
+  }
+
+  &-navigation {
+    max-width: $screen_wide;
+    margin: auto;
+
+    &__wrapper {
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: $header_height;
+      line-height: $header_height;
+      padding: 0px $screen_padding;
+      background: rgba(255, 255, 255, .9);
+      border-bottom: 1px solid #DDD;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  &-footer {
+    max-width: $screen_wide;
+    margin: auto;
+
+    &__wrapper {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      height: $footer_height;
+      line-height: $header_height;
+      padding: 0px $screen_padding;
+      font-size: 14px;
+      background: #f0f0f0;
+      overflow: hidden;
+    }
+
+    &__copy {
+      float: left;
+      word-wrap: nowrap;
+    }
+
+    &__lang {
+      float: right;
+      word-wrap: nowrap;
+    }
+  }
+}

@@ -1,11 +1,12 @@
 'use strict';
 
 import React from 'react';
+import { AppNavigation } from 'components/app';
 
 class SiteNavigation extends React.PureComponent {
   render() {
     return (
-      <div>SiteNavigation</div>
+      <AppNavigation />
     );
   }
 }
