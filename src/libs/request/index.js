@@ -1,8 +1,10 @@
 'use strict';
 
-import ServerRequest from './request.server.js';
-import ClientRequest from './request.client.js';
-
 /* global NODE_MODE */
-const Request = NODE_MODE === 'server' ? ServerRequest : ClientRequest;
-export default Request;
+/* eslint-disable global-require */
+
+if (NODE_MODE === 'server') {
+  module.exports = require('./request.server.js');
+} else {
+  module.exports = require('./request.client.js');
+}

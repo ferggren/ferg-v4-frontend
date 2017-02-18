@@ -51,10 +51,6 @@ const webpackConfig = {
         },
       },
       {
-        test: /\.json$/,
-        loader: 'json-loader',
-      },
-      {
         test: /\.(scss|sass)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',

@@ -1,3 +1,7 @@
 'use strict';
 
-export default {};
+const Request = {
+
+};
+
+export default Request;

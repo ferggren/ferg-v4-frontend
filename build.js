@@ -18,7 +18,7 @@ const CONTENT_BASE = './public';
 const SOURCE_PATH = './src';
 const WEBPACK_ENTRY = {
   site: WEBPACK_MODE === 'server' ? 'site-hot' : 'site',
-  admin: 'admin',
+  admin: WEBPACK_MODE === 'server' ? 'admin-hot' : 'admin',
 };
 
 // dev server & proxy settings
