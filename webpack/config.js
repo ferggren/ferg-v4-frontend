@@ -1,23 +1,20 @@
 'use strict';
 
+/* global WEBPACK_ENTRY */
+/* global ROOT_PATH */
+/* global BUILD_PATH */
+/* global PUBLIC_PATH */
+/* global NODE_ENV */
+/* global NODE_MODE */
+/* global WEBPACK_MODE */
+
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const insertHMR = require('./insert-hmr');
-const {
-  ROOT_PATH,
-  BUILD_PATH,
-  PUBLIC_PATH,
-  NODE_ENV,
-  NODE_MODE,
-  WEBPACK_MODE,
-} = require('./constants');
 
 const webpackConfig = {
   context: ROOT_PATH,
-  entry: {
-    site: ['site'],
-    admin: ['admin'],
-  },
+  entry: WEBPACK_ENTRY,
   resolve: {
     modules: [ROOT_PATH, 'node_modules'],
     extensions: ['.js', '.jsx', '.css', '.sass', '.scss', '.less'],

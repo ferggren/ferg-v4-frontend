@@ -25,7 +25,7 @@ import { userLogin } from 'actions/user';
 
 /* global NODE_ENV */
 /* global NODE_PORT */
-/* eslint no-console: "off" */
+/* eslint-disable no-console */
 
 const server = express();
 server.disable('x-powered-by');
@@ -70,7 +70,7 @@ server.use((req, res) => {
     }
 
     // server side rendering
-    match({ routes: siteRoutes(), location: req.url }, (error, redirect, renderProps) => {
+    match({ routes: siteRoutes, location: req.url }, (error, redirect, renderProps) => {
       if (redirect) {
         res.redirect(301, `${redirect.pathname}${redirect.search}`);
         return;

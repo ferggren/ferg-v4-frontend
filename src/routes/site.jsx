@@ -11,11 +11,10 @@ import SiteGalleryPhoto from './site-gallery-photo';
 import SiteLanding from './site-landing';
 
 /* global NODE_MODE */
-let siteStore = false;
 
 function fetchData(nextState, replace, callback) {
   // we dont need fetchData on server side
-  if (!siteStore || NODE_MODE === 'server') {
+  if (NODE_MODE === 'server') {
     callback();
     return;
   }
@@ -23,32 +22,26 @@ function fetchData(nextState, replace, callback) {
   callback();
 }
 
-function configureSiteRoutes(store = false) {
-  siteStore = store;
+const routes = [
+  <IndexRoute component={SiteLanding} key="index" onEnter={fetchData} />,
+  <Route path="gallery" component={SiteGallery} key="gallery" onEnter={fetchData} />,
+  <Route path="gallery/:photo_id" component={SiteGalleryPhoto} key="gallery_photo" onEnter={fetchData} />,
+  <Route path="events" component={SiteBlog} key="events" onEnter={fetchData} />,
+  <Route path="events/:page_id" component={SiteBlogPage} key="events_page" onEnter={fetchData} />,
+  <Route path="blog" component={SiteBlog} key="blog" onEnter={fetchData} />,
+  <Route path="blog/:page_id" component={SiteBlogPage} key="blog_page" onEnter={fetchData} />,
+  <Route path="dev" component={SiteBlog} key="dev" onEnter={fetchData} />,
+  <Route path="dev/:page_id" component={SiteBlogPage} key="dev_page" onEnter={fetchData} />,
+  <Route path="365" component={Site365} key="365" onEnter={fetchData} />,
+];
 
-  const routes = [
-    <IndexRoute component={SiteLanding} key="index" onEnter={fetchData} />,
-    <Route path="gallery" component={SiteGallery} key="gallery" onEnter={fetchData} />,
-    <Route path="gallery/:photo_id" component={SiteGalleryPhoto} key="gallery_photo" onEnter={fetchData} />,
-    <Route path="events" component={SiteBlog} key="events" onEnter={fetchData} />,
-    <Route path="events/:page_id" component={SiteBlogPage} key="events_page" onEnter={fetchData} />,
-    <Route path="blog" component={SiteBlog} key="blog" onEnter={fetchData} />,
-    <Route path="blog/:page_id" component={SiteBlogPage} key="blog_page" onEnter={fetchData} />,
-    <Route path="dev" component={SiteBlog} key="dev" onEnter={fetchData} />,
-    <Route path="dev/:page_id" component={SiteBlogPage} key="dev_page" onEnter={fetchData} />,
-    <Route path="365" component={Site365} key="365" onEnter={fetchData} />,
-  ];
-
-  return (
-    <Router history={browserHistory}>
-      <Route path="/" component={SiteContainer}>
-        {routes}
-        <Route path="ru/">{routes}</Route>
-        <Route path="en/">{routes}</Route>
-        <Route path="*" component={SiteLanding} />
-      </Route>
-    </Router>
-  );
-}
-
-export default configureSiteRoutes;
+export default (
+  <Router history={browserHistory}>
+    <Route path="/" component={SiteContainer}>
+      {routes}
+      <Route path="ru/">{routes}</Route>
+      <Route path="en/">{routes}</Route>
+      <Route path="*" component={SiteLanding} />
+    </Route>
+  </Router>
+);

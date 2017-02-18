@@ -1,10 +1,24 @@
 {
-  "name": "ferg.in",
+  "name": "ferg.in-frontend",
   "version": "1.0.0",
-  "description": "Ferg.in frontend",
-  "author": "ferg",
+  "description": "Frontend part of Ferg.in",
+  "author": "Filin Sergey <me@ferg.in> (http://github.com/ferggren)",
   "license": "MIT",
   "homepage": "https://ferg.in/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ferggren/ferg.in.frontend.git"
+  },
+  "keywords": [
+    "javascript",
+    "react",
+    "reactjs",
+    "isomorphic",
+    "universal",
+    "server-rendering",
+    "nodejs",
+    "webpack"
+  ],
   "dependencies": {
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",

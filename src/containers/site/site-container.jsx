@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { AppContainer } from 'components/app';
+import LocationWatcher from 'containers/location-watcher';
 import SiteNavigation from './site-navigation';
 import SiteFooter from './site-footer';
 
@@ -18,6 +19,8 @@ class SiteContainer extends React.PureComponent {
     return (
       <AppContainer>
         <SiteNavigation />
+        
+        <LocationWatcher />
 
         {this.props.children}
 

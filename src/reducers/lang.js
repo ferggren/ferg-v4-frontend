@@ -1,6 +1,6 @@
 'use strict';
 
-const initialState = false;
+const initialState = '';
 
 export default function (state = initialState, action) {
   switch (action.type) {

@@ -1,14 +1,12 @@
 'use strict';
 
-const {
-  DEV_SERVER_PORT,
-  DEV_SERVER_HOST,
-} = require('./constants');
+/* global DEV_SERVER_HOST */
+/* global DEV_SERVER_PORT */
 
 const modules = [
   'react-hot-loader/patch',
   `webpack-dev-server/client?http://${DEV_SERVER_HOST}:${DEV_SERVER_PORT}`,
-  'webpack/hot/dev-server',
+  'webpack/hot/only-dev-server',
 ];
 
 module.exports = function insertHMR(entry) {
