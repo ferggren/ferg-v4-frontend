@@ -7,19 +7,22 @@ const path = require('path');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 
-// build params
+// env
 const WEBPACK_MODE = process.env.WEBPACK_MODE || 'build';
 const NODE_ENV = process.env.NODE_ENV || 'production';
 const NODE_MODE = 'client';
 
 // config
-const PUBLIC_PATH = '/assets/';
-const CONTENT_BASE = './public';
-const SOURCE_PATH = './src';
 const WEBPACK_ENTRY = {
   site: WEBPACK_MODE === 'server' ? 'site-hot' : 'site',
   admin: WEBPACK_MODE === 'server' ? 'admin-hot' : 'admin',
 };
+const OUTPUT_JS = '[name].js';
+const OUTPUT_CSS = '[name].css';
+const EXTRACT_CSS = true;
+const PUBLIC_PATH = '/assets/';
+const CONTENT_BASE = './public';
+const SOURCE_PATH = './src';
 
 // dev server & proxy settings
 const DEV_SERVER_PORT = process.env.DEV_SERVER_PORT || 8081;
@@ -42,6 +45,9 @@ global.NODE_MODE = NODE_MODE;
 global.WEBPACK_MODE = WEBPACK_MODE;
 global.DEV_SERVER_HOST = DEV_SERVER_HOST;
 global.DEV_SERVER_PORT = DEV_SERVER_PORT;
+global.OUTPUT_JS = OUTPUT_JS;
+global.OUTPUT_CSS = OUTPUT_CSS;
+global.EXTRACT_CSS = EXTRACT_CSS;
 
 // init webpack with config
 const compiler = webpack(require('./webpack/config'));

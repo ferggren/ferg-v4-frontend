@@ -7,6 +7,9 @@
 /* global NODE_ENV */
 /* global NODE_MODE */
 /* global WEBPACK_MODE */
+/* global EXTRACT_CSS */
+/* global OUTPUT_CSS */
+/* global OUTPUT_JS */
 
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -21,7 +24,7 @@ const webpackConfig = {
   },
   output: {
     path: BUILD_PATH,
-    filename: '[name].js',
+    filename: OUTPUT_JS,
     chunkFilename: '[id].js?[hash]',
     publicPath: PUBLIC_PATH,
   },
@@ -33,28 +36,37 @@ const webpackConfig = {
         test: /\.jsx?$/,
         include: ROOT_PATH,
         exclude: /node_modules/,
-        loader: 'eslint-loader',
+        use: 'eslint-loader',
       },
       {
         test: /\.jsx?$/,
         include: ROOT_PATH,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          babelrc: false,
-          presets: [
-            ['es2015', { modules: false }],
-            'stage-2',
-            'react',
-          ],
-          plugins: (WEBPACK_MODE === 'server' ? ['react-hot-loader/babel'] : []),
-        },
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            babelrc: false,
+            presets: [
+              ['es2015', { modules: false }],
+              'stage-2',
+              'react',
+            ],
+            plugins: (WEBPACK_MODE === 'server' ? ['react-hot-loader/babel'] : []),
+          },
+        }],
+      },
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: `css-loader!less-loader?{"relativeUrls":false,"root":"${ROOT_PATH}","paths":["${ROOT_PATH}'"]}`,
+        }),
       },
       {
         test: /\.(scss|sass)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          loader: `css-loader?minimize!sass-loader?includePaths[]=${ROOT_PATH}`,
+          use: `css-loader?minimize!sass-loader?includePaths[]=${ROOT_PATH}`,
         }),
       },
       {
@@ -63,19 +75,19 @@ const webpackConfig = {
       },
       {
         test: /\.jpg$/,
-        loader: 'url-loader?limit=4096&mimetype=image/jpg',
+        use: 'url-loader?limit=4096&mimetype=image/jpg',
       },
       {
         test: /\.png$/,
-        loader: 'url-loader?limit=4096&mimetype=image/png',
+        use: 'url-loader?limit=4096&mimetype=image/png',
       },
       {
         test: /\.svg/,
-        loader: 'url-loader?limit=4096&mimetype=image/svg+xml',
+        use: 'url-loader?limit=4096&mimetype=image/svg+xml',
       },
       {
         test: /\.(woff|woff2|ttf|eot)/,
-        loader: 'url-loader?limit=1',
+        use: 'url-loader?limit=1',
       },
     ],
   },
@@ -90,9 +102,9 @@ const webpackConfig = {
       },
     }),
     new ExtractTextPlugin({
-      filename: '[name].css',
+      filename: OUTPUT_CSS,
       allChunks: true,
-      disable: (NODE_ENV === 'dev'),
+      disable: (!EXTRACT_CSS || NODE_ENV === 'dev'),
     }),
   ],
 };
