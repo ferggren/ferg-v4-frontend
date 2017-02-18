@@ -2,6 +2,7 @@
 
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const insertHMR = require('./insert-hmr');
 const {
   ROOT_PATH,
   BUILD_PATH,
@@ -42,7 +43,15 @@ const webpackConfig = {
         include: ROOT_PATH,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query: { presets: ['react', 'es2015', 'stage-1'] },
+        query: {
+          babelrc: false,
+          presets: [
+            ['es2015', { modules: false }],
+            'stage-2',
+            'react',
+          ],
+          plugins: (WEBPACK_MODE === 'server' ? ['react-hot-loader/babel'] : []),
+        },
       },
       {
         test: /\.json$/,
@@ -115,13 +124,16 @@ if (NODE_ENV === 'production') {
 }
 
 // Additional config for dev-server
-// HotModuleReplacementPlugin & adding dev-server to all entry points
 if (WEBPACK_MODE === 'server') {
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin()
   );
 
-  // moduleConfig.entry = addDevServerCLient(moduleConfig.entry);
+  webpackConfig.plugins.push(
+    new webpack.NamedModulesPlugin()
+  );
+
+  webpackConfig.entry = insertHMR(webpackConfig.entry);
 }
 
 module.exports = webpackConfig;

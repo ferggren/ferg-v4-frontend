@@ -165,12 +165,6 @@ export function makePathToAsset(script) {
  *  Render admin HTML
  */
 export function renderAdminHTML() {
-  let styles = '';
-
-  if (NODE_ENV !== 'dev') {
-    styles = `<link href="${makePathToAsset('admin.css')}" rel="stylesheet" />`;
-  }
-
   const html = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
@@ -182,7 +176,7 @@ export function renderAdminHTML() {
         <link rel="alternate" hreflang="ru-ru" href="//ferg.in/admin/ru/" />
         <link rel="alternate" hreflang="en-us" href="//ferg.in/admin/en/" />
         <title>Admin CP // Ferg.in</title>
-        ${styles}
+        <link href="${makePathToAsset('admin.css')}" rel="stylesheet" />
         <script src="${makePathToAsset('admin.js')}" async defer></script>
       </head>
       <body>
@@ -197,13 +191,10 @@ export function renderAdminHTML() {
 }
 
 export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
-  let styles = '';
   let scripts = '';
   let analytics = '';
 
   if (NODE_ENV !== 'dev') {
-    styles = `<link href="${makePathToAsset('site.css')}" rel="stylesheet" />`;
-
     if (counters) {
       const keys = Object.keys(counters);
 
@@ -230,11 +221,11 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
         <link rel="alternate" hreflang="ru-ru" href="//ferg.in/ru/" />
         <link rel="alternate" hreflang="en-us" href="//ferg.in/en/" />
         <title>${state.title || 'ferg.in'}</title>
-        ${styles}
+        <link href="${makePathToAsset('site.css')}" rel="stylesheet" />
+        ${scripts}
       </head>
       <body>
         <div class="react-root" id="react-root">${clientHTML}</div>
-        ${scripts}
         <div class="site-counters">
           ${analytics}
         </div>

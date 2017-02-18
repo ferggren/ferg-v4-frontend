@@ -8,10 +8,15 @@ const propTypes = {
     React.PropTypes.func,
     React.PropTypes.bool,
   ]),
+  lang: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.bool,
+  ]),
 };
 
 const defaultProps = {
   onLangSelect: false,
+  lang: false,
 };
 
 class AppFooter extends React.PureComponent {

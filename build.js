@@ -1,6 +1,7 @@
 'use strict';
 
 /* eslint no-console: "off" */
+
 const {
   WEBPACK_MODE,
   DEV_SERVER_PROXY_HOST,
@@ -51,7 +52,7 @@ if (WEBPACK_MODE === 'server') {
   });
 
   server.listen(DEV_SERVER_PORT, DEV_SERVER_HOST, (err) => {
-    if (err) console.log(err);
+    if (err) throw new Error(err);
     console.log(`Listening at ${DEV_SERVER_HOST}:${DEV_SERVER_PORT}`);
     console.log(`Proxying to http://${DEV_SERVER_PROXY_HOST}:${DEV_SERVER_PROXY_PORT}`);
   });
