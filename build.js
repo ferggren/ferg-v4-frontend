@@ -14,15 +14,17 @@ const NODE_MODE = 'client';
 
 // config
 const WEBPACK_ENTRY = {
-  site: WEBPACK_MODE === 'server' ? 'site-hot' : 'site',
-  admin: WEBPACK_MODE === 'server' ? 'admin-hot' : 'admin',
+  site: ['site'],
+  admin: ['admin'],
 };
-const OUTPUT_JS = '[name].js';
-const OUTPUT_CSS = '[name].css';
-const EXTRACT_CSS = true;
 const PUBLIC_PATH = '/assets/';
 const CONTENT_BASE = './public';
 const SOURCE_PATH = './src';
+const OUTPUT_JS = '[name].js';
+const OUTPUT_CSS = '[name].css';
+const OUTPUT_FONTS = '[hash].[ext]';
+const OUTPUT_MEDIA = '[hash].[ext]';
+const EXTRACT_CSS = true;
 
 // dev server & proxy settings
 const DEV_SERVER_PORT = process.env.DEV_SERVER_PORT || 8081;
@@ -47,6 +49,8 @@ global.DEV_SERVER_HOST = DEV_SERVER_HOST;
 global.DEV_SERVER_PORT = DEV_SERVER_PORT;
 global.OUTPUT_JS = OUTPUT_JS;
 global.OUTPUT_CSS = OUTPUT_CSS;
+global.OUTPUT_FONTS = OUTPUT_FONTS;
+global.OUTPUT_MEDIA = OUTPUT_MEDIA;
 global.EXTRACT_CSS = EXTRACT_CSS;
 
 // init webpack with config
@@ -85,7 +89,13 @@ if (WEBPACK_MODE === 'server') {
       CONTENT_BASE,
       `${CONTENT_BASE}${PUBLIC_PATH}`,
     ],
-    stats: { colors: true },
+    stats: { 
+      assets: true,
+      timings: true,
+      warnings: true,
+      chunks: false,
+      colors: true,
+    },
     watchOptions: {
       aggregateTimeout: 300,
       poll: 1000,

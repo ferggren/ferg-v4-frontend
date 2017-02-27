@@ -10,6 +10,8 @@
 /* global EXTRACT_CSS */
 /* global OUTPUT_CSS */
 /* global OUTPUT_JS */
+/* global OUTPUT_FONTS */
+/* global OUTPUT_MEDIA */
 
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -56,6 +58,13 @@ const webpackConfig = {
         }],
       },
       {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: `css-loader?minimize&includePaths[]=${ROOT_PATH}`,
+        }),
+      },
+      {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -71,23 +80,23 @@ const webpackConfig = {
       },
       {
         test: /\.gif$/,
-        use: 'url-loader?limit=4096&mimetype=image/gif',
+        use: `url-loader?limit=4096&mimetype=image/gif&name=${OUTPUT_MEDIA}`,
       },
       {
         test: /\.jpg$/,
-        use: 'url-loader?limit=4096&mimetype=image/jpg',
+        use: `url-loader?limit=4096&mimetype=image/jpg&name=${OUTPUT_MEDIA}`,
       },
       {
         test: /\.png$/,
-        use: 'url-loader?limit=4096&mimetype=image/png',
+        use: `url-loader?limit=4096&mimetype=image/png&name=${OUTPUT_MEDIA}`,
       },
       {
         test: /\.svg/,
-        use: 'url-loader?limit=4096&mimetype=image/svg+xml',
+        use: `url-loader?limit=4096&mimetype=image/svg+xml&name=${OUTPUT_MEDIA}`,
       },
       {
         test: /\.(woff|woff2|ttf|eot)/,
-        use: 'url-loader?limit=1',
+        use: `url-loader?limit=1&name=${OUTPUT_FONTS}`,
       },
     ],
   },

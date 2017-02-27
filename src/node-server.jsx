@@ -61,7 +61,7 @@ server.use((req, res) => {
     // admin CP
     if (req.url.match(/^\/admin/)) {
       if (is_admin) {
-        res.status(200).end(renderAdminHTML());
+        res.status(200).end(renderAdminHTML(store.getState()));
         return;
       }
       

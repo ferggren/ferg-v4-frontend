@@ -164,7 +164,7 @@ export function makePathToAsset(script) {
 /**
  *  Render admin HTML
  */
-export function renderAdminHTML() {
+export function renderAdminHTML(state) {
   const html = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
@@ -177,6 +177,7 @@ export function renderAdminHTML() {
         <link rel="alternate" hreflang="en-us" href="//ferg.in/admin/en/" />
         <title>Admin CP // Ferg.in</title>
         <link href="${makePathToAsset('admin.css')}" rel="stylesheet" />
+        <script>window.REDUX_INITIAL_STATE=${JSON.stringify(state)};</script>
         <script src="${makePathToAsset('admin.js')}" async defer></script>
       </head>
       <body>
