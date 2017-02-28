@@ -1,8 +1,8 @@
 'use strict';
 
-export function userLogin(user_info) {
+export function userLogin(info) {
   return {
     type: 'USER_LOGIN',
-    user_info,
+    info,
   };
 }

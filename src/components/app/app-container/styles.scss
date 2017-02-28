@@ -41,54 +41,8 @@ html, body, .react-root {
     padding-top: $header_height;
     padding-bottom: $footer_height + $screen_padding;
     width: 100%;
+    min-width: $screen_min;
     min-height: 100%;
     font-family: $font_default;
-  }
-
-  &-navigation {
-    max-width: $screen_wide;
-    margin: auto;
-
-    &__wrapper {
-      position: fixed;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: $header_height;
-      line-height: $header_height;
-      padding: 0px $screen_padding;
-      background: rgba(255, 255, 255, .9);
-      border-bottom: 1px solid #DDD;
-      font-size: 14px;
-      font-weight: 600;
-    }
-  }
-
-  &-footer {
-    max-width: $screen_wide;
-    margin: auto;
-
-    &__wrapper {
-      position: absolute;
-      bottom: 0px;
-      left: 0px;
-      width: 100%;
-      height: $footer_height;
-      line-height: $header_height;
-      padding: 0px $screen_padding;
-      font-size: 14px;
-      background: #f0f0f0;
-      overflow: hidden;
-    }
-
-    &__copy {
-      float: left;
-      word-wrap: nowrap;
-    }
-
-    &__lang {
-      float: right;
-      word-wrap: nowrap;
-    }
   }
 }

@@ -1,0 +1,32 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.app-footer {
+  min-width: $screen_min;
+  max-width: $screen_max;
+  margin: auto;
+
+  &__wrapper {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: $footer_height;
+    line-height: $header_height;
+    font-size: 14px;
+    background: #f0f0f0;
+    overflow: hidden;
+  }
+
+  &__copy {
+    padding: 0px $screen_padding;
+    float: left;
+    word-wrap: nowrap;
+  }
+
+  &__lang {
+    padding: 0px $screen_padding;
+    float: right;
+    word-wrap: nowrap;
+  }
+}

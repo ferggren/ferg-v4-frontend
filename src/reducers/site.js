@@ -4,8 +4,10 @@ import thunk from 'redux-thunk';
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 import user_ip from './user_ip';
 import session from './session';
+import user from './user';
 import lang from './lang';
 import location from './location';
+import title from './title';
 
 /* global NODE_ENV */
 
@@ -15,6 +17,8 @@ export default function (state = {}) {
     session,
     lang,
     location,
+    user,
+    title,
   });
 
   let composeEnhancers = compose;

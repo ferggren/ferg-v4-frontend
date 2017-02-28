@@ -1,7 +1,11 @@
 /* responsive */
-$screen_phone: 320px;
-$screen_tablet: 480px;
-$screen_wide: 980px;
+$screen_min: 320px;
+$screen_mobile: 480px;
+$screen_max: 980px;
+
+/* animations */
+$transition_duration: 160ms;
+$transition_function: ease;
 
 /* default font */
 $font_default: 'Open Sans', sans-serif;
@@ -9,3 +13,11 @@ $font_default: 'Open Sans', sans-serif;
 $header_height: 40px;
 $footer_height: 40px;
 $screen_padding: 15px;
+
+/* z-indexes */
+$z_index_navigation: 10;
+$z_index_navigation_button: 11;
+$z_index_navigation_title: 12;
+$z_index_navigation_shadow: 13;
+$z_index_navigation_links: 14;
+$z_index_footer: 50;

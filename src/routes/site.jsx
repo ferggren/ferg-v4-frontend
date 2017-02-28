@@ -30,8 +30,6 @@ const routes = [
   <Route path="events/:page_id" component={SiteBlogPage} key="events_page" onEnter={fetchData} />,
   <Route path="blog" component={SiteBlog} key="blog" onEnter={fetchData} />,
   <Route path="blog/:page_id" component={SiteBlogPage} key="blog_page" onEnter={fetchData} />,
-  <Route path="dev" component={SiteBlog} key="dev" onEnter={fetchData} />,
-  <Route path="dev/:page_id" component={SiteBlogPage} key="dev_page" onEnter={fetchData} />,
   <Route path="365" component={Site365} key="365" onEnter={fetchData} />,
 ];
 

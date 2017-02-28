@@ -3,12 +3,14 @@
 import thunk from 'redux-thunk';
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 import lang from './lang';
+import user from './user';
 import location from './location';
 
 /* global NODE_ENV */
 
 export default function (state = {}) {
   const root_reducer = combineReducers({
+    user,
     lang,
     location,
   });
