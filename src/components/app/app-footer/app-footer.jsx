@@ -1,10 +1,11 @@
 'use strict';
 
 import React from 'react';
+import { Link } from 'react-router';
 import './styles';
 
 const propTypes = {
-  onLangSelect: React.PropTypes.oneOfType([
+  onLangChange: React.PropTypes.oneOfType([
     React.PropTypes.func,
     React.PropTypes.bool,
   ]),
@@ -12,24 +13,55 @@ const propTypes = {
     React.PropTypes.string,
     React.PropTypes.bool,
   ]),
+  link: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.bool,
+  ]),
 };
 
 const defaultProps = {
-  onLangSelect: false,
+  onLangChange: false,
   lang: false,
+  link: false,
 };
 
 class AppFooter extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.onLangChange = this.onLangChange.bind(this);
+  }
+
+  onLangChange(e) {
+    if (this.props.onLangChange) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.props.onLangChange();
+    }
+  }
+
   render() {
+    let switch_class = 'app-footer__lang-switch';
+
+    if (this.props.lang) {
+      switch_class += ` app-footer__lang-switch--${this.props.lang}`;
+    }
+
     return (
       <div className="app-footer__wrapper">
         <div className="app-footer">
-          <div className="app-footer__copy">
-            ferg.in &copy; 2013 – 2017
+          <div className="app-footer__lang">
+            <Link
+              className={switch_class}
+              to={this.props.link}
+              onClick={this.onLangChange}
+            >
+              Switch lang
+            </Link>
           </div>
 
-          <div className="app-footer__lang">
-            lang switch
+          <div className="app-footer__copy">
+            ferg.in &copy; 2013 – 2017
           </div>
 
           <div style={{ clear: 'both' }} />

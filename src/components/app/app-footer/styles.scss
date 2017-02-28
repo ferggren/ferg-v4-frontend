@@ -11,22 +11,71 @@
     bottom: 0px;
     left: 0px;
     width: 100%;
-    height: $footer_height;
     line-height: $header_height;
     font-size: 14px;
     background: #f0f0f0;
     overflow: hidden;
+
+    @include respond_to(mobile) {
+      height: $footer_height * 2;
+    }
+
+    @include respond_to(desktop) {
+      height: $footer_height;
+    }
   }
 
   &__copy {
     padding: 0px $screen_padding;
-    float: left;
     word-wrap: nowrap;
+    height: $footer_height;
+    line-height: $header_height;
+    color: #666;
+
+    @include respond_to(mobile) {
+      text-align: center;
+    }
+
+    @include respond_to(desktop) {
+      text-align: left;
+      float: left;
+    }
   }
 
   &__lang {
     padding: 0px $screen_padding;
-    float: right;
     word-wrap: nowrap;
+    height: $footer_height;
+    line-height: $header_height;
+
+    @include respond_to(mobile) {
+      text-align: center;
+    }
+
+    @include respond_to(desktop) {
+      text-align: right;
+      float: right;
+    }
+
+    &-switch {
+      color: rgb(29, 111, 185);
+      display: inline-block;
+      line-height: $header_height;
+      position: relative;
+      padding-left: 30px;
+
+      &:hover {
+        color: rgb(29, 111, 185);
+        text-decoration: underline;
+      }
+
+      &--en {
+        background: url('./media/lang_en.png') no-repeat 0px 11px;
+      }
+
+      &--ru {
+        background: url('./media/lang_ru.png') no-repeat 0px 11px;
+      }
+    }
   }
 }

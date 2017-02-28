@@ -29,7 +29,6 @@ class AppNavigationLink extends React.PureComponent {
     const item = this.props.item;
     const props = {
       className: 'app-navigation__link',
-      key: item.name + item.link,
       onClick: this.onClick,
     };
 

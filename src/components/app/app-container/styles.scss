@@ -39,10 +39,26 @@ html, body, .react-root {
   &__wrapper {
     position: relative;
     padding-top: $header_height;
-    padding-bottom: $footer_height + $screen_padding;
     width: 100%;
     min-width: $screen_min;
     min-height: 100%;
     font-family: $font_default;
+
+    @include respond_to(mobile) {
+      padding-bottom: ($footer_height * 2) + $screen_padding;
+    }
+
+    @onclude respond_to(desktop) {
+      padding-bottom: $footer_height + $screen_padding;
+    }
   }
+}
+
+.site-counters {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 1px;
+  height: 1px;
+  margin-left: -9999px;
 }

@@ -48,7 +48,13 @@ class AppNavigation extends React.PureComponent {
 
   render() {
     const items = this.props.navigation.map((item) => {
-      return <Link item={item} onClick={this.hideNavigation} />;
+      return (
+        <Link
+          item={item}
+          onClick={this.hideNavigation}
+          key={item.name + item.link}
+        />
+      );
     });
 
     return (
