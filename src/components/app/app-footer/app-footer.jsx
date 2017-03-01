@@ -2,7 +2,13 @@
 
 import React from 'react';
 import { Link } from 'react-router';
+import Lang from 'libs/lang';
+import LangRu from './lang/ru';
+import LangEn from './lang/en';
 import './styles';
+
+Lang.updateLang('footer', LangRu, 'ru');
+Lang.updateLang('footer', LangEn, 'en');
 
 const propTypes = {
   onLangChange: React.PropTypes.oneOfType([
@@ -56,7 +62,7 @@ class AppFooter extends React.PureComponent {
               to={this.props.link}
               onClick={this.onLangChange}
             >
-              Switch lang
+              {Lang('footer.swap_lang')}
             </Link>
           </div>
 

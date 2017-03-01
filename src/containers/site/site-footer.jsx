@@ -5,6 +5,7 @@ import { AppFooter } from 'components/app';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { setLang } from 'actions/lang';
+import Lang from 'libs/lang';
 
 const propTypes = {
   location: React.PropTypes.string.isRequired,
@@ -31,7 +32,10 @@ class SiteFooter extends React.PureComponent {
   }
 
   changeLang() {
-    this.props.dispatch(setLang(this.getNewLang()));
+    const new_lang = this.getNewLang();
+
+    this.props.dispatch(setLang(new_lang));
+    Lang.setLang(new_lang);
     browserHistory.push(this.getNewLocation());
   }
 

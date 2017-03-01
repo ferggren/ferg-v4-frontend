@@ -207,7 +207,6 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
 
   if (scriptsEnabled) {
     scripts += `<script>window.REDUX_INITIAL_STATE=${JSON.stringify(state)};</script>`;
-    scripts += `<script>window.USER_LANG="${state.lang}";</script>`;
     scripts += `<script src="${makePathToAsset('site.js')}" async defer></script>`;
   }
 

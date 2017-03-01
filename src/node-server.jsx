@@ -16,6 +16,7 @@ import {
   getUserLang,
   getLocation,
 } from 'libs/server';
+import Lang from 'libs/lang';
 import configureStore from 'reducers/site';
 import { setUserIp } from 'actions/user_ip';
 import { setLang } from 'actions/lang';
@@ -85,6 +86,8 @@ server.use((req, res) => {
         res.status(404).end('Not found');
         return;
       }
+
+      Lang.setLang(user_lang);
 
       // rendering client html
       const clientHTML = ReactDOM.renderToString(
