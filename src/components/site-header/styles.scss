@@ -1,0 +1,102 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+$header_height_desktop: 250px;
+$header_height_mobile: 200px;
+$contacts_height: 36px;
+
+.site-header {
+  background: #EEE;
+  background-image: url('./media/header.jpg');
+  background-position: 50% 50%;
+  background-size: cover;
+
+  @include respond_to(mobile) {
+    height: $header_height_mobile;
+  }
+
+  @include respond_to(desktop) {
+    height: $header_height_desktop;
+  }
+
+  &__contacts {
+    height: $contacts_height;
+    line-height: 26px;
+    padding: 5px 5px;
+    border-radius: 5px;
+    display: inline-block;
+    background: rgba(255, 255, 255, .6);
+
+    &-wrapper {
+      height: $contacts_height;
+      padding-left: $screen_padding;
+      padding-right: $screen_padding;
+      max-width: $screen_max;
+      min-width: $screen_min;
+
+      @include respond_to(mobile) {
+        text-align: center;
+        padding-top: $header_height_mobile - $contacts_height - $screen_padding;
+        height: $header_height_mobile - $screen_padding;
+      }
+
+      @include respond_to(desktop) {
+        text-align: right;
+        padding-top: $header_height_desktop - $contacts_height - $screen_padding;
+        height: $header_height_desktop - $screen_padding;
+        margin: auto;
+      }
+    }
+  }
+
+  &__contact {
+    display: block;
+    float: left;
+    width: 26px;
+    height: 26px;
+    margin: 0px 3px;
+    background-size: 26px 26px;
+    opacity: .9;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &--mail {
+      background-image: url('./media/contacts/mail.png');
+    }
+
+    &--github {
+      background-image: url('./media/contacts/github.png');
+    }
+
+    &--instagram {
+      background-image: url('./media/contacts/instagram.png');
+    }
+
+    &--skype {
+      background-image: url('./media/contacts/skype.png');
+    }
+
+    &--telegram {
+      background-image: url('./media/contacts/telegram.png');
+    }
+
+    &--vk {
+      background-image: url('./media/contacts/vk.png');
+    }
+
+    &--facebook {
+      background-image: url('./media/contacts/facebook.png');
+    }
+
+    &--flickr {
+      background-image: url('./media/contacts/flickr.png');
+      border-radius: 12px;
+    }
+
+    &--500px {
+      background-image: url('./media/contacts/500px.png');
+    }
+  }
+}

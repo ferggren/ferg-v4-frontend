@@ -178,7 +178,7 @@ export function renderAdminHTML(state) {
         <title>Admin CP // Ferg.in</title>
         <link href="${makePathToAsset('admin.css')}" rel="stylesheet" />
         <script>window.REDUX_INITIAL_STATE=${JSON.stringify(state)};</script>
-        <script src="${makePathToAsset('admin.js')}" async defer></script>
+        <script src="${makePathToAsset('admin.js')}" async></script>
       </head>
       <body>
         <div class="react-root" id="react-root">
@@ -207,7 +207,7 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
 
   if (scriptsEnabled) {
     scripts += `<script>window.REDUX_INITIAL_STATE=${JSON.stringify(state)};</script>`;
-    scripts += `<script src="${makePathToAsset('site.js')}" async defer></script>`;
+    scripts += `<script src="${makePathToAsset('site.js')}" async></script>`;
   }
 
   const html = `

@@ -3,12 +3,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Lang from 'libs/lang';
-import LangRu from './lang/ru';
-import LangEn from './lang/en';
+import langRu from './lang/ru';
+import langEn from './lang/en';
 import './styles';
 
-Lang.updateLang('footer', LangRu, 'ru');
-Lang.updateLang('footer', LangEn, 'en');
+Lang.updateLang('footer', langRu, 'ru');
+Lang.updateLang('footer', langEn, 'en');
 
 const propTypes = {
   onLangChange: React.PropTypes.oneOfType([

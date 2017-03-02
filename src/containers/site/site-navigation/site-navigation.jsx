@@ -3,6 +3,12 @@
 import React from 'react';
 import { AppNavigation } from 'components/app';
 import { connect } from 'react-redux';
+import Lang from 'libs/lang';
+import langRu from './lang/ru';
+import langEn from './lang/en';
+
+Lang.updateLang('site-nav', langRu, 'ru');
+Lang.updateLang('site-nav', langEn, 'en');
 
 const propTypes = {
   user_name: React.PropTypes.string.isRequired,
@@ -27,29 +33,29 @@ class SiteNavigation extends React.PureComponent {
 
     const navigation = [
       {
-        name: 'Landing',
+        name: Lang('site-nav.landing'),
         current: !!url.match(/^\/$/),
         link: `/${this.props.lang}/`,
       },
       {
-        name: 'Photos',
-        current: !!url.match(/^\/gallery/),
-        link: `/${this.props.lang}/gallery/`,
-      },
-      {
-        name: 'Blog',
+        name: Lang('site-nav.blog'),
         current: !!url.match(/^\/blog/),
         link: `/${this.props.lang}/blog/`,
       },
       {
-        name: 'Events',
+        name: Lang('site-nav.events'),
         current: !!url.match(/^\/events/),
         link: `/${this.props.lang}/events/`,
       },
       {
-        name: '365',
+        name: Lang('site-nav.365'),
         current: !!url.match(/^\/365/),
         link: `/${this.props.lang}/365/`,
+      },
+      {
+        name: Lang('site-nav.gallery'),
+        current: !!url.match(/^\/gallery/),
+        link: `/${this.props.lang}/gallery/`,
       },
     ];
 

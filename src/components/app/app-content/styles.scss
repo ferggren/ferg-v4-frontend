@@ -1,0 +1,29 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.app__content {
+  font-family: $font_default;
+
+  &--full {
+    width: 100%;
+  }
+
+  &--fit {
+    min-width: $screen_min;
+    max-width: $screen_max;
+    margin: auto;
+  }
+
+  &--with-padding-top {
+    padding-top: $screen_padding;
+  }
+
+  &--with-content-padding {
+    padding-left: $screen_padding;
+    padding-right: $screen_padding;
+  }
+
+  &--with-overlap {
+    margin-top: -1 * $header_height;
+  }
+}
