@@ -8,6 +8,7 @@ import user from './user';
 import lang from './lang';
 import location from './location';
 import title from './title';
+import api from './api';
 
 /* global NODE_ENV */
 
@@ -19,6 +20,7 @@ export default function (state = {}) {
     location,
     user,
     title,
+    api,
   });
 
   let composeEnhancers = compose;

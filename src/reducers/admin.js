@@ -2,17 +2,23 @@
 
 import thunk from 'redux-thunk';
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
+import user_ip from './user_ip';
+import session from './session';
 import lang from './lang';
 import user from './user';
 import location from './location';
+import api from './api';
 
 /* global NODE_ENV */
 
 export default function (state = {}) {
   const root_reducer = combineReducers({
+    user_ip,
+    session,
     user,
     lang,
     location,
+    api,
   });
 
   let composeEnhancers = compose;

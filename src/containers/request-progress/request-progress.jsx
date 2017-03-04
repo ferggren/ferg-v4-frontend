@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import Request from 'libs/request';
 
 class RequestProgress extends React.PureComponent {
   constructor(props) {

@@ -48,7 +48,7 @@ html, body, .react-root {
       padding-bottom: ($footer_height * 2) + $screen_padding;
     }
 
-    @onclude respond_to(desktop) {
+    @include respond_to(desktop) {
       padding-bottom: $footer_height + $screen_padding;
     }
   }
