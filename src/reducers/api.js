@@ -105,7 +105,7 @@ export default function (state = initialState, action) {
 
       state[action.key].loading = false;
       state[action.key].loaded = true;
-      state[action.key].results = action.results;
+      state[action.key].results = action.response;
       state[action.key].error = false;
 
       return state;
