@@ -15,7 +15,7 @@ const defaultProps = {
   children: null,
   expand: false,
   overlapHeader: false,
-  paddingTop: false,
+  paddingTop: true,
   contentPadding: true,
 };
 

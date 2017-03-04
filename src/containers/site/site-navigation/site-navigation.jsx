@@ -1,9 +1,11 @@
 'use strict';
 
 import React from 'react';
+import { userLogout } from 'actions/user';
 import { AppNavigation } from 'components/app';
 import { connect } from 'react-redux';
 import Lang from 'libs/lang';
+import Request from 'libs/request';
 import langRu from './lang/ru';
 import langEn from './lang/en';
 
@@ -17,13 +19,23 @@ const propTypes = {
   location: React.PropTypes.string.isRequired,
   logged_in: React.PropTypes.bool.isRequired,
   is_admin: React.PropTypes.bool.isRequired,
+  dispatch: React.PropTypes.func.isRequired,
 };
 
 class SiteNavigation extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    this.request = false;
+
     this.signOut = this.signOut.bind(this);
+  }
+
+  componentWillUnmount() {
+    if (this.request) {
+      Request.abort(this.request);
+      this.request = false;
+    }
   }
 
   getNavigation() {
@@ -89,7 +101,18 @@ class SiteNavigation extends React.PureComponent {
   }
 
   signOut() {
-    console.log('sign out');
+    this.request = Request.fetch(
+      '/api/user/logout/', {
+        success: () => {
+          this.request = false;
+          this.props.dispatch(userLogout());
+        },
+
+        error: () => {
+          this.request = false;
+        },
+      }
+    );
   }
 
   render() {

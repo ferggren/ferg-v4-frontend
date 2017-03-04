@@ -1,27 +1,54 @@
 'use strict';
 
 import React from 'react';
+import { connect } from 'react-redux';
+import { AppContent } from 'components/app';
+import { titleSet } from 'actions/title';
+import Lang from 'libs/lang';
+import langRu from './lang/ru';
+import langEn from './lang/en';
 import './styles';
 
+Lang.updateLang('blog', langRu, 'ru');
+Lang.updateLang('blog', langEn, 'en');
+
 const propTypes = {
-
-};
-
-const defaultProps = {
-
+  dispatch: React.PropTypes.func.isRequired,
+  lang: React.PropTypes.string.isRequired,
 };
 
 class SiteBlog extends React.PureComponent {
+  componentWillMount() {
+    this.updateTitle();
+  }
+
+  componentDidMount() {
+    this.updateTitle();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.lang !== this.props.lang) {
+      this.updateTitle();
+    }
+  }
+
+  updateTitle() {
+    this.props.dispatch(titleSet(Lang('blog.title')));
+  }
+
   render() {
     return (
-      <div>
+      <AppContent>
         SiteBlog
-      </div>
+      </AppContent>
     );
   }
 }
 
 SiteBlog.propTypes = propTypes;
-SiteBlog.defaultProps = defaultProps;
 
-export default SiteBlog;
+export default connect((state) => {
+  return {
+    lang: state.lang,
+  };
+})(SiteBlog);

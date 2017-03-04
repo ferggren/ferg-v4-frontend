@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { AppContainer } from 'components/app';
+import TitleWatcher from 'containers/title-watcher';
 import LocationWatcher from 'containers/location-watcher';
 import RequestProgress from 'containers/request-progress';
 import SiteNavigation from './site-navigation';
@@ -22,6 +23,7 @@ class SiteContainer extends React.PureComponent {
         <SiteNavigation />
         
         <LocationWatcher />
+        <TitleWatcher />
         <RequestProgress />
 
         {this.props.children}
