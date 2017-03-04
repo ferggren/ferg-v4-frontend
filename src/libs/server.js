@@ -3,6 +3,7 @@
 import Request from 'libs/request';
 import FS from 'fs';
 import md5File from 'md5-file';
+import { titleWebsite, titleSeparator } from 'data/title-config';
 
 /**
  *  Check if user browser have support of modern JS
@@ -175,7 +176,7 @@ export function renderAdminHTML(state) {
         <link rel="alternate" hreflang="x-default" href="//ferg.in/admin/" />
         <link rel="alternate" hreflang="ru-ru" href="//ferg.in/admin/ru/" />
         <link rel="alternate" hreflang="en-us" href="//ferg.in/admin/en/" />
-        <title>Admin CP // Ferg.in</title>
+        <title>Admin CP ${titleSeparator} ${titleWebsite}</title>
         <link href="${makePathToAsset('admin.css')}" rel="stylesheet" />
         <script>window.REDUX_INITIAL_STATE=${JSON.stringify(state)};</script>
         <script src="${makePathToAsset('admin.js')}" async></script>
@@ -220,7 +221,7 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
         <link rel="alternate" hreflang="x-default" href="//ferg.in/" />
         <link rel="alternate" hreflang="ru-ru" href="//ferg.in/ru/" />
         <link rel="alternate" hreflang="en-us" href="//ferg.in/en/" />
-        <title>${state.title || 'ferg.in'}</title>
+        <title>${state.title} ${titleWebsite}</title>
         <link href="${makePathToAsset('site.css')}" rel="stylesheet" />
         ${scripts}
       </head>

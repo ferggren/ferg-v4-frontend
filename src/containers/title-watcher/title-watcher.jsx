@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { titleWebsite } from 'data/title-config';
 
 const propTypes = {
   title: React.PropTypes.string.isRequired,
@@ -19,7 +20,7 @@ class TitleWatcher extends React.PureComponent {
   }
 
   updateTitle() {
-    document.title = this.props.title;
+    document.title = `${this.props.title} ${titleWebsite}`;
   }
 
   render() {
