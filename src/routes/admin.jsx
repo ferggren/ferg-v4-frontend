@@ -1,16 +1,17 @@
 'use strict';
 
+/* global NODE_MODE */
+
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { AdminContainer } from 'containers/admin';
 import AdminStorage from './admin-storage';
-
-/* global NODE_MODE */
-let siteStore = false;
+import AdminGallery from './admin-gallery';
+import Admin365 from './admin-365';
 
 function fetchData(nextState, replace, callback) {
   // we dont need fetchData on server side
-  if (!siteStore || NODE_MODE === 'server') {
+  if (NODE_MODE === 'server') {
     callback();
     return;
   }
@@ -18,24 +19,19 @@ function fetchData(nextState, replace, callback) {
   callback();
 }
 
-function configureAdminRoutes(store = false) {
-  siteStore = store;
+const routes = [
+  <IndexRoute component={AdminStorage} key="index" onEnter={fetchData} />,
+  <Route path="storage" component={AdminStorage} key="blog" onEnter={fetchData} />,
+  <Route path="gallery" component={AdminGallery} key="blog" onEnter={fetchData} />,
+  <Route path="365" component={Admin365} key="365" onEnter={fetchData} />,
+];
 
-  const routes = [
-    <IndexRoute component={AdminStorage} key="index" onEnter={fetchData} />,
-    <Route path="storage" component={AdminStorage} key="gallery" onEnter={fetchData} />,
-  ];
-
-  return (
-    <Router history={browserHistory}>
-      <Route path="/" component={AdminContainer}>
-        {routes}
-        <Route path="ru/">{routes}</Route>
-        <Route path="en/">{routes}</Route>
-        <Route path="*" component={AdminStorage} />
-      </Route>
-    </Router>
-  );
-}
-
-export default configureAdminRoutes;
+export default (
+  <Router history={browserHistory}>
+    <Route path="/" component={AdminContainer}>
+      <Route path="ru/admin/">{routes}</Route>
+      <Route path="en/admin/">{routes}</Route>
+      <Route path="*" component={AdminStorage} />
+    </Route>
+  </Router>
+);

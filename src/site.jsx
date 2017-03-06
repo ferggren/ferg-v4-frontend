@@ -6,7 +6,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import configureStore from 'reducers/site';
+import configureStore from 'reducers';
 import onload from 'libs/onload';
 import Lang from 'libs/lang';
 import { Site } from 'containers/site';

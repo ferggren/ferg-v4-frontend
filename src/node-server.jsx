@@ -17,7 +17,7 @@ import {
   getLocation,
 } from 'libs/server';
 import Lang from 'libs/lang';
-import configureStore from 'reducers/site';
+import configureStore from 'reducers';
 import { setUserIp } from 'actions/user_ip';
 import { setLang } from 'actions/lang';
 import { setLocation } from 'actions/location';

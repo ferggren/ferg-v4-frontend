@@ -9,15 +9,15 @@ import langRu from './lang/ru';
 import langEn from './lang/en';
 import './styles';
 
-Lang.updateLang('route-storage', langRu, 'ru');
-Lang.updateLang('route-storage', langEn, 'en');
+Lang.updateLang('route-gallery', langRu, 'ru');
+Lang.updateLang('route-gallery', langEn, 'en');
 
 const propTypes = {
   dispatch: React.PropTypes.func.isRequired,
   lang: React.PropTypes.string.isRequired,
 };
 
-class AdminStorage extends React.PureComponent {
+class AdminGallery extends React.PureComponent {
   componentWillMount() {
     this.updateTitle();
   }
@@ -33,22 +33,22 @@ class AdminStorage extends React.PureComponent {
   }
 
   updateTitle() {
-    this.props.dispatch(titleSet(Lang('route-storage.title')));
+    this.props.dispatch(titleSet(Lang('route-gallery.title')));
   }
 
   render() {
     return (
       <AppContent>
-        AdminStorage
+        AdminGallery
       </AppContent>
     );
   }
 }
 
-AdminStorage.propTypes = propTypes;
+AdminGallery.propTypes = propTypes;
 
 export default connect((state) => {
   return {
     lang: state.lang,
   };
-})(AdminStorage);
+})(AdminGallery);

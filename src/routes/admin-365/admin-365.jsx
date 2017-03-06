@@ -9,15 +9,15 @@ import langRu from './lang/ru';
 import langEn from './lang/en';
 import './styles';
 
-Lang.updateLang('route-storage', langRu, 'ru');
-Lang.updateLang('route-storage', langEn, 'en');
+Lang.updateLang('365', langRu, 'ru');
+Lang.updateLang('365', langEn, 'en');
 
 const propTypes = {
   dispatch: React.PropTypes.func.isRequired,
   lang: React.PropTypes.string.isRequired,
 };
 
-class AdminStorage extends React.PureComponent {
+class Admin365 extends React.PureComponent {
   componentWillMount() {
     this.updateTitle();
   }
@@ -33,22 +33,22 @@ class AdminStorage extends React.PureComponent {
   }
 
   updateTitle() {
-    this.props.dispatch(titleSet(Lang('route-storage.title')));
+    this.props.dispatch(titleSet(Lang('365.title')));
   }
 
   render() {
     return (
       <AppContent>
-        AdminStorage
+        Admin365
       </AppContent>
     );
   }
 }
 
-AdminStorage.propTypes = propTypes;
+Admin365.propTypes = propTypes;
 
 export default connect((state) => {
   return {
     lang: state.lang,
   };
-})(AdminStorage);
+})(Admin365);
