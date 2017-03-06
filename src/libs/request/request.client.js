@@ -331,7 +331,7 @@ const Request = {
       request.options.url
     );
 
-    if (request.isFormData) {
+    if (request.data) {
       request.xhr.setRequestHeader(
         'Content-Type',
         'application/x-www-form-urlencoded; charset=UTF-8'
@@ -368,10 +368,11 @@ const Request = {
         const keys = Object.keys(data);
 
         for (let i = 0; i < keys.length; ++i) {
-          str += '&';
-          str += encodeURIComponent(keys[i]);
-          str += '=';
-          str += encodeURIComponent(data[keys[i]]);
+          const key = encodeURIComponent(keys[i]);
+          const value = encodeURIComponent(data[keys[i]]);
+
+          if (str) str += '&';
+          str += `${key}=${value}`;
         }
 
         data = str;

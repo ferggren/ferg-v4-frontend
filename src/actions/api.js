@@ -73,6 +73,7 @@ export function apiFetch(key, url, options, clear_data = false) {
         data: options,
         remote_ip: state.ip,
         session: state.session,
+        method: 'POST',
       });
 
       dispatch(apiRequestSet(key, request));
