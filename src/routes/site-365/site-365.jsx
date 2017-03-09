@@ -47,6 +47,17 @@ class Site365 extends React.PureComponent {
 
 Site365.propTypes = propTypes;
 
+Site365.fetchData = function (store, params) {
+  const state = store.getState();
+  const ret = [];
+
+  if (!state.title) {
+    store.dispatch(titleSet(Lang('365.title', {}, state.lang)));
+  }
+
+  return ret;
+};
+
 export default connect((state) => {
   return {
     lang: state.lang,

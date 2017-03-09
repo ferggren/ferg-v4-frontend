@@ -80,19 +80,19 @@ const webpackConfig = {
       },
       {
         test: /\.gif$/,
-        use: `url-loader?limit=4096&mimetype=image/gif&name=${OUTPUT_MEDIA}`,
+        use: `url-loader?limit=10240&mimetype=image/gif&name=${OUTPUT_MEDIA}`,
       },
       {
         test: /\.jpg$/,
-        use: `url-loader?limit=4096&mimetype=image/jpg&name=${OUTPUT_MEDIA}`,
+        use: `url-loader?limit=10240&mimetype=image/jpg&name=${OUTPUT_MEDIA}`,
       },
       {
         test: /\.png$/,
-        use: `url-loader?limit=4096&mimetype=image/png&name=${OUTPUT_MEDIA}`,
+        use: `url-loader?limit=10240&mimetype=image/png&name=${OUTPUT_MEDIA}`,
       },
       {
         test: /\.svg/,
-        use: `url-loader?limit=4096&mimetype=image/svg+xml&name=${OUTPUT_MEDIA}`,
+        use: `url-loader?limit=10240&mimetype=image/svg+xml&name=${OUTPUT_MEDIA}`,
       },
       {
         test: /\.(woff|woff2|ttf|eot)/,

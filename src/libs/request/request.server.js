@@ -43,6 +43,8 @@ const Request = {
         options.error(error);
       }
     });
+
+    return false;
   },
 
   /**

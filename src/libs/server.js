@@ -168,7 +168,7 @@ export function makePathToAsset(script) {
 export function renderAdminHTML(state) {
   const html = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="${state.lang}">
       <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -178,13 +178,13 @@ export function renderAdminHTML(state) {
         <link rel="alternate" hreflang="en-us" href="//ferg.in/admin/en/" />
         <title>Admin CP ${titleSeparator} ${titleWebsite}</title>
         <link href="${makePathToAsset('admin.css')}" rel="stylesheet" />
-        <script>window.REDUX_INITIAL_STATE=${JSON.stringify(state)};</script>
         <script src="${makePathToAsset('admin.js')}" async></script>
       </head>
       <body>
         <div class="react-root" id="react-root">
           <div class="react-loading">Loading...</div>
         </div>
+        <script>window.REDUX_INITIAL_STATE=${JSON.stringify(state)};</script>
       </body>
     </html>
   `.trim().replace(/^ {4}/gm, '');
@@ -193,7 +193,8 @@ export function renderAdminHTML(state) {
 }
 
 export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
-  let scripts = '';
+  let scripts_bundle = '';
+  let scripts_redux = '';
   let analytics = '';
 
   if (NODE_ENV !== 'dev') {
@@ -207,13 +208,13 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
   }
 
   if (scriptsEnabled) {
-    scripts += `<script>window.REDUX_INITIAL_STATE=${JSON.stringify(state)};</script>`;
-    scripts += `<script src="${makePathToAsset('site.js')}" async></script>`;
+    scripts_redux = `<script>window.REDUX_INITIAL_STATE=${JSON.stringify(state)};</script>`;
+    scripts_bundle = `<script src="${makePathToAsset('site.js')}" async></script>`;
   }
 
   const html = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="${state.lang}">
       <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -223,13 +224,14 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
         <link rel="alternate" hreflang="en-us" href="//ferg.in/en/" />
         <title>${state.title} ${titleWebsite}</title>
         <link href="${makePathToAsset('site.css')}" rel="stylesheet" />
-        ${scripts}
+        ${scripts_bundle}
       </head>
       <body>
         <div class="react-root" id="react-root">${clientHTML}</div>
         <div class="site-counters">
           ${analytics}
         </div>
+        ${scripts_redux}
       </body>
     </html>
   `.trim().replace(/^ {4}/gm, '');

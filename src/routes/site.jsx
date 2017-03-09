@@ -3,6 +3,7 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { SiteContainer } from 'containers/site';
+import { makeFetchParams, fetchRoutesData } from 'libs/fetch-data';
 import Site365 from './site-365';
 import SiteBlog from './site-blog';
 import SiteBlogPage from './site-blog-page';
@@ -19,7 +20,25 @@ function fetchData(nextState, replace, callback) {
     return;
   }
 
-  callback();
+  const needs = fetchRoutesData(
+    window.REDUX_STORE,
+    nextState.routes,
+    makeFetchParams(nextState.location.query, nextState.params)
+  );
+
+  if (!needs.length) {
+    callback();
+    return;
+  }
+
+  Promise.all(needs)
+  .then(() => {
+    if (window.scrollTo) window.scrollTo(0, 0);
+    callback();
+  })
+  .catch(() => {
+    callback();
+  });
 }
 
 const routes = [

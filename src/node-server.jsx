@@ -16,6 +16,7 @@ import {
   getUserLang,
   getLocation,
 } from 'libs/server';
+import { makeFetchParams, fetchComponentsData } from 'libs/fetch-data';
 import Lang from 'libs/lang';
 import configureStore from 'reducers';
 import { setUserIp } from 'actions/user_ip';
@@ -87,30 +88,42 @@ server.use((req, res) => {
         return;
       }
 
-      Lang.setLang(user_lang);
+      fetchComponentsData(
+        store,
+        renderProps.components,
+        makeFetchParams(req.query, renderProps.params)
+      )
+      .then(() => {
+        Lang.setLang(user_lang);
 
-      // rendering client html
-      const clientHTML = ReactDOM.renderToString(
-        <Provider store={store}>
-          <RouterContext {...renderProps} />
-        </Provider>
-      );
+        // make component
+        return ReactDOM.renderToString(
+          <Provider store={store}>
+            <RouterContext {...renderProps} />
+          </Provider>
+        );
+      })
+      .then((clientHTML) => {
+        // make HTML response
+        return renderClientHTML(
+          clientHTML,
+          store.getState(),
+          scripts_enabled
+        );
+      })
+      .then((content) => {
+        res.set({
+          'Content-Type': 'text/html; charset=utf-8',
+          'Content-Length': content.length,
+          ETag: '',
+        });
 
-      // making response
-      const content = renderClientHTML(
-        clientHTML,
-        store.getState(),
-        scripts_enabled
-      );
-
-      // additional stuff
-      res.set({
-        'Content-Type': 'text/html; charset=utf-8',
-        'Content-Length': content.length,
-        ETag: '',
+        res.status(200).end(content);
+      })
+      .catch((err) => {
+        if (NODE_ENV === 'dev') console.log(`request error: ${err}`);
+        res.status(500).end('Internal server error');
       });
-
-      res.status(200).end(content);
     });
   })
   .catch((err) => {

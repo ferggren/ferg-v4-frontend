@@ -47,6 +47,17 @@ class SiteGallery extends React.PureComponent {
 
 SiteGallery.propTypes = propTypes;
 
+SiteGallery.fetchData = function (store, params) {
+  const state = store.getState();
+  const ret = [];
+
+  if (!state.title) {
+    store.dispatch(titleSet(Lang('gallery.title', {}, state.lang)));
+  }
+
+  return ret;
+};
+
 export default connect((state) => {
   return {
     lang: state.lang,

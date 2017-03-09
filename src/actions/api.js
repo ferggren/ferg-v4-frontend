@@ -49,7 +49,7 @@ export function apiFetch(key, url, options, clear_data = false) {
 
     const state = getState();
 
-    options.USER_LANG = state.lang;
+    options.USER_LANG = options.lang || state.lang;
 
     if (clear_data) {
       dispatch(apiDataClear(key));

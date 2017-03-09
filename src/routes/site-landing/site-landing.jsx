@@ -71,7 +71,7 @@ class SiteLanding extends React.PureComponent {
     }
 
     this.props.dispatch(apiFetch(
-      FEED_TAGS_API_KEY, FEED_TAGS_API_URL, { group }
+      FEED_TAGS_API_KEY, FEED_TAGS_API_URL, { group, cache: true }
     ));
   }
 
@@ -91,7 +91,7 @@ class SiteLanding extends React.PureComponent {
     }
 
     this.props.dispatch(apiFetch(
-      FEED_API_KEY, FEED_API_URL, { page, tag }
+      FEED_API_KEY, FEED_API_URL, { page, tag, cache: true }
     ));
   }
 
@@ -119,6 +119,41 @@ class SiteLanding extends React.PureComponent {
 }
 
 SiteLanding.propTypes = propTypes;
+
+SiteLanding.fetchData = function (store, params) {
+  const state = store.getState();
+  const api = state.api;
+  const ret = [];
+
+  if (!api[FEED_API_KEY]) {
+    ret.push(
+      store.dispatch(apiFetch(
+        FEED_API_KEY, FEED_API_URL, {
+          page: params.page || 1,
+          tag: params.tag || '',
+          cache: true,
+        }
+      ))
+    );
+  }
+
+  if (!api[FEED_TAGS_API_KEY]) {
+    ret.push(
+      store.dispatch(apiFetch(
+        FEED_TAGS_API_KEY, FEED_TAGS_API_URL, {
+          group: 'feed',
+          cache: true,
+        }
+      ))
+    );
+  }
+
+  if (!state.title) {
+    store.dispatch(titleSet(Lang('landing.title', {}, state.lang)));
+  }
+
+  return ret;
+};
 
 export default connect((state) => {
   return {
