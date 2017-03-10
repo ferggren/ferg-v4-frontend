@@ -18,32 +18,30 @@ class AppNavigation extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.ref_wrapper = false;
+    this.state = {
+      open: false,
+    };
 
-    this.setRefWrapper = this.setRefWrapper.bind(this);
     this.toggleNavigation = this.toggleNavigation.bind(this);
     this.hideNavigation = this.hideNavigation.bind(this);
   }
 
-  setRefWrapper(c) {
-    this.ref_wrapper = c;
-  }
-
   toggleNavigation() {
-    if (!this.ref_wrapper) return;
-
-    let className = 'app-navigation__wrapper';
-
-    if (this.ref_wrapper.className === className) {
-      className += ' app-navigation--open';
-    }
-
-    this.ref_wrapper.className = className;
+    this.setState({ open: !this.state.open });
   }
 
   hideNavigation() {
-    if (!this.ref_wrapper) return;
-    this.ref_wrapper.className = 'app-navigation__wrapper';
+    this.setState({ open: false });
+  }
+
+  makeClassName() {
+    let className = 'app-navigation__wrapper';
+
+    if (this.state.open) {
+      className += ' app-navigation--open';
+    }
+
+    return className;
   }
 
   render() {
@@ -58,7 +56,7 @@ class AppNavigation extends React.PureComponent {
     });
 
     return (
-      <div className="app-navigation__wrapper" ref={this.setRefWrapper}>
+      <div className={this.makeClassName()}>
         <div className="app-navigation__title">
           {this.props.title}
         </div>

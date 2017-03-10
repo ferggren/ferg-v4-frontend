@@ -54,8 +54,9 @@ server.use((req, res) => {
   Promise.all(loadUserData(user_session, user_ip))
   .then((user_info) => {
     let is_admin = false;
+    user_info = user_info === 'object' ? user_info[0] : false;
 
-    if (typeof user_info === 'object' && user_info.length) {
+    if (user_info && user_info.length) {
       store.dispatch(userLogin(user_info[0]));
       is_admin = user_info[0].groups.indexOf('admin') !== -1;
     }
@@ -97,24 +98,22 @@ server.use((req, res) => {
         Lang.setLang(user_lang);
 
         // make component
-        return ReactDOM.renderToString(
+        const clientHTML = ReactDOM.renderToString(
           <Provider store={store}>
             <RouterContext {...renderProps} />
           </Provider>
         );
-      })
-      .then((clientHTML) => {
+
         // make HTML response
-        return renderClientHTML(
+        const content = renderClientHTML(
           clientHTML,
           store.getState(),
           scripts_enabled
         );
-      })
-      .then((content) => {
+
         res.set({
           'Content-Type': 'text/html; charset=utf-8',
-          'Content-Length': content.length,
+          'Content-Length': Buffer.byteLength(content, 'utf8'),
           ETag: '',
         });
 

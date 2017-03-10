@@ -54,7 +54,7 @@ export function loadUserData(user_session, user_ip) {
   if (!user_session) return promise;
 
   promise.push(
-    new Promise((resolve, reject) => {
+    new Promise((resolve) => {
       Request.fetch(
         '/api/user/getInfo', {
           success: (user_info) => {
@@ -62,7 +62,7 @@ export function loadUserData(user_session, user_ip) {
           },
 
           error: (error) => {
-            reject(error);
+            resolve(error);
           },
 
           method: 'GET',
@@ -132,7 +132,7 @@ export function makeFileHash(file) {
     }
   }
 
-  if (!FS.existsSync()) {
+  if (!FS.existsSync(file)) {
     _file_hashes[file] = { time, hash: false };
     return false;
   }
@@ -157,7 +157,7 @@ export function makePathToAsset(script) {
   }
 
   let hash = makeFileHash(`./public/assets/${script}`);
-  hash = hash ? `v_${hash}/` : '';
+  hash = hash ? `v_${hash.substring(0, 8)}/` : '';
 
   return `/assets/${hash}${script}`;
 }
@@ -195,9 +195,12 @@ export function renderAdminHTML(state) {
 export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
   let scripts_bundle = '';
   let scripts_redux = '';
+  let styles = '';
   let analytics = '';
 
   if (NODE_ENV !== 'dev') {
+    styles = `<link href="${makePathToAsset('site.css')}" rel="stylesheet" />`;
+
     if (counters) {
       const keys = Object.keys(counters);
 
@@ -223,7 +226,7 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
         <link rel="alternate" hreflang="ru-ru" href="//ferg.in/ru/" />
         <link rel="alternate" hreflang="en-us" href="//ferg.in/en/" />
         <title>${state.title} ${titleWebsite}</title>
-        <link href="${makePathToAsset('site.css')}" rel="stylesheet" />
+        ${styles}
         ${scripts_bundle}
       </head>
       <body>
