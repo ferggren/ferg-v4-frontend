@@ -37,12 +37,18 @@ class AppNavigationLink extends React.PureComponent {
     }
 
     if (item.routed === false) {
-      if (item.link) props.href = item.link;
-      return <a {...props}>{item.name}</a>;
+      return (
+        <li {...props}>
+          <a href={item.link || null}>{item.name}</a>
+        </li>
+      );
     }
 
-    if (item.link) props.to = item.link;
-    return <Link {...props}>{item.name}</Link>;
+    return (
+      <li {...props}>
+        <Link to={item.link || null}>{item.name}</Link>
+      </li>
+    );
   }
 }
 

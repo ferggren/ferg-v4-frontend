@@ -64,9 +64,9 @@ class AppNavigation extends React.PureComponent {
       className += ` app-navigation__links-block--${align}`;
 
       ret.push(
-        <span key={align} className={className}>
+        <ul key={align} className={className}>
           {links}
-        </span>
+        </ul>
       );
     });
 
@@ -104,9 +104,9 @@ class AppNavigation extends React.PureComponent {
     return (
       <div className={this.makeClassName()}>
         <div className="app-navigation">
-          <div className="app-navigation__title">
+          <h1 className="app-navigation__title">
             {this.props.title}
-          </div>
+          </h1>
 
           <div
             className="app-navigation__links"
