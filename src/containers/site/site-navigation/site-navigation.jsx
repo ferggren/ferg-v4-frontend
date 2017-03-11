@@ -131,7 +131,7 @@ class SiteNavigation extends React.PureComponent {
       // const height = this.ref_ferg_header.offsetHeight || 0;
       // scroll_top >= (height - navigation_height)
 
-      if (scroll_top >= 5) {
+      if (scroll_top > 0) {
         style = 'white';
       } else {
         style = 'transparent';

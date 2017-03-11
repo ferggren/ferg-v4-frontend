@@ -136,7 +136,8 @@ $links_mobile_width: 150px;
 
     &__wrapper {
       transition: background-color $transition_duration $transition_function,
-                  color $transition_duration $transition_function;
+                  color $transition_duration $transition_function,
+                  border $transition_duration $transition_function;
 
       &--white {
         background-color: rgba(255, 255, 255, .95);
@@ -145,6 +146,8 @@ $links_mobile_width: 150px;
       }
 
       &--transparent {
+        background-color: transparent;
+        border-bottom: 1px solid transparent;
         color: #FFF;
       }
     }
@@ -155,28 +158,27 @@ $links_mobile_width: 150px;
       height: $header_height;
       line-height: $header_height;
       font-weight: 600;
-      opacity: .7;
       cursor: pointer;
       margin-right: $screen_padding;
+      transition: opacity $transition_duration $transition_function,
+                  color $transition_duration $transition_function;
 
       &:last-child {
         margin-right: 0px;
       }
 
-      &:hover, &--current {
-        opacity: 0.95;
-      }
-
-      &--right {
-        float: right;
-      }
-
       .app-navigation--white & {
-        color: #000;
+        color: #111;
+        opacity: .6;
       }
 
       .app-navigation--transparent & {
         color: #000;
+        opacity: .7;
+      }
+
+      &:hover, &--current {
+        opacity: 1 !important;
       }
     }
 
