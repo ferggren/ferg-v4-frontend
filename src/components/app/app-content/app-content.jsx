@@ -21,24 +21,24 @@ const defaultProps = {
 
 class AppContent extends React.PureComponent {
   render() {
-    let content_class = 'app__content';
+    let content_class = 'app-content';
 
     if (this.props.expand) {
-      content_class += ' app__content--full';
+      content_class += ' app-content--full';
     } else {
-      content_class += ' app__content--fit';
+      content_class += ' app-content--fit';
     }
 
     if (this.props.overlapHeader) {
-      content_class += ' app__content--with-overlap';
+      content_class += ' app-content--with-overlap';
     }
 
     if (this.props.paddingTop) {
-      content_class += ' app__content--with-padding-top';
+      content_class += ' app-content--with-padding-top';
     }
 
     if (this.props.contentPadding) {
-      content_class += ' app__content--with-content-padding';
+      content_class += ' app-content--with-content-padding';
     }
 
     return (

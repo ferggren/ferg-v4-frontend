@@ -1,7 +1,12 @@
 @import 'styles/variables';
 @import 'styles/mixins';
 
+$links_mobile_width: 150px;
+
 .app-navigation {
+  position: relative;
+  z-index: $z_index_navigation;
+
   &__wrapper {
     position: fixed;
     top: 0px;
@@ -9,30 +14,65 @@
     width: 100%;
     height: $header_height;
     line-height: $header_height;
-    background: rgba(255, 255, 255, .95);
-    border-bottom: 1px solid #DDD;
     font-size: 14px;
     z-index: $z_index_navigation;
   }
 
   @include respond_to(mobile) {
+    &__wrapper {
+      background: rgba(255, 255, 255, .95);
+      border-bottom: 1px solid #DDD;
+      color: #FFF;
+    }
+
+    &__link {
+      display: block;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
+      height: $header_height;
+      line-height: $header_height;
+      cursor: pointer;
+      font-weight: 400;
+      color: rgba(255, 255, 255, .8);
+      border-bottom: 1px solid #666;
+
+      &:hover, &--current {
+        color: rgba(255, 255, 255, 1);
+      }
+    }
+
     &__links {
+      touch-action: none;
       visibility: hidden;
       position: fixed;
       top: $header_height;
       left: 0px;
       height: calc(100% - #{$header_height});
-      min-width: $screen_min - 150px;
-      background: rgba(20, 20, 20, 0.95);
+      width: $links_mobile_width;
+      background: rgba(44, 44, 44, 1);
       padding: 0px $screen_padding;
       z-index: $z_index_navigation_links;
-
-      transition: visibility $transition_duration $transition_function, opacity $transition_duration $transition_function;
+      transform: translateX($links_mobile_width * -1);
       opacity: 0;
+      transition: visibility $transition_duration $transition_function,
+                  opacity $transition_duration $transition_function,
+                  transform $transition_duration $transition_function;
 
       .app-navigation--open & {
         visibility: visible;
         opacity: 1;
+        transform: translateX(0px);
+      }
+
+      &-block {
+        &--right {
+          position: absolute;
+          bottom: $screen_padding;
+          left: $screen_padding;
+          width: $links_mobile_width - ($screen_padding * 2);
+        }
       }
     }
 
@@ -66,6 +106,7 @@
     }
 
     &__shadow {
+      touch-action: none;
       visibility: hidden;
       position: fixed;
       top: $header_height;
@@ -74,37 +115,38 @@
       height: calc(100% - #{$header_height});
       background: rgba(20, 20, 20, 0.3);
       z-index: $z_index_navigation_shadow;
-
-      transition: visibility $transition_duration $transition_function, opacity $transition_duration $transition_function;
       opacity: 0;
+      transition: visibility $transition_duration $transition_function,
+                  opacity $transition_duration $transition_function;
 
       .app-navigation--open & {
         visibility: visible;
         opacity: 1;
       }
     }
-
-    &__link {
-      display: block;
-      height: $header_height;
-      line-height: $header_height;
-      width: 100%;
-      color: rgba(255, 255, 255, .7);
-      border-bottom: 1px solid #666;
-      cursor: pointer;
-
-      &:hover, &--current {
-        color: rgba(255, 255, 255, 1);
-      }
-    }
   }
 
   @include respond_to(desktop) {
-    &__links {
-      min-width: $screen_min;
-      max-width: $screen_max;
-      margin: auto;
-      z-index: $z_index_navigation_links;
+    min-width: $screen_min;
+    max-width: $screen_max;
+    margin: auto;
+    z-index: $z_index_navigation_links;
+    position: relative;
+    padding: 0px $screen_padding;
+
+    &__wrapper {
+      transition: background-color $transition_duration $transition_function,
+                  color $transition_duration $transition_function;
+
+      &--white {
+        background-color: rgba(255, 255, 255, .95);
+        border-bottom: 1px solid #DDD;
+        color: #000;
+      }
+
+      &--transparent {
+        color: #FFF;
+      }
     }
 
     &__link {
@@ -113,16 +155,51 @@
       height: $header_height;
       line-height: $header_height;
       font-weight: 600;
-      color: rgba(0, 0, 0, .5);
+      opacity: .7;
       cursor: pointer;
-      padding: 0px $screen_padding;
+      margin-right: $screen_padding;
+
+      &:last-child {
+        margin-right: 0px;
+      }
 
       &:hover, &--current {
-        color: rgba(0, 0, 0, .9);
+        opacity: 0.95;
       }
 
       &--right {
         float: right;
+      }
+
+      .app-navigation--white & {
+        color: #000;
+      }
+
+      .app-navigation--transparent & {
+        color: #000;
+      }
+    }
+
+    &__links {
+      min-width: $screen_min;
+      max-width: $screen_max;
+      margin: auto;
+      position: relative;
+      z-index: $z_index_navigation_links;
+      display: block;
+
+      &-block {
+        display: block;
+        height: $header_height;
+        line-height: $header_height;
+
+        &--left {
+          float: left;
+        }
+
+        &--right {
+          float: right;
+        }
       }
     }
 

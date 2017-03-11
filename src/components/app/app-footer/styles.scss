@@ -15,6 +15,7 @@
     font-size: 12px;
     background: #f0f0f0;
     overflow: hidden;
+    z-index: $z_index_footer;
 
     @include respond_to(mobile) {
       height: $footer_height * 2;

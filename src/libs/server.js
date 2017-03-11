@@ -181,7 +181,7 @@ export function renderAdminHTML(state) {
         <script src="${makePathToAsset('admin.js')}" async></script>
       </head>
       <body>
-        <div class="react-root" id="react-root">
+        <div id="react-root">
           <div class="react-loading">Loading...</div>
         </div>
         <script>window.REDUX_INITIAL_STATE=${JSON.stringify(state)};</script>
@@ -230,8 +230,8 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
         ${scripts_bundle}
       </head>
       <body>
-        <div class="react-root" id="react-root">${clientHTML}</div>
-        <div class="site-counters">
+        <div id="react-root">${clientHTML}</div>
+        <div class="app-counters">
           ${analytics}
         </div>
         ${scripts_redux}

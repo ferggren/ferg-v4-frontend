@@ -1,8 +1,9 @@
 @import 'styles/variables';
 @import 'styles/mixins';
 
-.app__content {
+.app-content {
   font-family: $font_default;
+  z-index: $z_index_content;
 
   &--full {
     width: 100%;

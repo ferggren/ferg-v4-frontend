@@ -14,7 +14,7 @@ const defaultProps = {
 class AppContainer extends React.PureComponent {
   render() {
     return (
-      <div className="app__wrapper">
+      <div className="app-wrapper">
         {this.props.children}
       </div>
     );

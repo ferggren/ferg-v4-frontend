@@ -18,7 +18,7 @@ input, textarea { outline:none!important; }
 textarea { resize:none; }
 a { outline: none; }
 
-html, body, .react-root {
+html, body, #react-root {
   width: 100%;
   height: 100%;
   min-height: 100%;
@@ -35,26 +35,24 @@ html, body, .react-root {
   margin-top: 30px;
 }
 
-.app {
-  &__wrapper {
-    position: relative;
-    padding-top: $header_height;
-    width: 100%;
-    min-width: $screen_min;
-    min-height: 100%;
-    font-family: $font_default;
+.app-wrapper {
+  position: relative;
+  padding-top: $header_height;
+  width: 100%;
+  min-width: $screen_min;
+  min-height: 100%;
+  font-family: $font_default;
 
-    @include respond_to(mobile) {
-      padding-bottom: ($footer_height * 2) + $screen_padding;
-    }
+  @include respond_to(mobile) {
+    padding-bottom: ($footer_height * 2) + $screen_padding;
+  }
 
-    @include respond_to(desktop) {
-      padding-bottom: $footer_height + $screen_padding;
-    }
+  @include respond_to(desktop) {
+    padding-bottom: $footer_height + $screen_padding;
   }
 }
 
-.site-counters {
+.app-counters {
   position: absolute;
   left: 0px;
   bottom: 0px;

@@ -32,10 +32,6 @@ class AppNavigationLink extends React.PureComponent {
       onClick: this.onClick,
     };
 
-    if (item.align === 'right') {
-      props.className += ' app-navigation__link--right';
-    }
-
     if (item.current === true) {
       props.className += ' app-navigation__link--current';
     }

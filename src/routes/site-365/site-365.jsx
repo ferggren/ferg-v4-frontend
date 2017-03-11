@@ -47,7 +47,7 @@ class Site365 extends React.PureComponent {
 
 Site365.propTypes = propTypes;
 
-Site365.fetchData = function (store, params) {
+Site365.fetchData = function (store) {
   const state = store.getState();
   const ret = [];
 

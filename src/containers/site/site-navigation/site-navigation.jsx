@@ -26,12 +26,33 @@ class SiteNavigation extends React.PureComponent {
   constructor(props) {
     super(props);
 
+
+    this.state = {
+      style: 'white',
+    };
+
     this.request = false;
+    this.ref_ferg_header = false;
 
     this.signOut = this.signOut.bind(this);
+    this.updateScroll = this.updateScroll.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.updateScroll);
+
+    this.updateRefs();
+    this.updateScroll();
+  }
+
+  componentDidUpdate() {
+    this.updateRefs();
+    this.updateScroll();
   }
 
   componentWillUnmount() {
+    window.removeEventListener('scroll', this.updateScroll);
+
     if (this.request) {
       Request.abort(this.request);
       this.request = false;
@@ -100,6 +121,32 @@ class SiteNavigation extends React.PureComponent {
     return navigation;
   }
 
+  updateScroll() {
+    if (typeof window === 'undefined') return;
+
+    const scroll_top = window.pageYOffset || 0;
+    let style = 'white';
+
+    if (this.ref_ferg_header) {
+      // const height = this.ref_ferg_header.offsetHeight || 0;
+      // scroll_top >= (height - navigation_height)
+
+      if (scroll_top >= 5) {
+        style = 'white';
+      } else {
+        style = 'transparent';
+      }
+    }
+
+    if (style === this.state.style) return;
+
+    this.setState({ style });
+  }
+
+  updateRefs() {
+    this.ref_ferg_header = document.getElementById('ferg-header');
+  }
+
   signOut() {
     this.request = Request.fetch(
       '/api/user/logout/', {
@@ -120,6 +167,7 @@ class SiteNavigation extends React.PureComponent {
       <AppNavigation
         navigation={this.getNavigation()}
         title={this.props.title}
+        style={this.state.style}
       />
     );
   }

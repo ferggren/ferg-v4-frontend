@@ -47,7 +47,7 @@ class SiteGallery extends React.PureComponent {
 
 SiteGallery.propTypes = propTypes;
 
-SiteGallery.fetchData = function (store, params) {
+SiteGallery.fetchData = function (store) {
   const state = store.getState();
   const ret = [];
 

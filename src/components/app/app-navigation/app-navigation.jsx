@@ -7,10 +7,15 @@ import './styles';
 const propTypes = {
   navigation: React.PropTypes.array,
   title: React.PropTypes.string,
+  style: React.PropTypes.oneOf([
+    'transparent',
+    'white',
+  ]),
 };
 
 const defaultProps = {
   navigation: [],
+  style: 'white',
   title: '',
 };
 
@@ -24,6 +29,7 @@ class AppNavigation extends React.PureComponent {
 
     this.toggleNavigation = this.toggleNavigation.bind(this);
     this.hideNavigation = this.hideNavigation.bind(this);
+    this.preventScroll = this.preventScroll.bind(this);
   }
 
   toggleNavigation() {
@@ -36,6 +42,8 @@ class AppNavigation extends React.PureComponent {
 
   makeClassName() {
     let className = 'app-navigation__wrapper';
+    className += ` app-navigation__wrapper--${this.props.style}`;
+    className += ` app-navigation--${this.props.style}`;
 
     if (this.state.open) {
       className += ' app-navigation--open';
@@ -44,9 +52,38 @@ class AppNavigation extends React.PureComponent {
     return className;
   }
 
-  render() {
-    const items = this.props.navigation.map((item) => {
-      return (
+  makeNavigation() {
+    const ret = [];
+
+    ['left', 'right'].forEach((align) => {
+      const links = this.makeNavigationLinks(align);
+
+      if (!links.length) return;
+
+      let className = 'app-navigation__links-block';
+      className += ` app-navigation__links-block--${align}`;
+
+      ret.push(
+        <span key={align} className={className}>
+          {links}
+        </span>
+      );
+    });
+
+    return ret;
+  }
+
+  makeNavigationLinks(align) {
+    const ret = [];
+
+    this.props.navigation.forEach((item) => {
+      const item_align = item.align === 'right' ? 'right' : 'left';
+
+      if (item_align !== align) {
+        return;
+      }
+
+      ret.push(
         <Link
           item={item}
           onClick={this.hideNavigation}
@@ -55,26 +92,45 @@ class AppNavigation extends React.PureComponent {
       );
     });
 
+    return ret;
+  }
+
+  preventScroll(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
+  render() {
     return (
       <div className={this.makeClassName()}>
-        <div className="app-navigation__title">
-          {this.props.title}
+        <div className="app-navigation">
+          <div className="app-navigation__title">
+            {this.props.title}
+          </div>
+
+          <div
+            className="app-navigation__links"
+            onWheel={this.preventScroll}
+            onScroll={this.preventScroll}
+            onTouchMove={this.preventScroll}
+          >
+            {this.makeNavigation()}
+            <div style={{ clear: 'both' }} />
+          </div>
+
+          <div
+            onClick={this.toggleNavigation}
+            className="app-navigation__shadow"
+            onWheel={this.preventScroll}
+            onScroll={this.preventScroll}
+            onTouchMove={this.preventScroll}
+          />
+
+          <div
+            className="app-navigation__toggle"
+            onClick={this.toggleNavigation}
+          />
         </div>
-
-        <div className="app-navigation__links">
-          {items}
-          <div style={{ clear: 'both' }} />
-        </div>
-
-        <div
-          onClick={this.toggleNavigation}
-          className="app-navigation__shadow"
-        />
-
-        <div
-          className="app-navigation__toggle"
-          onClick={this.toggleNavigation}
-        />
       </div>
     );
   }

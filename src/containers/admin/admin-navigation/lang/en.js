@@ -6,4 +6,5 @@ export default {
   gallery: 'Gallery',
   storage: 'Storage',
   365: '365',
+  home: 'Home',
 };

@@ -54,21 +54,24 @@ server.use((req, res) => {
   Promise.all(loadUserData(user_session, user_ip))
   .then((user_info) => {
     let is_admin = false;
-    user_info = user_info === 'object' ? user_info[0] : false;
+    user_info = typeof user_info === 'object' ? user_info[0] : false;
 
-    if (user_info && user_info.length) {
-      store.dispatch(userLogin(user_info[0]));
-      is_admin = user_info[0].groups.indexOf('admin') !== -1;
+    if (user_info && user_info.id) {
+      store.dispatch(userLogin(user_info));
+      is_admin = user_info.groups.indexOf('admin') !== -1;
     }
 
     // admin CP
-    if (req.url.match(/^\/admin/)) {
-      if (is_admin) {
-        res.status(200).end(renderAdminHTML(store.getState()));
-        return;
-      }
-      
-      res.redirect(301, '/');
+    if (is_admin && req.url.match(/^\/((?:en|ru)\/)?admin/)) {
+      const content = renderAdminHTML(store.getState());
+
+      res.set({
+        'Content-Type': 'text/html; charset=utf-8',
+        'Content-Length': Buffer.byteLength(content, 'utf8'),
+        ETag: '',
+      });
+
+      res.status(200).end(content);
       return;
     }
 
