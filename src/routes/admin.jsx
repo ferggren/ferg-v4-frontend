@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { AdminContainer } from 'containers/admin';
+import AdminContainer from 'containers/admin-container';
 import AdminStorage from './admin-storage';
 import AdminGallery from './admin-gallery';
 import Admin365 from './admin-365';

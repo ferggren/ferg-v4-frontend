@@ -1,4 +1,4 @@
 'use strict';
 
-export { default as siteRoutes } from './site';
+export { default as fergRoutes } from './ferg';
 export { default as adminRoutes } from './admin';

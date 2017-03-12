@@ -166,6 +166,12 @@ export function makePathToAsset(script) {
  *  Render admin HTML
  */
 export function renderAdminHTML(state) {
+  let styles = '';
+
+  if (NODE_ENV !== 'dev') {
+    styles = `<link href="${makePathToAsset('admin.css')}" rel="stylesheet" />`;
+  }
+
   const html = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="${state.lang}">
@@ -177,7 +183,7 @@ export function renderAdminHTML(state) {
         <link rel="alternate" hreflang="ru-ru" href="//ferg.in/admin/ru/" />
         <link rel="alternate" hreflang="en-us" href="//ferg.in/admin/en/" />
         <title>Admin CP ${titleSeparator} ${titleWebsite}</title>
-        <link href="${makePathToAsset('admin.css')}" rel="stylesheet" />
+        ${styles}
         <script src="${makePathToAsset('admin.js')}" async></script>
       </head>
       <body>
@@ -199,7 +205,7 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
   let analytics = '';
 
   if (NODE_ENV !== 'dev') {
-    styles = `<link href="${makePathToAsset('site.css')}" rel="stylesheet" />`;
+    styles = `<link href="${makePathToAsset('ferg.css')}" rel="stylesheet" />`;
 
     if (counters) {
       const keys = Object.keys(counters);
@@ -212,7 +218,7 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
 
   if (scriptsEnabled) {
     scripts_redux = `<script>window.REDUX_INITIAL_STATE=${JSON.stringify(state)};</script>`;
-    scripts_bundle = `<script src="${makePathToAsset('site.js')}" async></script>`;
+    scripts_bundle = `<script src="${makePathToAsset('ferg.js')}" async></script>`;
   }
 
   const html = `

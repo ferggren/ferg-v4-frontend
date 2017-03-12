@@ -14,7 +14,7 @@ const NODE_MODE = 'client';
 
 // config
 const WEBPACK_ENTRY = {
-  site: ['site'],
+  ferg: ['ferg'],
   admin: ['admin'],
 };
 const PUBLIC_PATH = '/assets/';

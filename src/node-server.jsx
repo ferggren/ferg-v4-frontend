@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import express from 'express';
 import { match, RouterContext } from 'react-router';
-import siteRoutes from 'routes/site';
+import fergRoutes from 'routes/ferg';
 import { Provider } from 'react-redux';
 import {
   areScriptsEnabled,
@@ -76,7 +76,7 @@ server.use((req, res) => {
     }
 
     // server side rendering
-    match({ routes: siteRoutes, location: req.url }, (error, redirect, renderProps) => {
+    match({ routes: fergRoutes, location: req.url }, (error, redirect, renderProps) => {
       if (redirect) {
         res.redirect(301, `${redirect.pathname}${redirect.search}`);
         return;
