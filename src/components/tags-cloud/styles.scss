@@ -3,22 +3,22 @@
 
 .tags-cloud {
   min-height: 24px;
-  font-size: 14px;
+  font-size: 13px;
   vertical-align: middle;
   text-align: center;
 
   &__tag {
     vertical-align: middle;
     display: inline-block;
-    padding: 4px 0px;
-    margin: 3px 15px 3px 0px;
+    margin: 2px 15px 2px 0px;
     cursor: pointer;
-    font-size: 12px;
     transition: color $transition_duration $transition_function,
                 background $transition_duration $transition_function,
                 text-decoration $transition_duration $transition_function;
 
     a {
+      display: inline-block;
+      padding: 4px 0px;
       color: #666;
     }
 
