@@ -3,7 +3,7 @@
 
 $links_mobile_width: 150px;
 
-.app-navigation {
+.app-nav {
   position: relative;
   z-index: $z_index_navigation;
 
@@ -68,7 +68,7 @@ $links_mobile_width: 150px;
                   opacity $transition_duration $transition_function,
                   transform $transition_duration $transition_function;
 
-      .app-navigation--open & {
+      .app-nav--open & {
         visibility: visible;
         opacity: 1;
         transform: translateX(0px);
@@ -130,7 +130,7 @@ $links_mobile_width: 150px;
       transition: visibility $transition_duration $transition_function,
                   opacity $transition_duration $transition_function;
 
-      .app-navigation--open & {
+      .app-nav--open & {
         visibility: visible;
         opacity: 1;
       }
@@ -184,7 +184,7 @@ $links_mobile_width: 150px;
         line-height: $navigation_height;
       }
 
-      .app-navigation--white & {
+      .app-nav--white & {
         opacity: .6;
 
         a {
@@ -192,7 +192,7 @@ $links_mobile_width: 150px;
         }
       }
 
-      .app-navigation--transparent & {
+      .app-nav--transparent & {
         opacity: .7;
 
         a {

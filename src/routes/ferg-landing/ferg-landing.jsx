@@ -9,7 +9,6 @@ import { apiFetch, apiErrorDataClear } from 'actions/api';
 import Lang from 'libs/lang';
 import langRu from './lang/ru';
 import langEn from './lang/en';
-import './styles';
 
 const FEED_TAGS_API_KEY = 'feed_tags';
 const FEED_TAGS_API_URL = '/api/tags/getTags';

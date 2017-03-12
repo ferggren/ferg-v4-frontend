@@ -1,6 +1,6 @@
 'use strict';
 
-export { default as AppContainer } from './app-container';
-export { default as AppNavigation } from './app-navigation';
-export { default as AppFooter } from './app-footer';
-export { default as AppContent } from './app-content';
+export { default as AppContainer } from './container';
+export { default as AppNavigation } from './navigation';
+export { default as AppFooter } from './footer';
+export { default as AppContent } from './content';

@@ -41,12 +41,12 @@ class AppNavigation extends React.PureComponent {
   }
 
   makeClassName() {
-    let className = 'app-navigation__wrapper';
-    className += ` app-navigation__wrapper--${this.props.style}`;
-    className += ` app-navigation--${this.props.style}`;
+    let className = 'app-nav__wrapper';
+    className += ` app-nav__wrapper--${this.props.style}`;
+    className += ` app-nav--${this.props.style}`;
 
     if (this.state.open) {
-      className += ' app-navigation--open';
+      className += ' app-nav--open';
     }
 
     return className;
@@ -60,8 +60,8 @@ class AppNavigation extends React.PureComponent {
 
       if (!links.length) return;
 
-      let className = 'app-navigation__links-block';
-      className += ` app-navigation__links-block--${align}`;
+      let className = 'app-nav__links-block';
+      className += ` app-nav__links-block--${align}`;
 
       ret.push(
         <ul key={align} className={className}>
@@ -103,13 +103,13 @@ class AppNavigation extends React.PureComponent {
   render() {
     return (
       <div className={this.makeClassName()}>
-        <div className="app-navigation">
-          <h1 className="app-navigation__title">
+        <div className="app-nav">
+          <h1 className="app-nav__title">
             {this.props.title}
           </h1>
 
           <div
-            className="app-navigation__links"
+            className="app-nav__links"
             onWheel={this.preventScroll}
             onScroll={this.preventScroll}
             onTouchMove={this.preventScroll}
@@ -120,14 +120,14 @@ class AppNavigation extends React.PureComponent {
 
           <div
             onClick={this.toggleNavigation}
-            className="app-navigation__shadow"
+            className="app-nav__shadow"
             onWheel={this.preventScroll}
             onScroll={this.preventScroll}
             onTouchMove={this.preventScroll}
           />
 
           <div
-            className="app-navigation__toggle"
+            className="app-nav__toggle"
             onClick={this.toggleNavigation}
           />
         </div>

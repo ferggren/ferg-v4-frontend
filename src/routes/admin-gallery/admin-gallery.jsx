@@ -7,7 +7,6 @@ import { titleSet } from 'actions/title';
 import Lang from 'libs/lang';
 import langRu from './lang/ru';
 import langEn from './lang/en';
-import './styles';
 
 Lang.updateLang('route-gallery', langRu, 'ru');
 Lang.updateLang('route-gallery', langEn, 'en');
