@@ -18,10 +18,11 @@ $footer_height: 40px;
 $screen_padding: 15px;
 
 /* z-indexes */
+$z_index_content: 10;
+$z_index_footer: 50;
 $z_index_navigation: 100;
 $z_index_navigation_button: 101;
 $z_index_navigation_title: 102;
 $z_index_navigation_shadow: 103;
 $z_index_navigation_links: 104;
-$z_index_content: 10;
-$z_index_footer: 50;
+$z_index_progress: 110;
