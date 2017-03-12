@@ -28,6 +28,10 @@ $contacts_height: 36px;
     display: inline-block;
     background: rgba(255, 255, 255, .5);
 
+    &-title {
+      display: none;
+    }
+
     &-wrapper {
       height: $contacts_height;
       padding-left: $screen_padding;
@@ -52,52 +56,57 @@ $contacts_height: 36px;
 
   &__contact {
     display: inline-block;
-    width: 26px;
-    height: 26px;
-    margin: 0px 3px;
-    background-size: 26px 26px;
-    overflow: hidden;
-    text-indent: 9999px;
-    filter: grayscale(50%);
 
-    &:hover {
+    a {
+      display: inline-block;
+      width: 26px;
+      height: 26px;
+      margin: 0px 3px;
+      background-size: 26px 26px;
+      overflow: hidden;
+      text-indent: 9999px;
+      filter: grayscale(50%);
+      transition: filter $transition_duration $transition_function;
+    }
+
+    &:hover a {
       filter: grayscale(0%);
     }
 
-    &--mail {
+    &--mail a {
       background-image: url('./media/contacts/mail.png');
     }
 
-    &--github {
+    &--github a {
       background-image: url('./media/contacts/github.png');
     }
 
-    &--instagram {
+    &--instagram a {
       background-image: url('./media/contacts/instagram.png');
     }
 
-    &--skype {
+    &--skype a {
       background-image: url('./media/contacts/skype.png');
     }
 
-    &--telegram {
+    &--telegram a {
       background-image: url('./media/contacts/telegram.png');
     }
 
-    &--vk {
+    &--vk a {
       background-image: url('./media/contacts/vk.png');
     }
 
-    &--facebook {
+    &--facebook a {
       background-image: url('./media/contacts/facebook.png');
     }
 
-    &--flickr {
+    &--flickr a {
       background-image: url('./media/contacts/flickr.png');
       border-radius: 12px;
     }
 
-    &--500px {
+    &--500px a {
       background-image: url('./media/contacts/500px.png');
     }
   }

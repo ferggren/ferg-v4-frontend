@@ -10,87 +10,81 @@ class SiteHeader extends React.PureComponent {
     return (
       <div className="site-header" id="ferg-header">
         <div className="site-header__contacts-wrapper">
-          <div className="site-header__contacts">
-            <a
-              href="mailto:me@ferg.in"
-              rel="noreferrer noopener"
-              title="Contact me via email"
-              className="site-header__contact site-header__contact--mail"
-            >
-              Contact me via email
-            </a>
+          <h4 className="site-header__contacts-title">
+            Contact me
+          </h4>
+          
+          <ul className="site-header__contacts">
+            <li className="site-header__contact site-header__contact--mail">
+              <a
+                href="mailto:me@ferg.in"
+                rel="noreferrer noopener"
+                title="Contact me via email"
+              >Contact me via email</a>
+            </li>
 
-            <a
-              href="skype:ferggren?chat"
-              rel="noreferrer noopener"
-              title="Contact me on Skype"
-              className="site-header__contact site-header__contact--skype"
-            >
-              Contact me on Skype
-            </a>
+            <li className="site-header__contact site-header__contact--skype">
+              <a
+                href="skype:ferggren?chat"
+                rel="noreferrer noopener"
+                title="Contact me on Skype"
+              >Contact me on Skype</a>
+            </li>
 
-            <a
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              href="https://github.com/ferggren" 
-              title="Find me on Github"
-              className="site-header__contact site-header__contact--github"
-            >
-              Find me on Github
-            </a>
+            <li className="site-header__contact site-header__contact--github">
+              <a
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                href="https://github.com/ferggren" 
+                title="Find me on Github"
+              >Find me on Github</a>
+            </li>
 
-            <a
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              href="https://www.facebook.com/ferggren"
-              title="Contact me on Facebook"
-              className="site-header__contact site-header__contact--facebook"
-            >
-              Contact me on Facebook
-            </a>
+            <li className="site-header__contact site-header__contact--facebook">
+              <a
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                href="https://www.facebook.com/ferggren"
+                title="Contact me on Facebook"
+              >Contact me on Facebook</a>
+            </li>
 
-            <a
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              href="https://vk.com/id4867738"
-              title="Contact me on VK"
-              className="site-header__contact site-header__contact--vk"
-            >
-              Contact me on VK
-            </a>
+            <li className="site-header__contact site-header__contact--vk">
+              <a
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                href="https://vk.com/id4867738"
+                title="Contact me on VK"
+              >Contact me on VK</a>
+            </li>
 
-            <a
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              href="https://500px.com/ferggren"
-              title="Follow me on 500px"
-              className="site-header__contact site-header__contact--500px"
-            >
-              Follow me on 500px
-            </a>
+            <li className="site-header__contact site-header__contact--500px">
+              <a
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                href="https://500px.com/ferggren"
+                title="Follow me on 500px"
+              >Follow me on 500px</a>
+            </li>
 
-            <a
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              href="https://www.flickr.com/photos/ferggren/"
-              title="Follow me on Flickr"
-              className="site-header__contact site-header__contact--flickr"
-            >
-              Follow me on Flickr
-            </a>
+            <li className="site-header__contact site-header__contact--flickr">
+              <a
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                href="https://www.flickr.com/photos/ferggren/"
+                title="Follow me on Flickr"
+              >Follow me on Flickr</a>
+            </li>
 
-            <a
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              href="https://instagram.com/ferggren/"
-              title="Follow me on Instagram"
-              className="site-header__contact site-header__contact--instagram"
-            >
-              Follow me on Instagram
-            </a>
-
-            <div className="floating-clear" />
-          </div>
+            <li className="site-header__contact site-header__contact--instagram">
+              <a
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                href="https://instagram.com/ferggren/"
+                title="Follow me on Instagram"
+              >Follow me on Instagram</a>
+            </li>
+          </ul>
         </div>
       </div>
     );

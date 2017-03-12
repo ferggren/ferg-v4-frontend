@@ -30,7 +30,7 @@
     padding: 0px $screen_padding;
     word-wrap: nowrap;
     height: $footer_height;
-    line-height: $header_height;
+    line-height: $footer_height;
     color: #666;
 
     @include respond_to(mobile) {
@@ -47,7 +47,7 @@
     padding: 0px $screen_padding;
     word-wrap: nowrap;
     height: $footer_height;
-    line-height: $header_height;
+    line-height: $footer_height;
 
     @include respond_to(mobile) {
       text-align: center;
@@ -59,23 +59,23 @@
     }
 
     &-switch {
-      color: rgb(29, 111, 185);
+      color: $link_color_default;
       display: inline-block;
-      line-height: $header_height;
+      line-height: $footer_height;
       position: relative;
       padding-left: 30px;
 
       &:hover {
-        color: rgb(29, 111, 185);
+        color: $link_color_default;
         text-decoration: underline;
       }
 
       &--en {
-        background: url('./media/lang_en.png') no-repeat 0px 11px;
+        background: url('./media/lang_ru.png') no-repeat 0px 11px;
       }
 
       &--ru {
-        background: url('./media/lang_ru.png') no-repeat 0px 11px;
+        background: url('./media/lang_en.png') no-repeat 0px 11px;
       }
     }
   }
