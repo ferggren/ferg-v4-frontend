@@ -100,8 +100,10 @@ class TagsCloud extends React.PureComponent {
         onClick: this.onClick,
       };
 
+      let href = null;
+
       if (this.props.tagUrl) {
-        props.to = this.props.tagUrl.replace(
+        href = this.props.tagUrl.replace(
           '%tag%',
           encodeURIComponent(tag.tag)
         );
@@ -111,7 +113,7 @@ class TagsCloud extends React.PureComponent {
         props.className += ' tags-cloud__tag--selected';
 
         if (this.props.selectedTagUrl) {
-          props.to = this.props.selectedTagUrl.replace(
+          href = this.props.selectedTagUrl.replace(
             '%tag%',
             encodeURIComponent(tag.tag)
           );
@@ -119,11 +121,13 @@ class TagsCloud extends React.PureComponent {
       }
 
       return (
-        <Link {...props}>{tag.tag}</Link>
+        <li {...props}>
+          <Link to={href}>{tag.tag}</Link>
+        </li>
       );
     });
 
-    return <div className="tags-cloud">{cloud}</div>;
+    return <ul className="tags-cloud">{cloud}</ul>;
   }
 }
 
