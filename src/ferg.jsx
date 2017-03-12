@@ -31,7 +31,7 @@ onload(() => {
 
     if (typeof module !== 'undefined' && module.hot) {
       module.hot.accept('./containers/ferg-app', () => {
-        const NewFerg = require('containers/ferg-app');
+        const NewFerg = require('containers/ferg-app').default;
 
         ReactDOM.render(
           <AppContainer>

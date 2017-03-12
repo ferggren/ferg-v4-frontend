@@ -31,7 +31,7 @@ onload(() => {
 
     if (module.hot) {
       module.hot.accept('./containers/admin-app', () => {
-        const NewAdmin = require('containers/admin-app');
+        const NewAdmin = require('containers/admin-app').default;
 
         ReactDOM.render(
           <AppContainer>

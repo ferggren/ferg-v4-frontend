@@ -3,6 +3,8 @@
 import React from 'react';
 import { AppContent } from 'components/app';
 import LandingHeader from 'components/landing-header';
+import TagsCloud from 'components/tags-cloud';
+import Loader from 'components/loader';
 import { connect } from 'react-redux';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
@@ -94,6 +96,39 @@ class FergLanding extends React.PureComponent {
     ));
   }
 
+  makeTags() {
+    const tags = this.props.tags;
+
+    if (!tags) return null;
+    if (tags.loading) return <Loader />;
+    if (tags.error) return tags.error;
+
+    const url = `/${this.props.lang}/?tag=%tag%`;
+    const selected_url = `/${this.props.lang}/`;
+
+    return (
+      <TagsCloud
+        group={'feed'}
+        tags={tags.results}
+        selected={this.props.feed ? this.props.feed.options.tag : ''}
+        tagUrl={url}
+        selectedTagUrl={selected_url}
+      />
+    );
+  }
+
+  makeFeed() {
+    const feed = this.props.feed;
+
+    if (!feed) return null;
+    if (feed.loading) return <Loader />;
+    if (feed.error) return feed.error;
+
+    const html = JSON.stringify(feed, null, 2);
+
+    return <pre dangerouslySetInnerHTML={{ __html: html }} />;
+  }
+
   render() {
     return (
       <div>
@@ -102,15 +137,11 @@ class FergLanding extends React.PureComponent {
         </AppContent>
 
         <AppContent>
-          <pre
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(this.props.tags, null, 2) }}
-          />
+          {this.makeTags()}
         </AppContent>
 
         <AppContent>
-          <pre
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(this.props.feed, null, 2) }}
-          />
+          {this.makeFeed()}
         </AppContent>
       </div>
     );
