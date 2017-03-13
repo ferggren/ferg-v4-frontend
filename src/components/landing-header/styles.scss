@@ -1,16 +1,20 @@
 @import 'styles/variables';
 @import 'styles/mixins';
 
-$header_height_desktop: 250px;
-$header_height_mobile: 200px;
+$header_height_desktop: 45vw;
+$header_height_mobile: 300px;
 $contacts_height: 36px;
 
 .landing-header {
-  background: #EEE;
+  background: rgb(150, 171, 179);
   background-image: url('./media/header.jpg');
   background-position: 50% 50%;
   background-size: cover;
+  background-repeat: no-repeat;
   z-index: 1;
+  text-align: left;
+  transition: background $transition_duration $transition_function,
+              background-size $transition_duration $transition_function;
 
   @include respond_to(mobile) {
     height: $header_height_mobile;
@@ -18,59 +22,69 @@ $contacts_height: 36px;
 
   @include respond_to(desktop) {
     height: $header_height_desktop;
+    max-height: 600px;
+    min-height: 200px;
   }
 
   &__contacts {
     height: $contacts_height;
-    line-height: 26px;
-    padding: 5px 5px;
-    border-radius: 5px;
     display: inline-block;
-    background: rgba(255, 255, 255, .5);
-
-    &-title {
-      display: none;
-    }
+    line-height: 26px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    background: rgba(44, 44, 44, .3);
 
     &-wrapper {
-      height: $contacts_height;
-      padding-left: $screen_padding;
-      padding-right: $screen_padding;
-      max-width: $screen_max;
       min-width: $screen_min;
+      max-width: $screen_max;
+      margin: auto;
+      height: 100%;
+      padding: $screen_padding;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
 
       @include respond_to(mobile) {
-        text-align: center;
-        padding-top: $header_height_mobile - $contacts_height - $screen_padding;
-        height: $header_height_mobile - $screen_padding;
+        align-items: center;
       }
 
       @include respond_to(desktop) {
-        text-align: right;
-        padding-top: $header_height_desktop - $contacts_height - $screen_padding;
-        height: $header_height_desktop - $screen_padding;
-        margin: auto;
+        align-items: flex-start;
       }
+    }
+
+    &-title {
+      display: none;
     }
   }
 
   &__contact {
     display: inline-block;
+    padding: 0px;
+    margin: 0px;
+    width: 26px;
+    height: 26px;
+    margin-right: 6px;
+    overflow: hidden;
+
+    &:last-child {
+      margin-right: 0px;
+    }
 
     a {
       display: inline-block;
       width: 26px;
       height: 26px;
-      margin: 0px 3px;
       background-size: 26px 26px;
       overflow: hidden;
       text-indent: 9999px;
-      filter: grayscale(50%);
-      transition: filter $transition_duration $transition_function;
-    }
+      opacity: .8;
+      transition: opacity $transition_duration $transition_function;
 
-    &:hover a {
-      filter: grayscale(0%);
+      &:hover {
+        opacity: 1;
+      }
     }
 
     &--mail a {
