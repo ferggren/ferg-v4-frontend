@@ -10,7 +10,7 @@ const propTypes = {
   selected: React.PropTypes.string,
   tagUrl: React.PropTypes.string,
   selectedTagUrl: React.PropTypes.string,
-  onClick: React.PropTypes.oneOfType([
+  onSelect: React.PropTypes.oneOfType([
     React.PropTypes.bool,
     React.PropTypes.func,
   ]),
@@ -23,7 +23,7 @@ const defaultProps = {
   selected: '',
   tagUrl: '',
   selectedTagUrl: '',
-  onClick: false,
+  onSelect: false,
   emBase: 0.7,
   emGain: 0.4,
 };
@@ -36,13 +36,13 @@ class TagsCloud extends React.PureComponent {
   }
 
   onClick(e) {
-    if (!this.props.onClick) return;
+    if (!this.props.onSelect) return;
     if (!e.target) return;
 
     e.preventDefault();
     e.stopPropagation();
 
-    this.props.onClick(e.target.innerHTML, this.props.group);
+    this.props.onSelect(e.target.innerHTML, this.props.group);
   }
 
   processTagsSize(tags) {

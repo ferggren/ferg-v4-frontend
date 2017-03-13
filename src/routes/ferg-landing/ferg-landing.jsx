@@ -5,6 +5,7 @@ import { AppContent } from 'components/app';
 import LandingHeader from 'components/landing-header';
 import TagsCloud from 'components/tags-cloud';
 import Loader from 'components/loader';
+import Paginator from 'components/paginator';
 import { connect } from 'react-redux';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
@@ -129,6 +130,33 @@ class FergLanding extends React.PureComponent {
     return <pre dangerouslySetInnerHTML={{ __html: html }} />;
   }
 
+  makePagination() {
+    const feed = this.props.feed;
+
+    if (!feed ||
+        feed.loading ||
+        feed.error ||
+        feed.results.pages <= 1) {
+      return null;
+    }
+
+    let url = `/${this.props.lang}/?`;
+    if (feed.options.tag) {
+      url += `tag=${encodeURIComponent(feed.options.tag)}&`;
+    }
+    url += 'page=%page%';
+
+    return (
+      <AppContent>
+        <Paginator
+          page={feed.results.page}
+          pages={feed.results.pages}
+          url={url}
+        />
+      </AppContent>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -143,6 +171,8 @@ class FergLanding extends React.PureComponent {
         <AppContent>
           {this.makeFeed()}
         </AppContent>
+
+        {this.makePagination()}
       </div>
     );
   }

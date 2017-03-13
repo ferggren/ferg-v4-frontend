@@ -1,0 +1,52 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+$color_active: $link_color_default;
+$color_active: #666;
+$color_hover: #333;
+$color_inactive: #CCC;
+
+.paginator {
+  height: 24px;
+  line-height: 24px;
+  font-size: 14px;
+  width: 100%;
+  position: relative;
+
+  &__button {
+    display: inline-block;
+    cursor: pointer;
+    color: $color_active;
+    user-select: none;
+    padding-right: 20px;
+
+    &:last-child {
+      padding-right: 0px;
+    }
+
+    &:hover, &--current {
+      color: $color_hover !important;
+    }
+
+    &--inactive, &--inactive:hover {
+      color: $color_inactive !important;
+    }
+  }
+
+  &__prev {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+
+  &__next {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+
+  &__pages {
+    text-align: center;
+    padding: 0px 40px;
+  }
+}
