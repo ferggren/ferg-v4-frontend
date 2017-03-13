@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { makeFetchParams, fetchRoutesData } from 'libs/fetch-data';
 import AdminContainer from 'containers/admin-container';
 import AdminStorage from './admin-storage';
 import AdminGallery from './admin-gallery';
@@ -16,7 +17,29 @@ function fetchData(nextState, replace, callback) {
     return;
   }
 
-  callback();
+  const needs = fetchRoutesData(
+    window.REDUX_STORE,
+    nextState.routes,
+    makeFetchParams(
+      nextState.location.query,
+      nextState.params,
+      nextState.location.pathname
+    )
+  );
+
+  if (!needs.length) {
+    callback();
+    return;
+  }
+
+  Promise.all(needs)
+  .then(() => {
+    if (window.scrollTo) window.scrollTo(0, 0);
+    callback();
+  })
+  .catch(() => {
+    callback();
+  });
 }
 
 const routes = [

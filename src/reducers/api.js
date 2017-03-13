@@ -90,6 +90,7 @@ export default function (state = initialState, action) {
 
       state = clone(state);
 
+      state[action.key].request = false;
       state[action.key].loading = false;
       state[action.key].loaded = true;
       state[action.key].results = {};
@@ -103,6 +104,7 @@ export default function (state = initialState, action) {
       
       state = clone(state);
 
+      state[action.key].request = false;
       state[action.key].loading = false;
       state[action.key].loaded = true;
       state[action.key].results = action.response;

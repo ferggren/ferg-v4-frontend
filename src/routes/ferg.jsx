@@ -5,8 +5,8 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import FergContainer from 'containers/ferg-container';
 import { makeFetchParams, fetchRoutesData } from 'libs/fetch-data';
 import Ferg365 from './ferg-365';
-import FergBlog from './ferg-blog';
-import FergBlogPage from './ferg-blog-page';
+import FergPages from './ferg-pages';
+import FergPagesPage from './ferg-pages-page';
 import FergGallery from './ferg-gallery';
 import FergGalleryPhoto from './ferg-gallery-photo';
 import FergLanding from './ferg-landing';
@@ -23,10 +23,15 @@ function fetchData(nextState, replace, callback) {
   const needs = fetchRoutesData(
     window.REDUX_STORE,
     nextState.routes,
-    makeFetchParams(nextState.location.query, nextState.params)
+    makeFetchParams(
+      nextState.location.query,
+      nextState.params,
+      nextState.location.pathname
+    )
   );
 
   if (!needs.length) {
+    if (window.scrollTo) window.scrollTo(0, 0);
     callback();
     return;
   }
@@ -45,10 +50,10 @@ const routes = [
   <IndexRoute component={FergLanding} key="index" onEnter={fetchData} />,
   <Route path="gallery" component={FergGallery} key="gallery" onEnter={fetchData} />,
   <Route path="gallery/:photo_id" component={FergGalleryPhoto} key="gallery_photo" onEnter={fetchData} />,
-  <Route path="events" component={FergBlog} key="events" onEnter={fetchData} />,
-  <Route path="events/:page_id" component={FergBlogPage} key="events_page" onEnter={fetchData} />,
-  <Route path="blog" component={FergBlog} key="blog" onEnter={fetchData} />,
-  <Route path="blog/:page_id" component={FergBlogPage} key="blog_page" onEnter={fetchData} />,
+  <Route path="events" component={FergPages} key="events" onEnter={fetchData} />,
+  <Route path="events/:page_id" component={FergPagesPage} key="events_page" onEnter={fetchData} />,
+  <Route path="blog" component={FergPages} key="blog" onEnter={fetchData} />,
+  <Route path="blog/:page_id" component={FergPagesPage} key="blog_page" onEnter={fetchData} />,
   <Route path="365" component={Ferg365} key="365" onEnter={fetchData} />,
 ];
 

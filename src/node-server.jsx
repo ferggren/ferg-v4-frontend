@@ -95,7 +95,7 @@ server.use((req, res) => {
       fetchComponentsData(
         store,
         renderProps.components,
-        makeFetchParams(req.query, renderProps.params)
+        makeFetchParams(req.query, renderProps.params, req.url)
       )
       .then(() => {
         Lang.setLang(user_lang);

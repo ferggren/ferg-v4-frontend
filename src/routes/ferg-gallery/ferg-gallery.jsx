@@ -90,6 +90,8 @@ class FergGallery extends React.PureComponent {
     this.props.dispatch(apiFetch(
       GALLERY_API_KEY, GALLERY_API_URL, { page, tag, cache: true }
     ));
+    
+    if (window.scrollTo) window.scrollTo(0, 0);
   }
 
   updateTitle() {
@@ -100,6 +102,7 @@ class FergGallery extends React.PureComponent {
     const tags = this.props.tags;
 
     if (!tags) return null;
+    if (!Object.keys(tags.results).length) return null;
     if (tags.loading) return <Loader />;
     if (tags.error) return tags.error;
 
@@ -121,7 +124,7 @@ class FergGallery extends React.PureComponent {
     const photos = this.props.photos;
 
     if (!photos) return null;
-    if (photos.loading) return <Loader />;
+    if (!photos.results.photos && photos.loading) return <Loader />;
     if (photos.error) return photos.error;
 
     const html = JSON.stringify(photos, null, 2);
@@ -160,14 +163,14 @@ class FergGallery extends React.PureComponent {
     return (
       <div>
         <AppContent>
-          {this.makeTags()}
-        </AppContent>
-
-        <AppContent>
           {this.makePhotos()}
         </AppContent>
 
         {this.makePagination()}
+
+        <AppContent>
+          {this.makeTags()}
+        </AppContent>
       </div>
     );
   }

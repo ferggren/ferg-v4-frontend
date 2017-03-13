@@ -95,12 +95,15 @@ class FergLanding extends React.PureComponent {
     this.props.dispatch(apiFetch(
       FEED_API_KEY, FEED_API_URL, { page, tag, cache: true }
     ));
+    
+    if (window.scrollTo) window.scrollTo(0, 0);
   }
 
   makeTags() {
     const tags = this.props.tags;
 
     if (!tags) return null;
+    if (!Object.keys(tags.results).length) return null;
     if (tags.loading) return <Loader />;
     if (tags.error) return tags.error;
 
@@ -122,7 +125,7 @@ class FergLanding extends React.PureComponent {
     const feed = this.props.feed;
 
     if (!feed) return null;
-    if (feed.loading) return <Loader />;
+    if (!feed.results.list && feed.loading) return <Loader />;
     if (feed.error) return feed.error;
 
     const html = JSON.stringify(feed, null, 2);
@@ -165,14 +168,14 @@ class FergLanding extends React.PureComponent {
         </AppContent>
 
         <AppContent>
-          {this.makeTags()}
-        </AppContent>
-
-        <AppContent>
           {this.makeFeed()}
         </AppContent>
 
         {this.makePagination()}
+
+        <AppContent>
+          {this.makeTags()}
+        </AppContent>
       </div>
     );
   }

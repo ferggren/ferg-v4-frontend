@@ -42,7 +42,7 @@ export function fetchRoutesData(store, routes, params) {
   return needs;
 }
 
-export function makeFetchParams(query, params) {
+export function makeFetchParams(query, params, location) {
   const ret = {};
 
   Object.keys(query).forEach((key) => {
@@ -52,6 +52,8 @@ export function makeFetchParams(query, params) {
   Object.keys(params).forEach((param) => {
     ret[param] = params[param];
   });
+
+  ret.location = location;
 
   return ret;
 }

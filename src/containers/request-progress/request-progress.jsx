@@ -40,7 +40,7 @@ class RequestProgress extends React.PureComponent {
     }
 
     const progress = this.calcProgress(total);
-    const part = (100 - this.state.progress) / 2;
+    const part = (100 - this.state.progress) / 3;
     const part_progress = (progress / 125) * part;
     const total_progress = Math.round(part_progress + this.state.progress);
 
