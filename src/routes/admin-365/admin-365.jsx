@@ -38,7 +38,7 @@ class Admin365 extends React.PureComponent {
   render() {
     return (
       <AppContent>
-        Admin365
+        {Lang('365.not_found')}
       </AppContent>
     );
   }

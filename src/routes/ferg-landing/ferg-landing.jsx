@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { AppContent, AppGrid, AppGridItem } from 'components/app';
+import ItemsGrid from 'components/items-grid';
 import LandingHeader from 'components/landing-header';
 import TagsCloud from 'components/tags-cloud';
 import Loader from 'components/loader';
@@ -11,6 +12,7 @@ import { connect } from 'react-redux';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
 import Lang from 'libs/lang';
+import clone from 'libs/clone';
 import langRu from './lang/ru';
 import langEn from './lang/en';
 
@@ -112,9 +114,11 @@ class FergLanding extends React.PureComponent {
     const tags = this.props.tags;
 
     if (!tags) return null;
-    if (!Object.keys(tags.results).length) return null;
     if (tags.loading) return <Loader />;
     if (tags.error) return tags.error;
+    if (!Object.keys(tags.results).length) {
+      return Lang('landing.tags_not_found');
+    }
 
     const url = `/${this.props.lang}/?tag=%tag%`;
     const selected_url = `/${this.props.lang}/`;
@@ -136,10 +140,23 @@ class FergLanding extends React.PureComponent {
     if (!feed) return null;
     if (!feed.results.list && feed.loading) return <Loader />;
     if (feed.error) return feed.error;
+    if (!feed.results.list.length) {
+      return Lang('landing.feed_not_found');
+    }
 
-    const html = JSON.stringify(feed, null, 2);
+    let list = feed.results.list;
 
-    return <pre dangerouslySetInnerHTML={{ __html: html }} />;
+    if (feed.options.tag) {
+      list = clone(list).map((item) => {
+        if (item.type === 'gallery') {
+          item.url += '?tag=' + encodeURIComponent(feed.options.tag);
+        }
+
+        return item;
+      });
+    }
+
+    return <ItemsGrid items={list} spacing="8" />;
   }
 
   makePagination() {

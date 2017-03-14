@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 import { AppContent } from 'components/app';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
+import ItemsGrid from 'components/items-grid';
 import TagsCloud from 'components/tags-cloud';
 import Paginator from 'components/paginator';
 import Loader from 'components/loader';
 import Lang from 'libs/lang';
+import clone from 'libs/clone';
 import langRu from './lang/ru';
 import langEn from './lang/en';
 
@@ -110,9 +112,11 @@ class FergGallery extends React.PureComponent {
     const tags = this.props.tags;
 
     if (!tags) return null;
-    if (!Object.keys(tags.results).length) return null;
     if (tags.loading) return <Loader />;
     if (tags.error) return tags.error;
+    if (!Object.keys(tags.results).length) {
+      return Lang('gallery.tags_not_found');
+    }
 
     const url = `/${this.props.lang}/gallery/?tag=%tag%`;
     const selected_url = `/${this.props.lang}/gallery/`;
@@ -134,10 +138,20 @@ class FergGallery extends React.PureComponent {
     if (!photos) return null;
     if (!photos.results.photos && photos.loading) return <Loader />;
     if (photos.error) return photos.error;
+    if (!photos.results.photos.length) {
+      return Lang('gallery.photos_not_found');
+    }
 
-    const html = JSON.stringify(photos, null, 2);
+    let list = photos.results.photos;
 
-    return <pre dangerouslySetInnerHTML={{ __html: html }} />;
+    if (photos.options.tag) {
+      list = clone(list).map((item) => {
+        item.url += '?tag=' + encodeURIComponent(photos.options.tag);
+        return item;
+      });
+    }
+
+    return <ItemsGrid items={list} spacing="3" />;
   }
 
   makePagination() {

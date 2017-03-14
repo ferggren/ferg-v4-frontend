@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { AppContent, AppGrid, AppGridItem } from 'components/app';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
+import ItemsGrid from 'components/items-grid';
 import StickyBlock from 'components/sticky-block';
 import Loader from 'components/loader';
 import TagsCloud from 'components/tags-cloud';
@@ -137,9 +138,11 @@ class FergPages extends React.PureComponent {
     const tags = this.props.tags;
 
     if (!tags) return null;
-    if (!Object.keys(tags.results).length) return null;
     if (tags.loading) return <Loader />;
     if (tags.error) return tags.error;
+    if (!Object.keys(tags.results).length) {
+      return Lang('pages.tags_not_found');
+    }
 
     const url = `/${this.props.lang}/${this.props.type}/?tag=%tag%`;
     const selected_url = `/${this.props.lang}/${this.props.type}/`;
@@ -161,10 +164,11 @@ class FergPages extends React.PureComponent {
     if (!pages) return null;
     if (!pages.results.list && pages.loading) return <Loader />;
     if (pages.error) return pages.error;
+    if (!pages.results.list.length) {
+      return Lang('pages.photos_not_found');
+    }
 
-    const html = JSON.stringify(pages, null, 2);
-
-    return <pre dangerouslySetInnerHTML={{ __html: html }} />;
+    return <ItemsGrid items={pages.results.list} spacing="8" />;
   }
 
   makePagination() {

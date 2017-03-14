@@ -38,7 +38,7 @@ class Ferg365 extends React.PureComponent {
   render() {
     return (
       <AppContent>
-        Ferg365
+        {Lang('365.not_found')}
       </AppContent>
     );
   }
