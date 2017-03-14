@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { AppContent } from 'components/app';
+import { AppContent, AppGrid, AppGridItem } from 'components/app';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
+import StickyBlock from 'components/sticky-block';
 import Loader from 'components/loader';
 import TagsCloud from 'components/tags-cloud';
 import Paginator from 'components/paginator';
@@ -121,7 +122,15 @@ class FergPages extends React.PureComponent {
       }
     ));
     
-    if (window.scrollTo) window.scrollTo(0, 0);
+    const block = document.getElementById('ferg-pages');
+    if (block) {
+      const offset_top = block.offsetTop - 55;
+      const window_scroll = window.scrollY;
+
+      if (window_scroll > offset_top) {
+        window.scrollTo(0, offset_top);
+      }
+    }
   }
 
   makeTags() {
@@ -187,17 +196,28 @@ class FergPages extends React.PureComponent {
 
   render() {
     return (
-      <div>
-        <AppContent>
-          {this.makePages()}
-        </AppContent>
+      <AppContent paddingTop={false} contentPadding={false}>
+        <AppGrid direction="row">
+          <AppGridItem order="1" width="70%">
+            <AppContent expand>
+              <div id="ferg-pages" />
+              {this.makePages()}
+            </AppContent>
 
-        {this.makePagination()}
-        
-        <AppContent>
-          {this.makeTags()}
-        </AppContent>
-      </div>
+            <AppContent expand>
+              {this.makePagination()}
+            </AppContent>
+          </AppGridItem>
+
+          <AppGridItem order="2" width="30%">
+            <StickyBlock>
+              <AppContent expand>
+                {this.makeTags()}
+              </AppContent>
+            </StickyBlock>
+          </AppGridItem>
+        </AppGrid>
+      </AppContent>
     );
   }
 }

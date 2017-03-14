@@ -1,0 +1,12 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.sticky-block {
+  @include respond_to(desktop) {
+    position: relative;
+
+    &__wrapper {
+      position: relative;
+    }
+  }
+}

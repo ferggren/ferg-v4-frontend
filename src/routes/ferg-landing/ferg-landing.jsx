@@ -1,11 +1,12 @@
 'use strict';
 
 import React from 'react';
-import { AppContent } from 'components/app';
+import { AppContent, AppGrid, AppGridItem } from 'components/app';
 import LandingHeader from 'components/landing-header';
 import TagsCloud from 'components/tags-cloud';
 import Loader from 'components/loader';
 import Paginator from 'components/paginator';
+import StickyBlock from 'components/sticky-block';
 import { connect } from 'react-redux';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
@@ -95,8 +96,16 @@ class FergLanding extends React.PureComponent {
     this.props.dispatch(apiFetch(
       FEED_API_KEY, FEED_API_URL, { page, tag, cache: true }
     ));
-    
-    if (window.scrollTo) window.scrollTo(0, 0);
+
+    const block = document.getElementById('ferg-feed');
+    if (block) {
+      const offset_top = block.offsetTop - 55;
+      const window_scroll = window.scrollY;
+
+      if (window_scroll > offset_top) {
+        window.scrollTo(0, offset_top);
+      }
+    }
   }
 
   makeTags() {
@@ -150,13 +159,11 @@ class FergLanding extends React.PureComponent {
     url += 'page=%page%';
 
     return (
-      <AppContent>
-        <Paginator
-          page={feed.results.page}
-          pages={feed.results.pages}
-          url={url}
-        />
-      </AppContent>
+      <Paginator
+        page={feed.results.page}
+        pages={feed.results.pages}
+        url={url}
+      />
     );
   }
 
@@ -167,14 +174,27 @@ class FergLanding extends React.PureComponent {
           <LandingHeader />
         </AppContent>
 
-        <AppContent>
-          {this.makeFeed()}
-        </AppContent>
+        <AppContent paddingTop={false} contentPadding={false}>
+          <AppGrid direction="row">
+            <AppGridItem order="1" width="70%">
+              <AppContent expand>
+                <div id="ferg-feed" />
+                {this.makeFeed()}
+              </AppContent>
 
-        {this.makePagination()}
+              <AppContent expand>
+                {this.makePagination()}
+              </AppContent>
+            </AppGridItem>
 
-        <AppContent>
-          {this.makeTags()}
+            <AppGridItem order="2" width="30%">
+              <StickyBlock>
+                <AppContent expand>
+                  {this.makeTags()}
+                </AppContent>
+              </StickyBlock>
+            </AppGridItem>
+          </AppGrid>
         </AppContent>
       </div>
     );

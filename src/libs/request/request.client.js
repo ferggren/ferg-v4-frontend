@@ -9,7 +9,7 @@
 
 /* eslint no-console: "off" */
 
-import { getCookie } from 'libs/cookies';
+import { getCookie, setCookie } from 'libs/cookies';
 
 const Request = {
   /** Requests queue */
@@ -628,7 +628,7 @@ const Request = {
 
     if (!token) {
       token = Request._makeCSRFToken();
-      token('__csrf_token', token, 86400 * 365);
+      setCookie('__csrf_token', token, 86400 * 365);
     }
 
     return token;

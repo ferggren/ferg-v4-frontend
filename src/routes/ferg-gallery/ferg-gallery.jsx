@@ -91,7 +91,15 @@ class FergGallery extends React.PureComponent {
       GALLERY_API_KEY, GALLERY_API_URL, { page, tag, cache: true }
     ));
     
-    if (window.scrollTo) window.scrollTo(0, 0);
+    const block = document.getElementById('ferg-gallery');
+    if (block) {
+      const offset_top = block.offsetTop - 55;
+      const window_scroll = window.scrollY;
+
+      if (window_scroll > offset_top) {
+        window.scrollTo(0, offset_top);
+      }
+    }
   }
 
   updateTitle() {
@@ -163,6 +171,7 @@ class FergGallery extends React.PureComponent {
     return (
       <div>
         <AppContent>
+          <div id="ferg-gallery" />
           {this.makePhotos()}
         </AppContent>
 

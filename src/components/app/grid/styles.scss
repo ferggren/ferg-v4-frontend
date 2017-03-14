@@ -1,0 +1,19 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.app-grid {
+  @include respond_to(desktop) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-flow: flex-start;
+    align-content: flex-start;
+  }
+
+  @include respond_to(mobile) {
+    &__item {
+      width: 100% !important;
+    }
+  }
+}
