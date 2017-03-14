@@ -23,9 +23,9 @@ class ItemsGridItem extends React.PureComponent {
 
     if (this.props.item.desc) {
       desc = (
-        <h3 className="items-grid__item-desc">
+        <div className="items-grid__item-desc">
           {this.props.item.desc.desc}
-        </h3>
+        </div>
       );
     }
 

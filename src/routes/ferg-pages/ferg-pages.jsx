@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { AppContent, AppGrid, AppGridItem } from 'components/app';
+import { AppContent, AppGrid, AppGridItem, AppContentTitle } from 'components/app';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
 import ItemsGrid from 'components/items-grid';
@@ -171,6 +171,20 @@ class FergPages extends React.PureComponent {
     return <ItemsGrid items={pages.results.list} spacing="8" />;
   }
 
+  makeTitle() {
+    const pages = this.props.pages;
+
+    if (!pages.options.tag) return null;
+
+    return (
+      <AppContent expand>
+        <AppContentTitle align="left">
+          {pages.options.tag}
+        </AppContentTitle>
+      </AppContent>
+    );
+  }
+
   makePagination() {
     const pages = this.props.pages;
 
@@ -203,8 +217,9 @@ class FergPages extends React.PureComponent {
       <AppContent paddingTop={false} contentPadding={false}>
         <AppGrid direction="row">
           <AppGridItem order="1" width="70%">
-            <AppContent expand>
-              <div id="ferg-pages" />
+            {this.makeTitle()}
+
+            <AppContent expand id="ferg-pages">
               {this.makePages()}
             </AppContent>
 

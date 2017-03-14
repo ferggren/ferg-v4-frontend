@@ -9,6 +9,7 @@ const propTypes = {
   overlapHeader: React.PropTypes.bool,
   paddingTop: React.PropTypes.bool,
   contentPadding: React.PropTypes.bool,
+  id: React.PropTypes.string,
 };
 
 const defaultProps = {
@@ -17,32 +18,39 @@ const defaultProps = {
   overlapHeader: false,
   paddingTop: true,
   contentPadding: true,
+  id: '',
 };
 
 class AppContent extends React.PureComponent {
   render() {
-    let content_class = 'app-content';
+    const props = {
+      className: 'app-content',
+    };
+
+    if (this.props.id) {
+      props.id = this.props.id;
+    }
 
     if (this.props.expand) {
-      content_class += ' app-content--full';
+      props.className += ' app-content--full';
     } else {
-      content_class += ' app-content--fit';
+      props.className += ' app-content--fit';
     }
 
     if (this.props.overlapHeader) {
-      content_class += ' app-content--with-overlap';
+      props.className += ' app-content--with-overlap';
     }
 
     if (this.props.paddingTop) {
-      content_class += ' app-content--with-padding-top';
+      props.className += ' app-content--with-padding-top';
     }
 
     if (this.props.contentPadding) {
-      content_class += ' app-content--with-content-padding';
+      props.className += ' app-content--with-content-padding';
     }
 
     return (
-      <div className={content_class}>
+      <div {...props}>
         {this.props.children}
       </div>
     );

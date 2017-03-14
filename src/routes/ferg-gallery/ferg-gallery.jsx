@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { AppContent } from 'components/app';
+import { AppContent, AppContentTitle } from 'components/app';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
 import ItemsGrid from 'components/items-grid';
@@ -152,8 +152,6 @@ class FergGallery extends React.PureComponent {
       return item;
     });
 
-    console.log(list);
-
     return <ItemsGrid items={list} spacing="3" />;
   }
 
@@ -184,11 +182,26 @@ class FergGallery extends React.PureComponent {
     );
   }
 
+  makeTitle() {
+    const photos = this.props.photos;
+
+    if (!photos.options.tag) return null;
+
+    return (
+      <AppContent expand>
+        <AppContentTitle align="center">
+          {photos.options.tag}
+        </AppContentTitle>
+      </AppContent>
+    );
+  }
+
   render() {
     return (
       <div>
-        <AppContent>
-          <div id="ferg-gallery" />
+        {this.makeTitle()}
+        
+        <AppContent id="ferg-gallery">
           {this.makePhotos()}
         </AppContent>
 

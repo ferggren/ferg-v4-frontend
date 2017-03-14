@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { AppContent, AppGrid, AppGridItem } from 'components/app';
+import { AppContent, AppContentTitle, AppGrid, AppGridItem } from 'components/app';
 import ItemsGrid from 'components/items-grid';
 import LandingHeader from 'components/landing-header';
 import TagsCloud from 'components/tags-cloud';
@@ -159,6 +159,20 @@ class FergLanding extends React.PureComponent {
     return <ItemsGrid items={list} spacing="8" />;
   }
 
+  makeTitle() {
+    const feed = this.props.feed;
+
+    if (!feed.options.tag) return null;
+
+    return (
+      <AppContent expand>
+        <AppContentTitle align="left">
+          {feed.options.tag}
+        </AppContentTitle>
+      </AppContent>
+    );
+  }
+
   makePagination() {
     const feed = this.props.feed;
 
@@ -194,8 +208,9 @@ class FergLanding extends React.PureComponent {
         <AppContent paddingTop={false} contentPadding={false}>
           <AppGrid direction="row">
             <AppGridItem order="1" width="70%">
-              <AppContent expand>
-                <div id="ferg-feed" />
+              {this.makeTitle()}
+
+              <AppContent expand id="ferg-feed">
                 {this.makeFeed()}
               </AppContent>
 
