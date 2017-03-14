@@ -142,14 +142,17 @@ class FergGallery extends React.PureComponent {
       return Lang('gallery.photos_not_found');
     }
 
-    let list = photos.results.photos;
+    const list = clone(photos.results.photos).map((item) => {
+      item.url = `/${this.props.lang}/gallery/${item.id}/`;
 
-    if (photos.options.tag) {
-      list = clone(list).map((item) => {
+      if (photos.options.tag) {
         item.url += '?tag=' + encodeURIComponent(photos.options.tag);
-        return item;
-      });
-    }
+      }
+
+      return item;
+    });
+
+    console.log(list);
 
     return <ItemsGrid items={list} spacing="3" />;
   }

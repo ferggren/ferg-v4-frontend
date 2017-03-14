@@ -31,6 +31,10 @@ class StickyBlock extends React.PureComponent {
     this.updatePosition();
   }
 
+  componentDidUpdate() {
+    this.updatePosition();
+  }
+
   componentWillUnmount() {
     window.removeEventListener('scroll', this.updatePosition);
     window.removeEventListener('resize', this.updatePosition);
@@ -50,14 +54,40 @@ class StickyBlock extends React.PureComponent {
     if (!this.ref_block) return;
     if (!this.ref_wrapper) return;
 
+    const navigation_height = 40;
     const offset_top = this.ref_wrapper.offsetTop;
-    const scroll_y = window.scrollY + 40;
-    let top = '0px';
+    const scroll_y = window.scrollY + navigation_height;
+    let width = this.ref_wrapper.offsetWidth;
+    let top = 0;
 
-    if (isNaN(offset_top) || isNaN(scroll_y)) return;
+    if (isNaN(offset_top) ||
+        isNaN(scroll_y) ||
+        isNaN(width)
+        ) {
+      return;
+    }
+
+    width = `${width}px`;
+
+    if (width !== this.ref_block.style.width) {
+      this.ref_block.style.width = width;
+    }
 
     if (offset_top < scroll_y) {
-      top = `${scroll_y - offset_top}px`;
+      top = scroll_y - offset_top;
+    }
+
+    let position = 'relative';
+
+    if (top > 0) {
+      top = navigation_height;
+      position = 'fixed';
+    }
+
+    top = `${top}px`;
+    
+    if (this.ref_block.style.position !== position) {
+      this.ref_block.style.position = position;
     }
     
     if (this.ref_block.style.top !== top) {
