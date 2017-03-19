@@ -41,7 +41,7 @@ function apiLoadSuccess(key, response) {
   return { type: 'API_LOAD_SUCCESS', key, response };
 }
 
-export function apiFetch(key, url, options, clear_data = false) {
+export function apiFetch(key, url, options, clear_data = true) {
   return (dispatch, getState) => {
     if (typeof options !== 'object') options = {};
 
