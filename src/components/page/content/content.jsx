@@ -9,8 +9,12 @@ const propTypes = {
 
 class PageContent extends React.PureComponent {
   render() {
-    console.log(this.props);
-    return null;
+    return (
+      <div
+        className="page-content"
+        dangerouslySetInnerHTML={{ __html: this.props.content }}
+      />
+    );
   }
 }
 

@@ -1,6 +1,259 @@
 @import 'styles/variables';
 @import 'styles/mixins';
 
-.page-content {
 
+$margin_bottom: 20px;
+
+.page-content {
+  a {
+    color: $link_color_default;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__clear {
+    clear: both;
+  }
+
+  /**
+   *  Titles
+   */
+  &__h {
+    margin: 0px 0px $margin_bottom 0px;
+    font-size: 34px;
+    line-height: 40px;
+    letter-spacing: 1px;
+    color: #333;
+  }
+
+  /**
+   *  PhotoGrid
+   */
+  &__photo_grid {
+    margin-top: $margin_bottom;
+    margin-bottom: $margin_bottom;
+    text-align: center;
+    vertical-align: top;
+  }
+
+  /**
+   *  Page block
+   */
+  &__block {
+    
+  }
+
+  /**
+   *  Paragraph
+   */
+  &__paragraph {
+    color: #000;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: -0.003em;
+    font-style: normal;
+    margin-bottom: $margin_bottom;
+
+    strong {
+      font-weight: bold;
+      color: #444;
+    }
+  }
+
+  /**
+   *  Photo
+   */
+  &__photo {
+    margin: $margin_bottom 0px;
+
+    img {
+      max-width: 100%;
+    }
+
+    &-desc {
+      line-height: 20px;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+
+  /**
+   *  Photo - grid
+   */
+  &__grid_photo {
+    width: 25%;
+    display: inline-block;
+    vertical-align: top;
+
+    @include respond_to(mobile) {
+      width: 50%;
+    }
+
+
+    &-image {
+      height: 130px;
+      width: 90%;
+      background: #EEE;
+      background-position: 50% 50%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin: 0px auto 10px auto;
+    }
+
+    &-desc {
+      font-size: 12px;
+      line-height: 16px;
+      text-align: center;
+      margin-bottom: $margin_bottom;
+    }
+  }
+
+  /**
+   *  Photo - cover
+   */
+  &__cover_photo {
+    &--right {
+      float: right;
+    }
+
+    &--left {
+      float: left;
+    }
+
+    &-image {
+      width: 150px;
+      height: 100px;
+      background: #EEE;
+      background-position: 50% 50%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin-bottom: 10px;
+      margin-top: 6px;
+    }
+
+    &--right &-image {
+      margin-left: $screen_padding;
+    }
+
+    &--left &-image {
+      margin-right: $screen_padding;
+    }
+
+    &-desc {
+      font-size: 12px;
+      line-height: 16px;
+      text-align: center;
+      margin-bottom: $margin_bottom;
+    }
+  }
+
+  /**
+   *  Photo - parallax
+   */
+  &__parallax_photo {
+    height: 400px;
+    margin: $margin_bottom 0px;
+
+    @include respond_to(mobile) {
+      height: 200px;
+    }
+
+    &-image {
+      width: 100%;
+      height: 100%;
+      background: #EEE;
+      background-position: 50% 50%;
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      @include respond_to(desktop) {
+        background-attachment: fixed;
+      }
+    }
+
+    &-desc {
+      font-size: 12px;
+      line-height: 16px;
+      text-align: center;
+      margin-bottom: $margin_bottom;
+    }
+  }
+
+  /**
+   *  Photo - small
+   */
+  .page-content__small_photo {
+    margin: $margin_bottom 0px;
+
+    &-image {
+      height: 300px;
+      height: 40vh;
+      background: #EEE;
+      background-position: 50% 50%;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    &-desc {
+      line-height: 20px;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+
+  /**
+   *  Code block
+   */
+  &__code {
+    margin: $margin_bottom 0px;
+
+    &-desc {
+      line-height: 16px;
+      font-size: 12px;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    & pre {
+      display: block;
+      padding: 5px 10px;
+      border-radius: 3px;
+      background: #f5f2f0;
+      color: #333;
+      line-height: 24px;
+      font-size: 14px;
+      font-family: Courier, "DejaVu Sans Mono", monospace;
+      overflow-x: scroll;
+    }
+
+    &-comment, &-comment span {
+      color: #708090 !important;
+    }
+
+    &-string, &-string span {
+      color: #690 !important;
+    }
+
+    &-variable {
+      color: #0086b3;
+    }
+
+    &-static {
+      color: #458;
+    }
+
+    &-constant {
+      color: #905;
+    }
+
+    &-function {
+      color: #302d8a;
+    }
+
+    &-class {
+      color: #458;
+    }
+  }
 }
