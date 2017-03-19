@@ -138,7 +138,7 @@ class FergLanding extends React.PureComponent {
     const feed = this.props.feed;
 
     if (!feed) return null;
-    if (!feed.results.list && feed.loading) return <Loader />;
+    if (!feed.results.list && feed.loading) return null;
     if (feed.error) return feed.error;
     if (!feed.results.list.length) {
       return Lang('landing.feed_not_found');
@@ -156,7 +156,17 @@ class FergLanding extends React.PureComponent {
       });
     }
 
-    return <ItemsGrid items={list} spacing="8" />;
+    return <ItemsGrid items={list} spacing="5" maxRatio={3} />;
+  }
+
+  makeLoader() {
+    if (!this.props.feed || !this.props.feed.loading) return null;
+
+    return (
+      <AppContent expand>
+        <Loader />
+      </AppContent>
+    );
   }
 
   makeTitle() {
@@ -209,6 +219,7 @@ class FergLanding extends React.PureComponent {
           <AppGrid direction="row">
             <AppGridItem order="1" width="70%">
               {this.makeTitle()}
+              {this.makeLoader()}
 
               <AppContent expand id="ferg-feed">
                 {this.makeFeed()}

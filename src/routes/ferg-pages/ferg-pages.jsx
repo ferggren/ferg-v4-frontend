@@ -162,13 +162,35 @@ class FergPages extends React.PureComponent {
     const pages = this.props.pages;
 
     if (!pages) return null;
-    if (!pages.results.list && pages.loading) return <Loader />;
+    if (!pages.results.list && pages.loading) return null;
     if (pages.error) return pages.error;
     if (!pages.results.list.length) {
       return Lang('pages.photos_not_found');
     }
 
-    return <ItemsGrid items={pages.results.list} spacing="8" />;
+    const list = pages.results.list.map((page) => {
+      return {
+        type: page.type,
+        date: page.timestamp,
+        ratio: 10,
+        title: page.title,
+        desc: page.desc,
+        url: `/${this.props.lang}/${page.type}/${page.id}`,
+        preview: (page.preview && page.preview.small) ? page.preview.small : '',
+      };
+    });
+
+    return <ItemsGrid items={list} spacing="5" maxRatio={3} />;
+  }
+
+  makeLoader() {
+    if (!this.props.pages || !this.props.pages.loading) return null;
+
+    return (
+      <AppContent expand>
+        <Loader />
+      </AppContent>
+    );
   }
 
   makeTitle() {
@@ -195,7 +217,7 @@ class FergPages extends React.PureComponent {
       return null;
     }
 
-    let url = `/${this.props.lang}/gallery/?`;
+    let url = `/${this.props.lang}/${this.props.type}/?`;
     if (pages.options.tag) {
       url += `tag=${encodeURIComponent(pages.options.tag)}&`;
     }
@@ -218,6 +240,7 @@ class FergPages extends React.PureComponent {
         <AppGrid direction="row">
           <AppGridItem order="1" width="70%">
             {this.makeTitle()}
+            {this.makeLoader()}
 
             <AppContent expand id="ferg-pages">
               {this.makePages()}

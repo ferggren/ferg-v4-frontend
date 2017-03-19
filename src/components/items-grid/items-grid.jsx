@@ -11,10 +11,12 @@ const propTypes = {
     React.PropTypes.string,
     React.PropTypes.numer,
   ]),
+  maxRatio: React.PropTypes.number,
 };
 
 const defaultProps = {
   spacing: 5,
+  maxRatio: 4,
 };
 
 class ItemsGrid extends React.PureComponent {
@@ -22,11 +24,14 @@ class ItemsGrid extends React.PureComponent {
     if (!items.length) return;
 
     for (let i = 0; i < items.length; ++i) {
+      const rnd = Math.sin(i);
+      const c = Math.floor((rnd * (110 - 90)) + 90) / 100;
+
       items[i].width = 100;
+      items[i].ratio *= c;
     }
 
     const length = items.length;
-    const ratio_max = 4;
     let position = 0;
 
     while (position < length) {
@@ -39,7 +44,7 @@ class ItemsGrid extends React.PureComponent {
           continue;
         }
 
-        if (ratio + items[stop].ratio <= ratio_max) {
+        if (ratio + items[stop].ratio <= this.props.maxRatio) {
           ratio += items[stop].ratio;
           continue;
         }

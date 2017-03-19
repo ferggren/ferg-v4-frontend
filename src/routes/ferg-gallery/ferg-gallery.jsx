@@ -136,7 +136,7 @@ class FergGallery extends React.PureComponent {
     const photos = this.props.photos;
 
     if (!photos) return null;
-    if (!photos.results.photos && photos.loading) return <Loader />;
+    if (!photos.results.photos && photos.loading) return null;
     if (photos.error) return photos.error;
     if (!photos.results.photos.length) {
       return Lang('gallery.photos_not_found');
@@ -152,7 +152,7 @@ class FergGallery extends React.PureComponent {
       return item;
     });
 
-    return <ItemsGrid items={list} spacing="3" />;
+    return <ItemsGrid items={list} spacing="3" maxRatio={4} />;
   }
 
   makePagination() {
@@ -182,6 +182,16 @@ class FergGallery extends React.PureComponent {
     );
   }
 
+  makeLoader() {
+    if (!this.props.photos || !this.props.photos.loading) return null;
+
+    return (
+      <AppContent expand>
+        <Loader />
+      </AppContent>
+    );
+  }
+
   makeTitle() {
     const photos = this.props.photos;
 
@@ -200,6 +210,7 @@ class FergGallery extends React.PureComponent {
     return (
       <div>
         {this.makeTitle()}
+        {this.makeLoader()}
         
         <AppContent id="ferg-gallery">
           {this.makePhotos()}
