@@ -65,6 +65,7 @@ class FergBlogPage extends React.PureComponent {
 
     if (!page || !page.results.title) {
       this.props.dispatch(titleSet(Lang(`page.${this.props.type}-title`)));
+      return;
     }
     
     this.props.dispatch(titleSet(Lang(
@@ -125,7 +126,7 @@ class FergBlogPage extends React.PureComponent {
         </AppContent>
 
         <AppContent>
-          {this.props.page.error}
+          {Lang('page.not_found')}
         </AppContent>
       </div>
     );

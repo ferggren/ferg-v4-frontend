@@ -7,6 +7,6 @@ export default {
   'blog-page-title': `%title% ${titleSeparator} Blog`,
   'events-title': 'Events',
   'ecents-page-title': `%title% ${titleSeparator} Events`,
-  not_found: 'Page not found ):',
+  not_found: 'Page not found',
   page_is_empty: 'There is nothing to show yet',
 };

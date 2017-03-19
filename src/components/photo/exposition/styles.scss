@@ -1,0 +1,124 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+$nav_height_destop: 80px;
+$nav_height_mobile: 50px;
+
+.photo-exposition {
+  width: 100%;
+  height: 70vh;
+  background: #222;
+  border-bottom: 1px solid #CCC;
+  position: relative;
+  overflow: hidden;
+
+  &__loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 30px;
+    margin-top: -15px;
+    margin-left: -50px;
+  }
+
+  &__photo {
+    display: block;
+    max-height: 70vh;
+    max-width: 100vw;
+    width: auto;
+    height: auto;
+
+    &-wrapper {
+      display: block;
+      position: relative;
+      text-align: center;
+      height: 70vh;
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+    }
+  }
+
+  &__navigation {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: $nav_height_destop;
+    line-height: $nav_height_destop;
+    padding: 0px $screen_padding;
+    text-align: center;
+    margin: 0px;
+    background: rgba(90, 90, 90, .2);
+
+    @include respond_to(mobile) {
+      height: $nav_height_mobile;
+      line-height: $nav_height_mobile;
+    }
+
+    &-button {
+      cursor: pointer;
+      height: $nav_height_destop - ($screen_padding * 2);
+      line-height: $nav_height_destop - ($screen_padding * 2);
+      text-align: center;
+      font-size: 30px;
+      color: #EEE;
+      position: absolute;
+      opacity: .7;
+      font-weight: 300;
+      transition: opacity $transition_duration $transition_function;
+
+      @include respond_to(mobile) {
+        height: $nav_height_mobile - ($screen_padding * 2);
+        line-height: $nav_height_mobile - ($screen_padding * 2);
+        font-size: 20px;
+      }
+
+      &--prev {
+        top: $screen_padding;
+        left: $screen_padding;
+      }
+
+      &--next {
+        top: $screen_padding;
+        right: $screen_padding;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &-link {
+      cursor: pointer;
+      height: 45px;
+      width: 45px;
+      margin-right: 10px;
+      display: inline-block;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      border: 1px solid #CCC;
+      vertical-align: middle;
+      opacity: .6;
+      transition: opacity $transition_duration $transition_function;
+
+      &:last-child {
+        margin-right: 0px;
+      }
+      
+      @include respond_to(mobile) {
+        height: 28px;
+        width: 28px;
+      }
+
+      &:hover, &--current {
+        opacity: 1;
+      }
+    }
+  }
+}
