@@ -21,14 +21,6 @@ class ItemsGridItem extends React.PureComponent {
     let desc = null;
     let title = null;
 
-    if (this.props.item.desc) {
-      desc = (
-        <div className="items-grid__item-desc">
-          {this.props.item.desc.desc}
-        </div>
-      );
-    }
-
     if (this.props.item.title) {
       title = (
         <h4 className="items-grid__item-title">
@@ -37,10 +29,18 @@ class ItemsGridItem extends React.PureComponent {
       );
     }
 
+    if (this.props.item.desc) {
+      desc = (
+        <div className="items-grid__item-desc">
+          {this.props.item.desc}
+        </div>
+      );
+    }
+
     if (!desc && !title) return null;
 
     return (
-      <div className="items-grid__item-header">
+      <div>
         {title}
         {desc}
       </div>

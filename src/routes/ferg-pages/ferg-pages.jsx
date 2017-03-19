@@ -16,13 +16,13 @@ import langEn from './lang/en';
 
 const PAGES_TAGS_API_URL = '/api/tags/getTags';
 const PAGES_TAGS_API_KEY = {
-  blog: 'pages_blog',
-  events: 'pages_events',
+  blog: 'tags_blog',
+  events: 'tags_events',
 };
 const PAGES_API_URL = '/api/pages/getPages';
 const PAGES_API_KEY = {
-  blog: 'tags_blog',
-  events: 'tags_events',
+  blog: 'pages_blog',
+  events: 'pages_events',
 };
 
 Lang.updateLang('pages', langRu, 'ru');
@@ -277,7 +277,7 @@ FergPages.fetchData = function (store, params) {
       store.dispatch(apiFetch(
         PAGES_API_KEY[type], PAGES_API_URL, {
           type,
-          page: params.page || 1,
+          page: parseInt(params.page, 10) || 1,
           tag: params.tag || '',
           cache: true,
         }

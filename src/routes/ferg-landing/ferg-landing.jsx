@@ -255,7 +255,7 @@ FergLanding.fetchData = function (store, params) {
     ret.push(
       store.dispatch(apiFetch(
         FEED_API_KEY, FEED_API_URL, {
-          page: params.page || 1,
+          page: parseInt(params.page, 10) || 1,
           tag: params.tag || '',
           cache: true,
         }

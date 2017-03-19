@@ -237,7 +237,7 @@ FergGallery.fetchData = function (store, params) {
     ret.push(
       store.dispatch(apiFetch(
         GALLERY_API_KEY, GALLERY_API_URL, {
-          page: params.page || 1,
+          page: parseInt(params.page, 10) || 1,
           tag: params.tag || '',
           cache: true,
         }
