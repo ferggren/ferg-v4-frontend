@@ -18,7 +18,9 @@ class LandingHeader extends React.PureComponent {
                 href="mailto:me@ferg.in"
                 rel="noreferrer noopener"
                 title="Contact me via email"
-              >Contact me via email</a>
+              >
+                Contact me via email
+              </a>
             </li>
 
             <li className="landing-header__contact landing-header__contact--skype">
@@ -26,7 +28,9 @@ class LandingHeader extends React.PureComponent {
                 href="skype:ferggren?chat"
                 rel="noreferrer noopener"
                 title="Contact me on Skype"
-              >Contact me on Skype</a>
+              >
+                Contact me on Skype
+              </a>
             </li>
 
             <li className="landing-header__contact landing-header__contact--github">
@@ -35,7 +39,9 @@ class LandingHeader extends React.PureComponent {
                 rel="nofollow noopener noreferrer"
                 href="https://github.com/ferggren" 
                 title="Find me on Github"
-              >Find me on Github</a>
+              >
+                Find me on Github
+              </a>
             </li>
 
             <li className="landing-header__contact landing-header__contact--facebook">
@@ -44,7 +50,9 @@ class LandingHeader extends React.PureComponent {
                 rel="nofollow noopener noreferrer"
                 href="https://www.facebook.com/ferggren"
                 title="Contact me on Facebook"
-              >Contact me on Facebook</a>
+              >
+                Contact me on Facebook
+              </a>
             </li>
 
             <li className="landing-header__contact landing-header__contact--vk">
@@ -53,7 +61,9 @@ class LandingHeader extends React.PureComponent {
                 rel="nofollow noopener noreferrer"
                 href="https://vk.com/id4867738"
                 title="Contact me on VK"
-              >Contact me on VK</a>
+              >
+                Contact me on VK
+              </a>
             </li>
 
             <li className="landing-header__contact landing-header__contact--500px">
@@ -62,7 +72,9 @@ class LandingHeader extends React.PureComponent {
                 rel="nofollow noopener noreferrer"
                 href="https://500px.com/ferggren"
                 title="Follow me on 500px"
-              >Follow me on 500px</a>
+              >
+                Follow me on 500px
+              </a>
             </li>
 
             <li className="landing-header__contact landing-header__contact--flickr">
@@ -71,7 +83,9 @@ class LandingHeader extends React.PureComponent {
                 rel="nofollow noopener noreferrer"
                 href="https://www.flickr.com/photos/ferggren/"
                 title="Follow me on Flickr"
-              >Follow me on Flickr</a>
+              >
+                Follow me on Flickr
+              </a>
             </li>
 
             <li className="landing-header__contact landing-header__contact--instagram">
@@ -80,7 +94,9 @@ class LandingHeader extends React.PureComponent {
                 rel="nofollow noopener noreferrer"
                 href="https://instagram.com/ferggren/"
                 title="Follow me on Instagram"
-              >Follow me on Instagram</a>
+              >
+                Follow me on Instagram
+              </a>
             </li>
           </ul>
         </div>
