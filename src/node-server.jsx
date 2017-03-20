@@ -24,6 +24,7 @@ import { setLang } from 'actions/lang';
 import { setLocation } from 'actions/location';
 import { setSession } from 'actions/session';
 import { userLogin } from 'actions/user';
+import SiteAnalytics from 'config/analytics';
 
 /* global NODE_ENV */
 /* global NODE_PORT */
@@ -111,7 +112,8 @@ server.use((req, res) => {
         const content = renderClientHTML(
           clientHTML,
           store.getState(),
-          scripts_enabled
+          scripts_enabled,
+          SiteAnalytics
         );
 
         res.set({

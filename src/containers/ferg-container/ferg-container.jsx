@@ -5,6 +5,7 @@ import { AppContainer } from 'components/app';
 import LocationWatcher from 'containers/location-watcher';
 import RequestProgress from 'containers/request-progress';
 import TitleWatcher from 'containers/ferg-title-watcher';
+import Tracker from 'containers/tracker';
 import FergNavigation from 'containers/ferg-navigation';
 import FergFooter from 'containers/ferg-footer';
 
@@ -25,6 +26,7 @@ class FergContainer extends React.PureComponent {
         <LocationWatcher />
         <TitleWatcher />
         <RequestProgress />
+        <Tracker />
 
         {this.props.children}
 

@@ -206,13 +206,13 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
 
   if (NODE_ENV !== 'dev') {
     styles = `<link href="${makePathToAsset('ferg.css')}" rel="stylesheet" />`;
+  }
 
-    if (counters) {
-      const keys = Object.keys(counters);
+  if (counters) {
+    const keys = Object.keys(counters);
 
-      for (let i = 0; i < keys; ++i) {
-        analytics += counters[i];
-      }
+    for (let i = 0; i < keys.length; ++i) {
+      analytics += counters[i];
     }
   }
 
@@ -237,10 +237,10 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
       </head>
       <body>
         <div id="react-root">${clientHTML}</div>
+        ${scripts_redux}
         <div class="app-counters">
           ${analytics}
         </div>
-        ${scripts_redux}
       </body>
     </html>
   `.trim().replace(/^ {4}/gm, '');
