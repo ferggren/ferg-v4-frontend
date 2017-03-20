@@ -1,15 +1,27 @@
 'use strict';
 
 import React from 'react';
+import Lang from 'libs/lang';
+import langEn from './lang/en';
+import langRu from './lang/ru';
 import './styles';
+
+Lang.updateLang('landing', langEn, 'en');
+Lang.updateLang('landing', langRu, 'ru');
+
+const propTypes = {
+  lang: React.PropTypes.string.isRequired,
+};
 
 class LandingHeader extends React.PureComponent {
   render() {
+    const lang = this.props.lang;
+
     return (
       <div className="landing-header" id="ferg-header">
         <div className="landing-header__contacts-wrapper">
           <h4 className="landing-header__contacts-title">
-            Contact me
+            {Lang('landing.contact', {}, lang)}
           </h4>
           
           <ul className="landing-header__contacts">
@@ -17,9 +29,9 @@ class LandingHeader extends React.PureComponent {
               <a
                 href="mailto:me@ferg.in"
                 rel="noreferrer noopener"
-                title="Contact me via email"
+                title={Lang('landing.contact_via_email', {}, lang)}
               >
-                Contact me via email
+                {Lang('landing.contact_via_email', {}, lang)}
               </a>
             </li>
 
@@ -27,9 +39,9 @@ class LandingHeader extends React.PureComponent {
               <a
                 href="skype:ferggren?chat"
                 rel="noreferrer noopener"
-                title="Contact me on Skype"
+                title={Lang('landing.contact_via_skype', {}, lang)}
               >
-                Contact me on Skype
+                {Lang('landing.contact_via_skype', {}, lang)}
               </a>
             </li>
 
@@ -38,9 +50,31 @@ class LandingHeader extends React.PureComponent {
                 target="_blank"
                 rel="nofollow noopener noreferrer"
                 href="https://github.com/ferggren" 
-                title="Find me on Github"
+                title={Lang('landing.contact_via_github', {}, lang)}
               >
-                Find me on Github
+                {Lang('landing.contact_via_github', {}, lang)}
+              </a>
+            </li>
+
+            <li className="landing-header__contact landing-header__contact--linkedin">
+              <a
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                href="https://linkedin.com/in/ferggren/" 
+                title={Lang('landing.contact_via_linkedin', {}, lang)}
+              >
+                {Lang('landing.contact_via_linkedin', {}, lang)}
+              </a>
+            </li>
+
+            <li className="landing-header__contact landing-header__contact--moikrug">
+              <a
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                href="https://moikrug.ru/ferg-51346" 
+                title={Lang('landing.contact_via_moikrug', {}, lang)}
+              >
+                {Lang('landing.contact_via_moikrug', {}, lang)}
               </a>
             </li>
 
@@ -49,9 +83,9 @@ class LandingHeader extends React.PureComponent {
                 target="_blank"
                 rel="nofollow noopener noreferrer"
                 href="https://www.facebook.com/ferggren"
-                title="Contact me on Facebook"
+                title={Lang('landing.contact_via_facebook', {}, lang)}
               >
-                Contact me on Facebook
+                {Lang('landing.contact_via_facebook', {}, lang)}
               </a>
             </li>
 
@@ -60,9 +94,9 @@ class LandingHeader extends React.PureComponent {
                 target="_blank"
                 rel="nofollow noopener noreferrer"
                 href="https://vk.com/id4867738"
-                title="Contact me on VK"
+                title={Lang('landing.contact_via_vk', {}, lang)}
               >
-                Contact me on VK
+                {Lang('landing.contact_via_vk', {}, lang)}
               </a>
             </li>
 
@@ -71,9 +105,9 @@ class LandingHeader extends React.PureComponent {
                 target="_blank"
                 rel="nofollow noopener noreferrer"
                 href="https://500px.com/ferggren"
-                title="Follow me on 500px"
+                title={Lang('landing.contact_via_500px', {}, lang)}
               >
-                Follow me on 500px
+                {Lang('landing.contact_via_500px', {}, lang)}
               </a>
             </li>
 
@@ -82,9 +116,9 @@ class LandingHeader extends React.PureComponent {
                 target="_blank"
                 rel="nofollow noopener noreferrer"
                 href="https://www.flickr.com/photos/ferggren/"
-                title="Follow me on Flickr"
+                title={Lang('landing.contact_via_flickr', {}, lang)}
               >
-                Follow me on Flickr
+                {Lang('landing.contact_via_flickr', {}, lang)}
               </a>
             </li>
 
@@ -93,9 +127,9 @@ class LandingHeader extends React.PureComponent {
                 target="_blank"
                 rel="nofollow noopener noreferrer"
                 href="https://instagram.com/ferggren/"
-                title="Follow me on Instagram"
+                title={Lang('landing.contact_via_instagram', {}, lang)}
               >
-                Follow me on Instagram
+                {Lang('landing.contact_via_instagram', {}, lang)}
               </a>
             </li>
           </ul>
@@ -104,5 +138,7 @@ class LandingHeader extends React.PureComponent {
     );
   }
 }
+
+LandingHeader.propTypes = propTypes;
 
 export default LandingHeader;

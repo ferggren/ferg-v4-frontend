@@ -212,7 +212,7 @@ class FergLanding extends React.PureComponent {
     return (
       <div>
         <AppContent expand overlapHeader paddingTop={false} contentPadding={false}>
-          <LandingHeader />
+          <LandingHeader lang={this.props.lang} />
         </AppContent>
 
         <AppContent paddingTop={false} contentPadding={false}>

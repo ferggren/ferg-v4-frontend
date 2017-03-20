@@ -1,13 +1,13 @@
 @import 'styles/variables';
 @import 'styles/mixins';
 
-$header_height_desktop: 45vw;
+$header_height_desktop: 30vw;
 $header_height_mobile: 300px;
 $contacts_height: 36px;
 
 .landing-header {
   background: rgb(150, 171, 179);
-  background-image: url('./media/header.jpg');
+  background-image: url('./media/header-wide.jpg');
   background-position: 50% 50%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -19,8 +19,8 @@ $contacts_height: 36px;
 
   @include respond_to(desktop) {
     height: $header_height_desktop;
-    max-height: 600px;
-    min-height: 200px;
+    max-height: 500px;
+    min-height: 300px;
   }
 
   &__contacts {
@@ -40,7 +40,6 @@ $contacts_height: 36px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      align-items: flex-end;
 
       @include respond_to(mobile) {
         align-items: center;
@@ -64,6 +63,11 @@ $contacts_height: 36px;
     height: 26px;
     margin-right: 6px;
     overflow: hidden;
+    
+    @include respond_to(mobile) {
+      width: 22px;
+      height: 22px;
+    }
 
     &:last-child {
       margin-right: 0px;
@@ -73,11 +77,16 @@ $contacts_height: 36px;
       display: inline-block;
       width: 26px;
       height: 26px;
-      background-size: 26px 26px;
+      background-size: 100% 100%;
       overflow: hidden;
       text-indent: 9999px;
       opacity: .8;
       transition: opacity $transition_duration $transition_function;
+    
+      @include respond_to(mobile) {
+        width: 22px;
+        height: 22px;
+      }
 
       &:hover {
         opacity: 1;
@@ -114,11 +123,20 @@ $contacts_height: 36px;
 
     &--flickr a {
       background-image: url('./media/contacts/flickr.png');
-      border-radius: 12px;
+      border-radius: 50%;
     }
 
     &--500px a {
       background-image: url('./media/contacts/500px.png');
+    }
+
+    &--moikrug a {
+      background-image: url('./media/contacts/moikrug.png');
+      border-radius: 50%;
+    }
+
+    &--linkedin a {
+      background-image: url('./media/contacts/linkedin.png');
     }
   }
 }
