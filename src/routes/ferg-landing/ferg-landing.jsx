@@ -156,7 +156,7 @@ class FergLanding extends React.PureComponent {
       });
     }
 
-    return <ItemsGrid items={list} spacing="5" maxRatio={3} />;
+    return <ItemsGrid items={list} spacing="5" />;
   }
 
   makeLoader() {
@@ -216,28 +216,20 @@ class FergLanding extends React.PureComponent {
         </AppContent>
 
         <AppContent paddingTop={false} contentPadding={false}>
-          <AppGrid direction="row">
-            <AppGridItem order="1" width="70%">
-              {this.makeTitle()}
-              {this.makeLoader()}
+          {this.makeTitle()}
+          {this.makeLoader()}
 
-              <AppContent expand id="ferg-feed">
-                {this.makeFeed()}
-              </AppContent>
+          <AppContent expand id="ferg-feed">
+            {this.makeFeed()}
+          </AppContent>
 
-              <AppContent expand>
-                {this.makePagination()}
-              </AppContent>
-            </AppGridItem>
+          <AppContent expand>
+            {this.makePagination()}
+          </AppContent>
 
-            <AppGridItem order="2" width="30%">
-              <StickyBlock>
-                <AppContent expand>
-                  {this.makeTags()}
-                </AppContent>
-              </StickyBlock>
-            </AppGridItem>
-          </AppGrid>
+          <AppContent expand>
+            {this.makeTags()}
+          </AppContent>
         </AppContent>
       </div>
     );
