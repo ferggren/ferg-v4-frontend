@@ -3,11 +3,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AppContent, AppGrid, AppGridItem, AppContentTitle } from 'components/app';
+import { AppContent, AppContentTitle } from 'components/app';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
 import ItemsGrid from 'components/items-grid';
-import StickyBlock from 'components/sticky-block';
 import Loader from 'components/loader';
 import TagsCloud from 'components/tags-cloud';
 import Paginator from 'components/paginator';
@@ -238,28 +237,20 @@ class FergPages extends React.PureComponent {
   render() {
     return (
       <AppContent paddingTop={false} contentPadding={false}>
-        <AppGrid direction="row">
-          <AppGridItem order="1" width="70%">
-            {this.makeTitle()}
-            {this.makeLoader()}
+        {this.makeTitle()}
+        {this.makeLoader()}
 
-            <AppContent expand id="ferg-pages">
-              {this.makePages()}
-            </AppContent>
+        <AppContent expand id="ferg-pages">
+          {this.makePages()}
+        </AppContent>
 
-            <AppContent expand>
-              {this.makePagination()}
-            </AppContent>
-          </AppGridItem>
+        <AppContent expand>
+          {this.makePagination()}
+        </AppContent>
 
-          <AppGridItem order="2" width="30%">
-            <StickyBlock>
-              <AppContent expand>
-                {this.makeTags()}
-              </AppContent>
-            </StickyBlock>
-          </AppGridItem>
-        </AppGrid>
+        <AppContent>
+          {this.makeTags()}
+        </AppContent>
       </AppContent>
     );
   }

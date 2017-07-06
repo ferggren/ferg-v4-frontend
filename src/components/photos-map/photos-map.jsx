@@ -87,7 +87,7 @@ class PhotosMap extends React.PureComponent {
     if (!this.map) return;
 
     if (this.map.getZoom() > 17) this.map.setZoom(17);
-    if (this.map.getZoom() < 12) this.map.setZoom(12);
+    if (this.map.getZoom() < 3) this.map.setZoom(3);
   }
 
   checkContainerSize() {
@@ -120,8 +120,8 @@ class PhotosMap extends React.PureComponent {
     this.map = new google.maps.Map(document.getElementById('ferg-map'), {
       clickableIcons: false,
       disableDefaultUI: true,
-      center: { lat: 47.374790, lng: 8.541468 },
-      zoom: 15,
+      center: { lat: 55.014578, lng: 82.919764 },
+      zoom: 4,
       mapTypeControlOptions: {
         mapTypeIds: [
           'roadmap',
@@ -133,8 +133,8 @@ class PhotosMap extends React.PureComponent {
       },
     });
 
-    // this.map.mapTypes.set('styled_map', styledMapType);
-    // this.map.setMapTypeId('styled_map');
+    this.map.mapTypes.set('styled_map', styledMapType);
+    this.map.setMapTypeId('styled_map');
 
     this.map.addListener('tilesloaded', () => {
       google.maps.event.clearListeners(this.map, 'tilesloaded');

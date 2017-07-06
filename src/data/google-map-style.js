@@ -6,7 +6,7 @@ export default [
     'elementType': 'all',
     'stylers': [
       {
-        'saturation': '-100'
+        'saturation': -100,
       }
     ]
   },
@@ -16,21 +16,6 @@ export default [
     'stylers': [
       {
         'visibility': 'off'
-      }
-    ]
-  },
-  {
-    'featureType': 'landscape',
-    'elementType': 'all',
-    'stylers': [
-      {
-        'saturation': -100
-      },
-      {
-        'lightness': 65
-      },
-      {
-        'visibility': 'on'
       }
     ]
   },
@@ -54,7 +39,7 @@ export default [
     'elementType': 'all',
     'stylers': [
       {
-        'saturation': '-100'
+        'saturation': -100,
       }
     ]
   },
@@ -97,32 +82,5 @@ export default [
       }
     ]
   },
-  {
-    'featureType': 'water',
-    'elementType': 'geometry',
-    'stylers': [
-      {
-        'hue': '#ffff00'
-      },
-      {
-        'lightness': -25
-      },
-      {
-        'saturation': -97
-      }
-    ]
-  },
-  {
-    'featureType': 'water',
-    'elementType': 'labels',
-    'stylers': [
-      {
-        'lightness': -25
-      },
-      {
-        'saturation': -100
-      }
-    ]
-  }
 ];
 /* eslint-enable */
