@@ -4,7 +4,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AppContent, AppContentTitle } from 'components/app';
 import ItemsGrid from 'components/items-grid';
-import LandingHeader from 'components/landing-header';
 import TagsCloud from 'components/tags-cloud';
 import Loader from 'components/loader';
 import Paginator from 'components/paginator';
@@ -212,7 +211,7 @@ class FergLanding extends React.PureComponent {
     return (
       <div>
         <AppContent expand overlapHeader paddingTop={false} contentPadding={false}>
-          <LandingHeader lang={this.props.lang} />
+          MAP HERE
         </AppContent>
 
         <AppContent paddingTop={false} contentPadding={false}>

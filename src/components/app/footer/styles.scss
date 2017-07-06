@@ -11,43 +11,145 @@
     bottom: 0px;
     left: 0px;
     width: 100%;
-    line-height: $footer_height;
+    line-height: $footer_line_height;
     font-size: 12px;
     background: #f0f0f0;
+    color: #666;
     overflow: hidden;
     z-index: $z_index_footer;
 
     @include respond_to(mobile) {
-      height: $footer_height * 2;
+      height: $footer_mobile_height;
     }
 
     @include respond_to(desktop) {
-      height: $footer_height;
+      height: $footer_desktop_height;
+    }
+  }
+
+  &__contacts {
+    line-height: inherit;
+    height: 22px;
+
+    &-wrapper {
+      padding: (($footer_line_height - 22px) / 2) $default_padding;
+      height: $footer_line_height;
+      line-height: 22px;
+
+      @include respond_to(mobile) {
+        text-align: center;
+      }
+
+      @include respond_to(desktop) {
+        float: left;
+        text-align: left;
+      }
+    }
+
+    &-title {
+      display: none;
+    }
+  }
+
+  &__contact {
+    display: inline-block;
+    padding: 0px;
+    margin: 0px;
+    width: 22px;
+    height: 22px;
+    margin-right: 12px;
+    overflow: hidden;
+    vertical-align: top;
+
+    @include respond_to(mobile) {
+      margin-right: 6px;
+    }
+
+    &:last-child {
+      margin-right: 0px;
+    }
+
+    a {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      background-size: 100% 100%;
+      overflow: hidden;
+      text-indent: 9999px;
+      transition: opacity $transition_duration $transition_function;
+      filter: grayscale(50%);
+
+      &:hover {
+        filter: grayscale(0%);
+      }
+    }
+
+    &--mail a {
+      background-image: url('./media/contacts/mail.png');
+    }
+
+    &--github a {
+      background-image: url('./media/contacts/github.png');
+    }
+
+    &--instagram a {
+      background-image: url('./media/contacts/instagram.png');
+    }
+
+    &--skype a {
+      background-image: url('./media/contacts/skype.png');
+    }
+
+    &--telegram a {
+      background-image: url('./media/contacts/telegram.png');
+    }
+
+    &--vk a {
+      background-image: url('./media/contacts/vk.png');
+    }
+
+    &--facebook a {
+      background-image: url('./media/contacts/facebook.png');
+    }
+
+    &--flickr a {
+      background-image: url('./media/contacts/flickr.png');
+      border-radius: 50%;
+    }
+
+    &--500px a {
+      background-image: url('./media/contacts/500px.png');
+    }
+
+    &--linkedin a {
+      background-image: url('./media/contacts/linkedin.png');
     }
   }
 
   &__copy {
     padding: 0px $default_padding;
     word-wrap: nowrap;
-    height: $footer_height;
-    line-height: $footer_height;
-    color: #666;
-
-    @include respond_to(mobile) {
-      text-align: center;
-    }
+    height: $footer_line_height;
+    line-height: $footer_line_height;
+    color: inherit;
+    text-align: center;
+    opacity: .5;
 
     @include respond_to(desktop) {
-      text-align: left;
-      float: left;
+      position: absolute;
+      top: 0px;
+      width: 200px;
+      margin-left: -100px;
+      left: 50%;
+      opacity: 0;
     }
   }
 
   &__lang {
     padding: 0px $default_padding;
     word-wrap: nowrap;
-    height: $footer_height;
-    line-height: $footer_height;
+    height: $footer_line_height;
+    line-height: $footer_line_height;
 
     @include respond_to(mobile) {
       text-align: center;
@@ -59,23 +161,23 @@
     }
 
     &-switch {
-      color: $link_color_default;
+      color: inherit;
       display: inline-block;
-      line-height: $footer_height;
+      line-height: $footer_line_height;
       position: relative;
       padding-left: 30px;
 
       &:hover {
-        color: $link_color_default;
+        color: inherit;
         text-decoration: underline;
       }
 
       &--en {
-        background: url('./media/lang_ru.png') no-repeat 0px 11px;
+        background: url('./media/lang_ru.png') no-repeat 0px 50%;
       }
 
       &--ru {
-        background: url('./media/lang_en.png') no-repeat 0px 11px;
+        background: url('./media/lang_en.png') no-repeat 0px 50%;
       }
     }
   }

@@ -45,11 +45,11 @@ html, body, #react-root {
     font-family: $font_default;
 
     @include respond_to(mobile) {
-      padding-bottom: ($footer_height * 2) + $default_padding;
+      padding-bottom: $footer_mobile_height + $default_padding;
     }
 
     @include respond_to(desktop) {
-      padding-bottom: $footer_height + $default_padding;
+      padding-bottom: $footer_desktop_height + $default_padding;
     }
   }
 
