@@ -1,7 +1,7 @@
 @import 'styles/variables';
 @import 'styles/mixins';
 
-$links_mobile_width: 150px;
+$links_mobile_width: 180px;
 
 .app-nav {
   position: relative;
@@ -43,6 +43,9 @@ $links_mobile_width: 150px;
         height: $navigation_height;
         line-height: $navigation_height;
         display: block;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       &:hover, &--current {
@@ -55,9 +58,9 @@ $links_mobile_width: 150px;
       touch-action: none;
       visibility: hidden;
       position: fixed;
-      top: $navigation_height;
+      top: 0px;
       left: 0px;
-      height: calc(100% - #{$navigation_height});
+      height: 100%;
       width: $links_mobile_width;
       background: rgba(44, 44, 44, 1);
       padding: 0px $screen_padding;
@@ -120,11 +123,11 @@ $links_mobile_width: 150px;
       touch-action: none;
       visibility: hidden;
       position: fixed;
-      top: $navigation_height;
+      top: 0px;
       left: 0px;
       width: 100%;
-      height: calc(100% - #{$navigation_height});
-      background: rgba(20, 20, 20, 0.3);
+      height: 100%;
+      background: rgba(20, 20, 20, 0.5);
       z-index: $z_index_navigation_shadow;
       opacity: 0;
       transition: visibility $transition_duration $transition_function,

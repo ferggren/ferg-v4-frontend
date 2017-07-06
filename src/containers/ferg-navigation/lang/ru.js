@@ -5,5 +5,4 @@ export default {
   blog: 'Блог',
   events: 'События',
   gallery: 'Галерея',
-  365: '365',
 };

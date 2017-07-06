@@ -5,5 +5,4 @@ export default {
   blog: 'Blog',
   events: 'Events',
   gallery: 'Gallery',
-  365: '365',
 };
