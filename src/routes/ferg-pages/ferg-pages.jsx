@@ -180,7 +180,7 @@ class FergPages extends React.PureComponent {
       };
     });
 
-    return <ItemsGrid items={list} spacing="5" maxRatio={3} />;
+    return <ItemsGrid items={list} spacing="10" maxRatio={3} />;
   }
 
   makeLoader() {
