@@ -7,6 +7,7 @@ import ItemsGrid from 'components/items-grid';
 import TagsCloud from 'components/tags-cloud';
 import Loader from 'components/loader';
 import Paginator from 'components/paginator';
+import PhotosMap from 'components/photos-map';
 import { connect } from 'react-redux';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
@@ -211,7 +212,7 @@ class FergLanding extends React.PureComponent {
     return (
       <div>
         <AppContent expand overlapHeader paddingTop={false} contentPadding={false}>
-          MAP HERE
+          <PhotosMap lang={this.props.lang} photos={[]} />
         </AppContent>
 
         <AppContent paddingTop={false} contentPadding={false}>

@@ -186,9 +186,9 @@ export function renderAdminHTML(state) {
         ${styles}
         <script src="${makePathToAsset('admin.js')}" async></script>
       </head>
-      <body>
+      <body style="padding: 0px; margin: 0px;">
         <div id="react-root">
-          <div class="react-loading">Loading...</div>
+          <div style="line-height: 100vh; text-align: center;">Loading...</div>
         </div>
         <script>window.REDUX_INITIAL_STATE=${JSON.stringify(state)};</script>
       </body>
@@ -231,11 +231,11 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
         <link rel="alternate" hreflang="x-default" href="//ferg.in/" />
         <link rel="alternate" hreflang="ru-ru" href="//ferg.in/ru/" />
         <link rel="alternate" hreflang="en-us" href="//ferg.in/en/" />
-        <title>${state.title} ${titleWebsite}</title>
+        <title>${state.title} ${titleSeparator} ${titleWebsite}</title>
         ${styles}
         ${scripts_bundle}
       </head>
-      <body>
+      <body style="padding: 0px; margin: 0px;">
         <div id="react-root">${clientHTML}</div>
         ${scripts_redux}
         <div class="app-counters">

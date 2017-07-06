@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { titleWebsite } from 'data/title-config';
+import { titleWebsite, titleSeparator } from 'data/title-config';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
@@ -21,7 +21,7 @@ class FergTitleWatcher extends React.PureComponent {
   }
 
   updateTitle() {
-    document.title = `${this.props.title} ${titleWebsite}`;
+    document.title = `${this.props.title} ${titleSeparator} ${titleWebsite}`;
   }
 
   render() {

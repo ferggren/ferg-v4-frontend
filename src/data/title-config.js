@@ -1,4 +1,4 @@
 'use strict';
 
 export const titleWebsite = 'ferg.in';
-export const titleSeparator = '/';
+export const titleSeparator = '–';

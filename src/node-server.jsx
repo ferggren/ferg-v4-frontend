@@ -24,7 +24,7 @@ import { setLang } from 'actions/lang';
 import { setLocation } from 'actions/location';
 import { setSession } from 'actions/session';
 import { userLogin } from 'actions/user';
-import SiteAnalytics from 'config/analytics';
+import SiteAnalytics from 'data/analytics';
 
 /* global NODE_ENV */
 /* global NODE_PORT */

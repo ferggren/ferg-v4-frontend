@@ -27,13 +27,12 @@ class FergNavigation extends React.PureComponent {
   constructor(props) {
     super(props);
 
-
     this.state = {
       style: 'white',
     };
 
     this.request = false;
-    this.ref_ferg_header = false;
+    this.ref_ferg_map = false;
 
     this.signOut = this.signOut.bind(this);
     this.updateScroll = this.updateScroll.bind(this);
@@ -123,10 +122,7 @@ class FergNavigation extends React.PureComponent {
     const scroll_top = window.pageYOffset || 0;
     let style = 'white';
 
-    if (this.ref_ferg_header) {
-      // const height = this.ref_ferg_header.offsetHeight || 0;
-      // scroll_top >= (height - navigation_height)
-
+    if (this.ref_ferg_map) {
       if (scroll_top > 0) {
         style = 'white';
       } else {
@@ -140,7 +136,7 @@ class FergNavigation extends React.PureComponent {
   }
 
   updateRefs() {
-    this.ref_ferg_header = document.getElementById('ferg-header');
+    this.ref_ferg_map = document.getElementById('ferg-map');
   }
 
   signOut() {

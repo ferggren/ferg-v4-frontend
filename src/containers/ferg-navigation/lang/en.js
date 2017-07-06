@@ -4,5 +4,5 @@ export default {
   landing: 'Home',
   blog: 'Blog',
   events: 'Events',
-  gallery: 'Gallery',
+  gallery: 'Photostream',
 };

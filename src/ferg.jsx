@@ -10,6 +10,7 @@ import configureStore from 'reducers';
 import onload from 'libs/onload';
 import Lang from 'libs/lang';
 import Ferg from 'containers/ferg-app';
+import GOOGLE_API_KEY from 'data/google-api-key.js';
 
 onload(() => {
   const store = configureStore(window.REDUX_INITIAL_STATE || {});
@@ -18,6 +19,13 @@ onload(() => {
   
   window.REDUX_INITIAL_STATE = null;
   window.REDUX_STORE = store;
+
+  const script = document.createElement('script');
+  script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}`;
+  script.async = true;
+  script.defer = true;
+
+  document.body.appendChild(script);
 
   if (NODE_ENV === 'dev') {
     const AppContainer = require('react-hot-loader').AppContainer;
