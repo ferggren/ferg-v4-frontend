@@ -170,7 +170,7 @@ class PhotosMap extends React.PureComponent {
 
   render() {
     return (
-      <div className="photos-map" id="ferg-map" ref={this.setRefMap} />
+      <div className="photos-map ferg-transparent-navigation" id="ferg-map" ref={this.setRefMap} />
     );
   }
 }

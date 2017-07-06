@@ -32,7 +32,7 @@ class FergNavigation extends React.PureComponent {
     };
 
     this.request = false;
-    this.ref_ferg_map = false;
+    this.transparent_element_exists = false;
 
     this.signOut = this.signOut.bind(this);
     this.updateScroll = this.updateScroll.bind(this);
@@ -41,12 +41,12 @@ class FergNavigation extends React.PureComponent {
   componentDidMount() {
     window.addEventListener('scroll', this.updateScroll);
 
-    this.updateRefs();
+    this.checkForElement();
     this.updateScroll();
   }
 
   componentDidUpdate() {
-    this.updateRefs();
+    this.checkForElement();
     this.updateScroll();
   }
 
@@ -122,7 +122,7 @@ class FergNavigation extends React.PureComponent {
     const scroll_top = window.pageYOffset || 0;
     let style = 'white';
 
-    if (this.ref_ferg_map) {
+    if (this.transparent_element_exists) {
       if (scroll_top > 0) {
         style = 'white';
       } else {
@@ -135,8 +135,8 @@ class FergNavigation extends React.PureComponent {
     this.setState({ style });
   }
 
-  updateRefs() {
-    this.ref_ferg_map = document.getElementById('ferg-map');
+  checkForElement() {
+    this.transparent_element_exists = !!document.querySelector('.ferg-transparent-navigation');
   }
 
   signOut() {

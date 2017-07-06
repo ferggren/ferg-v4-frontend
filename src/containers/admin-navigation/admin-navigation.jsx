@@ -26,11 +26,6 @@ class AdminNavigation extends React.PureComponent {
 
     const navigation = [
       {
-        name: Lang('admin-nav.365'),
-        current: !!url.match(/^\/admin(\/365)?\/?$/),
-        link: `/${this.props.lang}/admin/365/`,
-      },
-      {
         name: Lang('admin-nav.blog'),
         current: !!url.match(/^\/admin\/blog/),
         link: `/${this.props.lang}/admin/blog/`,

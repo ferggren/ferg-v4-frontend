@@ -76,7 +76,7 @@ class PageHeader extends React.PureComponent {
     }
 
     return (
-      <div className="page-header" style={style}>
+      <div className="page-header ferg-transparent-navigation" style={style}>
         {this.makeTitle()}
         {this.makeLink()}
         {this.makeDate()}

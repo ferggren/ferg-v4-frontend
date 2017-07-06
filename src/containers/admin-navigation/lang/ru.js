@@ -5,6 +5,5 @@ export default {
   events: 'События',
   gallery: 'Галерея',
   storage: 'Storage',
-  365: '365',
   home: 'Home',
 };
