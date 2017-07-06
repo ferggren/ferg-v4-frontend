@@ -4,7 +4,6 @@ import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import FergContainer from 'containers/ferg-container';
 import { makeFetchParams, fetchRoutesData } from 'libs/fetch-data';
-import Ferg365 from './ferg-365';
 import FergPages from './ferg-pages';
 import FergPagesPage from './ferg-pages-page';
 import FergGallery from './ferg-gallery';
@@ -54,7 +53,6 @@ const routes = [
   <Route path="events/:page_id" component={FergPagesPage} key="events_page" onEnter={fetchData} />,
   <Route path="blog" component={FergPages} key="blog" onEnter={fetchData} />,
   <Route path="blog/:page_id" component={FergPagesPage} key="blog_page" onEnter={fetchData} />,
-  <Route path="365" component={Ferg365} key="365" onEnter={fetchData} />,
 ];
 
 export default (

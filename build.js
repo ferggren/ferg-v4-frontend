@@ -27,7 +27,7 @@ const OUTPUT_MEDIA = '[hash].[ext]';
 const EXTRACT_CSS = true;
 
 // dev server & proxy settings
-const DEV_SERVER_PORT = process.env.DEV_SERVER_PORT || 8081;
+const DEV_SERVER_PORT = process.env.DEV_SERVER_PORT || 3003;
 const DEV_SERVER_HOST = process.env.DEV_SERVER_HOST || '0.0.0.0';
 const DEV_SERVER_PROXY_PORT = process.env.DEV_SERVER_PROXY_PORT || 8080;
 const DEV_SERVER_PROXY_HOST = process.env.DEV_SERVER_PROXY_HOST || 'ferg.dev';
@@ -100,6 +100,7 @@ if (WEBPACK_MODE === 'server') {
       aggregateTimeout: 300,
       poll: 1000,
     },
+    disableHostCheck: true,
   };
 
   if (DEV_SERVER_PROXY_HOST && DEV_SERVER_PROXY_PORT) {
