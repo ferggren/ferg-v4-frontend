@@ -12,10 +12,18 @@ $links_mobile_width: 180px;
     top: 0px;
     left: 0px;
     width: 100%;
-    height: $navigation_height;
-    line-height: $navigation_height;
     font-size: 14px;
     z-index: $z_index_navigation;
+
+    @include respond_to(mobile) {
+      height: $navigation_height_mobile;
+      line-height: $navigation_height_mobile;
+    }
+
+    @include respond_to(desktop) {
+      height: $navigation_height_desktop;
+      line-height: $navigation_height_desktop;
+    }
   }
 
   @include respond_to(mobile) {
@@ -31,8 +39,8 @@ $links_mobile_width: 180px;
       text-overflow: ellipsis;
       white-space: nowrap;
       width: 100%;
-      height: $navigation_height;
-      line-height: $navigation_height;
+      height: $navigation_height_mobile;
+      line-height: $navigation_height_mobile;
       cursor: pointer;
       font-weight: 400;
       border-bottom: 1px solid #666;
@@ -40,8 +48,8 @@ $links_mobile_width: 180px;
 
       a {
         color: #FFF;
-        height: $navigation_height;
-        line-height: $navigation_height;
+        height: $navigation_height_mobile;
+        line-height: $navigation_height_mobile;
         display: block;
         overflow-x: hidden;
         text-overflow: ellipsis;
@@ -93,8 +101,8 @@ $links_mobile_width: 180px;
       position: absolute;
       top: 8px;
       left: $default_padding;
-      height: $navigation_height - (8px * 2);
-      width: $navigation_height - (8px * 2);
+      height: $navigation_height_mobile - (8px * 2);
+      width: $navigation_height_mobile - (8px * 2);
       cursor: pointer;
       background-image: url('./media/menu.svg');
       background-position: 50% 50%;
@@ -108,8 +116,8 @@ $links_mobile_width: 180px;
       top: 0px;
       left: $default_padding * 4;
       width: calc(100% - (#{$default_padding} * 8));
-      height: $navigation_height;
-      line-height: $navigation_height;
+      height: $navigation_height_mobile;
+      line-height: $navigation_height_mobile;
       text-align: center;
       z-index: $z_index_navigation_title;
       overflow: hidden;
@@ -169,8 +177,8 @@ $links_mobile_width: 180px;
     &__link {
       display: block;
       float: left;
-      height: $navigation_height;
-      line-height: $navigation_height;
+      height: $navigation_height_desktop;
+      line-height: $navigation_height_desktop;
       font-weight: 600;
       cursor: pointer;
       margin-right: $default_padding;
@@ -183,8 +191,8 @@ $links_mobile_width: 180px;
 
       a {
         display: inline-block;
-        height: $navigation_height;
-        line-height: $navigation_height;
+        height: $navigation_height_desktop;
+        line-height: $navigation_height_desktop;
       }
 
       .app-nav--white & {
@@ -218,8 +226,8 @@ $links_mobile_width: 180px;
 
       &-block {
         display: block;
-        height: $navigation_height;
-        line-height: $navigation_height;
+        height: $navigation_height_desktop;
+        line-height: $navigation_height_desktop;
 
         &--left {
           float: left;

@@ -55,7 +55,7 @@ class StickyBlock extends React.PureComponent {
     if (!this.ref_block) return;
     if (!this.ref_wrapper) return;
 
-    const navigation_height = 40;
+    const navigation_height = 50;
     const offset_top = this.ref_wrapper.offsetTop;
     const scroll_y = window.scrollY + navigation_height;
     let width = this.ref_wrapper.offsetWidth;

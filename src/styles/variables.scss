@@ -13,7 +13,8 @@ $font_default: 'Open Sans', sans-serif;
 /* default link color */
 $link_color_default: rgb(29, 111, 185);
 
-$navigation_height: 40px;
+$navigation_height_mobile: 40px;
+$navigation_height_desktop: 50px;
 $footer_line_height: 50px;
 $footer_mobile_height: $footer_line_height * 3;
 $footer_desktop_height: $footer_line_height * 1;

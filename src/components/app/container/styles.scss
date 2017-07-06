@@ -38,7 +38,6 @@ html, body, #react-root {
 .app {
   &-wrapper {
     position: relative;
-    padding-top: $navigation_height;
     width: 100%;
     min-width: $screen_min;
     min-height: 100%;
@@ -46,10 +45,12 @@ html, body, #react-root {
 
     @include respond_to(mobile) {
       padding-bottom: $footer_mobile_height + $default_padding;
+      padding-top: $navigation_height_mobile;
     }
 
     @include respond_to(desktop) {
       padding-bottom: $footer_desktop_height + $default_padding;
+      padding-top: $navigation_height_desktop;
     }
   }
 

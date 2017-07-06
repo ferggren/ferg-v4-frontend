@@ -26,6 +26,8 @@
   }
 
   &--with-overlap {
-    margin-top: -1 * $navigation_height;
+    @include respond_to(desktop) {
+      margin-top: -1 * $navigation_height_desktop;
+    }
   }
 }
