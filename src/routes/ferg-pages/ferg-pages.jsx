@@ -17,19 +17,19 @@ import langEn from './lang/en';
 const PAGES_TAGS_API_URL = '/api/tags/getTags';
 const PAGES_TAGS_API_KEY = {
   blog: 'tags_blog',
-  events: 'tags_events',
+  travel: 'tags_travel',
 };
 const PAGES_API_URL = '/api/pages/getPages';
 const PAGES_API_KEY = {
   blog: 'pages_blog',
-  events: 'pages_events',
+  travel: 'pages_travel',
 };
 
 Lang.updateLang('pages', langRu, 'ru');
 Lang.updateLang('pages', langEn, 'en');
 
 function getPagesType(location) {
-  const match = location.match(/^\/(?:en\/|ru\/)?(blog|events)\//);
+  const match = location.match(/^\/(?:en\/|ru\/)?(blog|travel)\//);
 
   if (!match) return 'blog';
   return match[1];

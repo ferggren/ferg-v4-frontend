@@ -16,14 +16,14 @@ import langEn from './lang/en';
 const PAGE_API_URL = '/api/pages/getPage';
 const PAGE_API_KEY = {
   blog: 'page_blog',
-  events: 'page_events',
+  travel: 'page_travel',
 };
 
 Lang.updateLang('page', langRu, 'ru');
 Lang.updateLang('page', langEn, 'en');
 
 function getPagesType(location) {
-  const match = location.match(/^\/(?:en\/|ru\/)?(blog|events)\//);
+  const match = location.match(/^\/(?:en\/|ru\/)?(blog|travel)\//);
 
   if (!match) return 'blog';
   return match[1];

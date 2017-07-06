@@ -26,19 +26,24 @@ class AdminNavigation extends React.PureComponent {
 
     const navigation = [
       {
+        name: Lang('admin-nav.gallery'),
+        current: !!url.match(/^\/admin\/gallery/),
+        link: `/${this.props.lang}/admin/gallery/`,
+      },
+      {
+        name: Lang('admin-nav.photostream'),
+        current: !!url.match(/^\/admin\/photostream/),
+        link: `/${this.props.lang}/admin/photostream/`,
+      },
+      {
         name: Lang('admin-nav.blog'),
         current: !!url.match(/^\/admin\/blog/),
         link: `/${this.props.lang}/admin/blog/`,
       },
       {
-        name: Lang('admin-nav.events'),
-        current: !!url.match(/^\/admin\/events/),
-        link: `/${this.props.lang}/admin/events/`,
-      },
-      {
-        name: Lang('admin-nav.gallery'),
-        current: !!url.match(/^\/admin\/gallery/),
-        link: `/${this.props.lang}/admin/gallery/`,
+        name: Lang('admin-nav.travel'),
+        current: !!url.match(/^\/admin\/travel/),
+        link: `/${this.props.lang}/admin/travel/`,
       },
       {
         name: Lang('admin-nav.storage'),

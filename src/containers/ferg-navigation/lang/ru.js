@@ -3,6 +3,6 @@
 export default {
   landing: 'Главная',
   blog: 'Блог',
-  events: 'События',
+  travel: 'Трэвел',
   gallery: 'Фотопоток',
 };

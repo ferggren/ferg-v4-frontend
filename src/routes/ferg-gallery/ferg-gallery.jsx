@@ -153,7 +153,7 @@ class FergGallery extends React.PureComponent {
       return item;
     });
 
-    return <ItemsGrid items={list} spacing="3" maxRatio={4} />;
+    return <ItemsGrid items={list} spacing="3" maxRatio={5} />;
   }
 
   makePagination() {

@@ -49,8 +49,8 @@ const routes = [
   <IndexRoute component={FergLanding} key="index" onEnter={fetchData} />,
   <Route path="gallery" component={FergGallery} key="gallery" onEnter={fetchData} />,
   <Route path="gallery/:photo_id" component={FergGalleryPhoto} key="gallery_photo" onEnter={fetchData} />,
-  <Route path="events" component={FergPages} key="events" onEnter={fetchData} />,
-  <Route path="events/:page_id" component={FergPagesPage} key="events_page" onEnter={fetchData} />,
+  <Route path="travel" component={FergPages} key="travel" onEnter={fetchData} />,
+  <Route path="travel/:page_id" component={FergPagesPage} key="travel_page" onEnter={fetchData} />,
   <Route path="blog" component={FergPages} key="blog" onEnter={fetchData} />,
   <Route path="blog/:page_id" component={FergPagesPage} key="blog_page" onEnter={fetchData} />,
 ];

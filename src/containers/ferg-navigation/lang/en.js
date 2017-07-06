@@ -3,6 +3,6 @@
 export default {
   landing: 'Home',
   blog: 'Blog',
-  events: 'Events',
+  travel: 'Travel',
   gallery: 'Photostream',
 };

@@ -2,8 +2,9 @@
 
 export default {
   blog: 'Блог',
-  events: 'События',
+  travel: 'Трэвел',
   gallery: 'Галерея',
+  photostream: 'Фотопоток',
   storage: 'Storage',
   home: 'Home',
 };

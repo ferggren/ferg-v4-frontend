@@ -156,7 +156,7 @@ class FergLanding extends React.PureComponent {
       });
     }
 
-    return <ItemsGrid items={list} spacing="5" />;
+    return <ItemsGrid items={list} spacing="5" maxRatio={5} />;
   }
 
   makeLoader() {

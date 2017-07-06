@@ -76,9 +76,9 @@ class FergNavigation extends React.PureComponent {
         link: `/${this.props.lang}/blog/`,
       },
       {
-        name: Lang('site-nav.events'),
-        current: !!url.match(/^\/events/),
-        link: `/${this.props.lang}/events/`,
+        name: Lang('site-nav.travel'),
+        current: !!url.match(/^\/travel/),
+        link: `/${this.props.lang}/travel/`,
       },
       {
         name: Lang('site-nav.gallery'),

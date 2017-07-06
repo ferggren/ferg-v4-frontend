@@ -2,7 +2,7 @@
 
 export default {
   'blog-title': 'Блог',
-  'events-title': 'События',
+  'travel-title': 'Трэвел',
   tags_not_found: '',
   photos_not_found: 'Пока еще ничего не добавлено',
 };

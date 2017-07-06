@@ -2,8 +2,9 @@
 
 export default {
   blog: 'Blog',
-  events: 'Events',
+  travel: 'Travel',
   gallery: 'Gallery',
+  photostream: 'Photostream',
   storage: 'Storage',
   home: 'Home',
 };
