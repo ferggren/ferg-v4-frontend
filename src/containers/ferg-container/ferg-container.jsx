@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { AppContainer } from 'components/app';
 import LocationWatcher from 'containers/location-watcher';
 import RequestProgress from 'containers/request-progress';
@@ -10,7 +11,7 @@ import FergNavigation from 'containers/ferg-navigation';
 import FergFooter from 'containers/ferg-footer';
 
 const propTypes = {
-  children: React.PropTypes.node,
+  children: PropTypes.node,
 };
 
 const defaultProps = {

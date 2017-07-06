@@ -17,12 +17,12 @@
   }
 
   &--with-padding-top {
-    padding-top: $screen_padding;
+    padding-top: $default_padding;
   }
 
   &--with-content-padding {
-    padding-left: $screen_padding;
-    padding-right: $screen_padding;
+    padding-left: $default_padding;
+    padding-right: $default_padding;
   }
 
   &--with-overlap {

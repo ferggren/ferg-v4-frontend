@@ -15,7 +15,7 @@
     justify-content: flex-end;
     align-items: flex-start;
     text-align: left;
-    padding: $screen_padding;
+    padding: $default_padding;
 
     @include respond_to(mobile) {
       height: 180px;
@@ -93,8 +93,8 @@
     &-date {
       color: #eee;
       position: absolute;
-      right: $screen_padding;
-      bottom: $screen_padding;
+      right: $default_padding;
+      bottom: $default_padding;
       font-size: 12px;
       line-height: 18px;
       color: #FFF;

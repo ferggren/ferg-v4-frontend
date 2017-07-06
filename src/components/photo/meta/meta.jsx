@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { AppContent } from 'components/app';
 import TagsCloud from 'components/tags-cloud';
 import Lang from 'libs/lang';
@@ -12,8 +13,8 @@ Lang.updateLang('gallery-photo', langRu, 'ru');
 Lang.updateLang('gallery-photo', langEn, 'en');
 
 const propTypes = {
-  lang: React.PropTypes.string.isRequired,
-  photo: React.PropTypes.object.isRequired,
+  lang: PropTypes.string.isRequired,
+  photo: PropTypes.object.isRequired,
 };
 
 class PhotoMeta extends React.PureComponent {

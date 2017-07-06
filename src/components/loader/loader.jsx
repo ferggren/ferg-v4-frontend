@@ -1,10 +1,11 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import './styles';
 
 const propTypes = {
-  type: React.PropTypes.oneOf([
+  type: PropTypes.oneOf([
     'big',
     'small',
   ]),

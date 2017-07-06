@@ -1,12 +1,13 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { AppContent, AppContentTitle } from 'components/app';
 import { niceMonthFormat } from 'libs/nice-time';
 import './styles';
 
 const propTypes = {
-  photo: React.PropTypes.object.isRequired,
+  photo: PropTypes.object.isRequired,
 };
 
 class PhotoDetails extends React.PureComponent {

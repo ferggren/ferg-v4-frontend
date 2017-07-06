@@ -1,24 +1,25 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Loader from 'components/loader';
 import { Link } from 'react-router';
 import './styles';
 
 const propTypes = {
-  lang: React.PropTypes.string.isRequired,
-  photo: React.PropTypes.object.isRequired,
-  next: React.PropTypes.oneOfType([
-    React.PropTypes.bool.isRequired,
-    React.PropTypes.array.isRequired,
+  lang: PropTypes.string.isRequired,
+  photo: PropTypes.object.isRequired,
+  next: PropTypes.oneOfType([
+    PropTypes.bool.isRequired,
+    PropTypes.array.isRequired,
   ]).isRequired,
-  prev: React.PropTypes.oneOfType([
-    React.PropTypes.bool.isRequired,
-    React.PropTypes.array.isRequired,
+  prev: PropTypes.oneOfType([
+    PropTypes.bool.isRequired,
+    PropTypes.array.isRequired,
   ]).isRequired,
-  tag: React.PropTypes.oneOfType([
-    React.PropTypes.bool.isRequired,
-    React.PropTypes.string.isRequired,
+  tag: PropTypes.oneOfType([
+    PropTypes.bool.isRequired,
+    PropTypes.string.isRequired,
   ]).isRequired,
 };
 

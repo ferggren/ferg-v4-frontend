@@ -1,11 +1,12 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { titleWebsite, titleSeparator } from 'data/title-config';
 
 const propTypes = {
-  title: React.PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 class TitleWatcher extends React.PureComponent {

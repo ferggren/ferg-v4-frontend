@@ -1,10 +1,11 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import './styles';
 
 const propTypes = {
-  content: React.PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
 };
 
 class PageContent extends React.PureComponent {

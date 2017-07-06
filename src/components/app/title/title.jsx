@@ -1,11 +1,12 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import './styles';
 
 const propTypes = {
-  children: React.PropTypes.node,
-  align: React.PropTypes.oneOf([
+  children: PropTypes.node,
+  align: PropTypes.oneOf([
     'left',
     'right',
     'center',

@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { userLogout } from 'actions/user';
 import { AppNavigation } from 'components/app';
 import { connect } from 'react-redux';
@@ -13,13 +14,13 @@ Lang.updateLang('site-nav', langRu, 'ru');
 Lang.updateLang('site-nav', langEn, 'en');
 
 const propTypes = {
-  user_name: React.PropTypes.string.isRequired,
-  title: React.PropTypes.string.isRequired,
-  lang: React.PropTypes.string.isRequired,
-  location: React.PropTypes.string.isRequired,
-  logged_in: React.PropTypes.bool.isRequired,
-  is_admin: React.PropTypes.bool.isRequired,
-  dispatch: React.PropTypes.func.isRequired,
+  user_name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  lang: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  logged_in: PropTypes.bool.isRequired,
+  is_admin: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 class FergNavigation extends React.PureComponent {

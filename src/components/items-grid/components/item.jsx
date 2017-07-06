@@ -1,14 +1,15 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { niceMonthFormat } from 'libs/nice-time';
 
 const propTypes = {
-  item: React.PropTypes.object.isRequired,
-  spacing: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.numer,
+  item: PropTypes.object.isRequired,
+  spacing: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
   ]),
 };
 

@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Lang from 'libs/lang';
 import langEn from './lang/en';
 import langRu from './lang/ru';
@@ -10,7 +11,7 @@ Lang.updateLang('landing', langEn, 'en');
 Lang.updateLang('landing', langRu, 'ru');
 
 const propTypes = {
-  lang: React.PropTypes.string.isRequired,
+  lang: PropTypes.string.isRequired,
 };
 
 class LandingHeader extends React.PureComponent {

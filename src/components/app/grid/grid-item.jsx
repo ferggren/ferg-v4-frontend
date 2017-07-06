@@ -1,11 +1,17 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import './styles';
 
 const propTypes = {
-  children: React.PropTypes.node,
-  align: React.PropTypes.oneOf([
+  children: PropTypes.node,
+  textAlign: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
+  withContentPadding: PropTypes.bool,
+  align: PropTypes.oneOf([
     'auto',
     'flex-start',
     'flex-end',
@@ -13,51 +19,73 @@ const propTypes = {
     'baseline',
     'stretch',
   ]),
-  width: React.PropTypes.oneOfType([
-    React.PropTypes.bool,
-    React.PropTypes.number,
-    React.PropTypes.string,
+  width: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+    PropTypes.string,
   ]),
-  order: React.PropTypes.oneOfType([
-    React.PropTypes.bool,
-    React.PropTypes.number,
-    React.PropTypes.string,
+  order: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+  grow: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+    PropTypes.string,
   ]),
 };
 
 const defaultProps = {
   children: null,
+  textAlign: false,
+  withContentPadding: false,
   align: 'auto',
   width: false,
   order: false,
+  grow: false,
 };
 
-class AppGridItem extends React.PureComponent {
+class ContentGridItem extends React.PureComponent {
   render() {
-    const item_class = 'app-grid__item';
-    const style = {};
+    const props = {
+      className: 'app-grid__item',
+      style: {},
+    };
 
     if (this.props.align) {
-      style.alignSelf = this.props.align;
+      props.style.alignSelf = this.props.align;
+    }
+
+    if (this.props.textAlign) {
+      props.style.textAlign = this.props.textAlign;
+    }
+
+    if (this.props.withContentPadding) {
+      props.className += ' app-grid__item--with-content-padding';
     }
 
     if (this.props.width) {
-      style.width = this.props.width;
+      props.style.width = this.props.width;
     }
 
     if (this.props.order !== false) {
-      style.order = this.props.order;
+      props.style.order = this.props.order;
+    }
+
+    if (this.props.grow !== false) {
+      props.style.flexGrow = this.props.grow;
     }
 
     return (
-      <div className={item_class} style={style}>
+      <div {...props}>
         {this.props.children}
       </div>
     );
   }
 }
 
-AppGridItem.propTypes = propTypes;
-AppGridItem.defaultProps = defaultProps;
+ContentGridItem.propTypes = propTypes;
+ContentGridItem.defaultProps = defaultProps;
 
-export default AppGridItem;
+export default ContentGridItem;

@@ -27,7 +27,7 @@
   }
 
   &__copy {
-    padding: 0px $screen_padding;
+    padding: 0px $default_padding;
     word-wrap: nowrap;
     height: $footer_height;
     line-height: $footer_height;
@@ -44,7 +44,7 @@
   }
 
   &__lang {
-    padding: 0px $screen_padding;
+    padding: 0px $default_padding;
     word-wrap: nowrap;
     height: $footer_height;
     line-height: $footer_height;

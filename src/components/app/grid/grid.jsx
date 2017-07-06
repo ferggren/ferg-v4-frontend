@@ -1,11 +1,26 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import './styles';
 
 const propTypes = {
-  children: React.PropTypes.node,
-  direction: React.PropTypes.oneOf([
+  children: PropTypes.node,
+  justifyContent: PropTypes.oneOf([
+    'flex-start',
+    'flex-end',
+    'center',
+    'space-between',
+    'space-around',
+  ]),
+  alignItems: PropTypes.oneOf([
+    'flex-start',
+    'flex-end',
+    'center',
+    'baseline',
+    'stretch',
+  ]),
+  direction: PropTypes.oneOf([
     'row',
     'row-reverse',
     'column',
@@ -16,12 +31,16 @@ const propTypes = {
 const defaultProps = {
   children: null,
   direction: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
 };
 
-class AppGrid extends React.PureComponent {
+class ContentGrid extends React.PureComponent {
   render() {
     const style = {
       flexDirection: this.props.direction,
+      justifyContent: this.props.justifyContent,
+      alignItems: this.props.alignItems,
     };
 
     return (
@@ -32,7 +51,7 @@ class AppGrid extends React.PureComponent {
   }
 }
 
-AppGrid.propTypes = propTypes;
-AppGrid.defaultProps = defaultProps;
+ContentGrid.propTypes = propTypes;
+ContentGrid.defaultProps = defaultProps;
 
-export default AppGrid;
+export default ContentGrid;

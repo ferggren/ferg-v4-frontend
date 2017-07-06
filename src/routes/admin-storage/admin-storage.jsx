@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AppContent } from 'components/app';
 import { titleSet } from 'actions/title';
@@ -12,8 +13,8 @@ Lang.updateLang('route-storage', langRu, 'ru');
 Lang.updateLang('route-storage', langEn, 'en');
 
 const propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  lang: React.PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  lang: PropTypes.string.isRequired,
 };
 
 class AdminStorage extends React.PureComponent {

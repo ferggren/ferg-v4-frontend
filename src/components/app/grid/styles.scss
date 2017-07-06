@@ -2,6 +2,9 @@
 @import 'styles/mixins';
 
 .app-grid {
+  max-width: 100%;
+  width: 100%;
+
   @include respond_to(desktop) {
     display: flex;
     flex-direction: column;
@@ -11,9 +14,20 @@
     align-content: flex-start;
   }
 
-  @include respond_to(mobile) {
-    &__item {
+  &__item {
+    max-width: 100%;
+
+    &--with-content-padding {
+      padding: 0px $default_padding;
+    }
+  
+    @include respond_to(mobile) {
       width: 100% !important;
+      margin-bottom: $default_padding;
+
+      &:last-child {
+        margin-bottom: 0px;
+      }
     }
   }
 }

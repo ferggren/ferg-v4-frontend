@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AppContent, AppGrid, AppGridItem, AppContentTitle } from 'components/app';
 import { titleSet } from 'actions/title';
@@ -36,17 +37,17 @@ function getPagesType(location) {
 }
 
 const propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  lang: React.PropTypes.string.isRequired,
-  type: React.PropTypes.string.isRequired,
-  location: React.PropTypes.object.isRequired,
-  pages: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.bool,
+  dispatch: PropTypes.func.isRequired,
+  lang: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired,
+  pages: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
   ]).isRequired,
-  tags: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.bool,
+  tags: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
   ]).isRequired,
 };
 

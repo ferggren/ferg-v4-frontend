@@ -1,14 +1,15 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { setLocation } from 'actions/location';
 
 const propTypes = {
-  lang: React.PropTypes.string.isRequired,
-  location: React.PropTypes.string.isRequired,
-  dispatch: React.PropTypes.func.isRequired,
+  lang: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 class LocationWatcher extends React.PureComponent {

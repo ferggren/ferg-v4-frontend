@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { AppNavigation } from 'components/app';
 import { connect } from 'react-redux';
 import Lang from 'libs/lang';
@@ -11,10 +12,10 @@ Lang.updateLang('admin-nav', langRu, 'ru');
 Lang.updateLang('admin-nav', langEn, 'en');
 
 const propTypes = {
-  user_name: React.PropTypes.string.isRequired,
-  title: React.PropTypes.string.isRequired,
-  lang: React.PropTypes.string.isRequired,
-  location: React.PropTypes.string.isRequired,
+  user_name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  lang: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
 };
 
 class AdminNavigation extends React.PureComponent {

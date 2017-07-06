@@ -1,10 +1,11 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 const propTypes = {
-  location: React.PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
 };
 
 class Tracker extends React.PureComponent {

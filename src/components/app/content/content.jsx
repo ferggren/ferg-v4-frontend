@@ -1,15 +1,16 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import './styles';
 
 const propTypes = {
-  children: React.PropTypes.node,
-  expand: React.PropTypes.bool,
-  overlapHeader: React.PropTypes.bool,
-  paddingTop: React.PropTypes.bool,
-  contentPadding: React.PropTypes.bool,
-  id: React.PropTypes.string,
+  children: PropTypes.node,
+  expand: PropTypes.bool,
+  overlapHeader: PropTypes.bool,
+  paddingTop: PropTypes.bool,
+  contentPadding: PropTypes.bool,
+  id: PropTypes.string,
 };
 
 const defaultProps = {

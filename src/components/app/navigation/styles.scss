@@ -62,8 +62,8 @@ $links_mobile_width: 180px;
       left: 0px;
       height: 100%;
       width: $links_mobile_width;
-      background: rgba(44, 44, 44, 1);
-      padding: 0px $screen_padding;
+      background: rgba(44 , 44, 44, 1);
+      padding: 0px $default_padding;
       z-index: $z_index_navigation_links;
       transform: translateX($links_mobile_width * -1);
       opacity: 0;
@@ -82,9 +82,9 @@ $links_mobile_width: 180px;
         
         &--right {
           position: absolute;
-          bottom: $screen_padding;
-          left: $screen_padding;
-          width: $links_mobile_width - ($screen_padding * 2);
+          bottom: $default_padding;
+          left: $default_padding;
+          width: $links_mobile_width - ($default_padding * 2);
         }
       }
     }
@@ -92,7 +92,7 @@ $links_mobile_width: 180px;
     &__toggle {
       position: absolute;
       top: 8px;
-      left: $screen_padding;
+      left: $default_padding;
       height: $navigation_height - (8px * 2);
       width: $navigation_height - (8px * 2);
       cursor: pointer;
@@ -106,8 +106,8 @@ $links_mobile_width: 180px;
       position: absolute;
       display: block;
       top: 0px;
-      left: $screen_padding * 4;
-      width: calc(100% - (#{$screen_padding} * 8));
+      left: $default_padding * 4;
+      width: calc(100% - (#{$default_padding} * 8));
       height: $navigation_height;
       line-height: $navigation_height;
       text-align: center;
@@ -146,7 +146,7 @@ $links_mobile_width: 180px;
     margin: auto;
     z-index: $z_index_navigation_links;
     position: relative;
-    padding: 0px $screen_padding;
+    padding: 0px $default_padding;
 
     &__wrapper {
       transition: background-color $transition_duration $transition_function,
@@ -173,7 +173,7 @@ $links_mobile_width: 180px;
       line-height: $navigation_height;
       font-weight: 600;
       cursor: pointer;
-      margin-right: $screen_padding;
+      margin-right: $default_padding;
       transition: opacity $transition_duration $transition_function,
                   color $transition_duration $transition_function;
 

@@ -1,17 +1,18 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import clone from 'libs/clone';
 import ItemsGridItem from './components/item';
 import './styles';
 
 const propTypes = {
-  items: React.PropTypes.array.isRequired,
-  spacing: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.numer,
+  items: PropTypes.array.isRequired,
+  spacing: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
   ]),
-  maxRatio: React.PropTypes.number,
+  maxRatio: PropTypes.number,
 };
 
 const defaultProps = {

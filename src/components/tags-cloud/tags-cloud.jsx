@@ -1,21 +1,22 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import './styles';
 
 const propTypes = {
-  tags: React.PropTypes.object.isRequired,
-  group: React.PropTypes.string,
-  selected: React.PropTypes.string,
-  tagUrl: React.PropTypes.string,
-  selectedTagUrl: React.PropTypes.string,
-  onSelect: React.PropTypes.oneOfType([
-    React.PropTypes.bool,
-    React.PropTypes.func,
+  tags: PropTypes.object.isRequired,
+  group: PropTypes.string,
+  selected: PropTypes.string,
+  tagUrl: PropTypes.string,
+  selectedTagUrl: PropTypes.string,
+  onSelect: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.func,
   ]),
-  emBase: React.PropTypes.number,
-  emGain: React.PropTypes.number,
+  emBase: PropTypes.number,
+  emGain: PropTypes.number,
 };
 
 const defaultProps = {

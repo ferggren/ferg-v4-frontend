@@ -1,13 +1,13 @@
 'use strict';
 
 import React from 'react';
-import { AppContent, AppContentTitle, AppGrid, AppGridItem } from 'components/app';
+import PropTypes from 'prop-types';
+import { AppContent, AppContentTitle } from 'components/app';
 import ItemsGrid from 'components/items-grid';
 import LandingHeader from 'components/landing-header';
 import TagsCloud from 'components/tags-cloud';
 import Loader from 'components/loader';
 import Paginator from 'components/paginator';
-import StickyBlock from 'components/sticky-block';
 import { connect } from 'react-redux';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
@@ -25,16 +25,16 @@ Lang.updateLang('landing', langRu, 'ru');
 Lang.updateLang('landing', langEn, 'en');
 
 const propTypes = {
-  lang: React.PropTypes.string.isRequired,
-  dispatch: React.PropTypes.func.isRequired,
-  location: React.PropTypes.object.isRequired,
-  feed: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.bool,
+  lang: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
+  feed: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
   ]).isRequired,
-  tags: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.bool,
+  tags: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
   ]).isRequired,
 };
 

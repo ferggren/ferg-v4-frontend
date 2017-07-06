@@ -1,13 +1,14 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Link from './components/link';
 import './styles';
 
 const propTypes = {
-  navigation: React.PropTypes.array,
-  title: React.PropTypes.string,
-  style: React.PropTypes.oneOf([
+  navigation: PropTypes.array,
+  title: PropTypes.string,
+  style: PropTypes.oneOf([
     'transparent',
     'white',
   ]),

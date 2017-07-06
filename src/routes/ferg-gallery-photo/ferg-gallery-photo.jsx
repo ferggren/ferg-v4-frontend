@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AppContent, AppContentTitle, AppGrid, AppGridItem } from 'components/app';
 import { titleSet } from 'actions/title';
@@ -18,13 +19,13 @@ Lang.updateLang('gallery-photo', langRu, 'ru');
 Lang.updateLang('gallery-photo', langEn, 'en');
 
 const propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  lang: React.PropTypes.string.isRequired,
-  params: React.PropTypes.object.isRequired,
-  location: React.PropTypes.object.isRequired,
-  photo: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.bool,
+  dispatch: PropTypes.func.isRequired,
+  lang: PropTypes.string.isRequired,
+  params: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  photo: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
   ]).isRequired,
 };
 

@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { AppContainer } from 'components/app';
 import AdminTitleWatcher from 'containers/admin-title-watcher';
 import LocationWatcher from 'containers/location-watcher';
@@ -9,7 +10,7 @@ import AdminNavigation from 'containers/admin-navigation';
 import AdminFooter from 'containers/admin-footer';
 
 const propTypes = {
-  children: React.PropTypes.node,
+  children: PropTypes.node,
 };
 
 const defaultProps = {

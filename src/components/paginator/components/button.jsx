@@ -1,22 +1,23 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 const propTypes = {
-  page: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
+  page: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
   ]),
-  title: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
+  title: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
   ]),
-  url: React.PropTypes.string,
-  active: React.PropTypes.bool,
-  onSelect: React.PropTypes.oneOfType([
-    React.PropTypes.func,
-    React.PropTypes.bool,
+  url: PropTypes.string,
+  active: PropTypes.bool,
+  onSelect: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.bool,
   ]),
 };
 

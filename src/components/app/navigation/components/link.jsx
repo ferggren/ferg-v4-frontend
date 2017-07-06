@@ -1,11 +1,12 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 const propTypes = {
-  onClick: React.PropTypes.func.isRequired,
-  item: React.PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
+  item: PropTypes.object.isRequired,
 };
 
 class AppNavigationLink extends React.PureComponent {

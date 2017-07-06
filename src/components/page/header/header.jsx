@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { niceMonthFormat } from 'libs/nice-time';
 import Lang from 'libs/lang';
 import langRu from './lang/ru';
@@ -11,7 +12,7 @@ Lang.updateLang('page', langRu, 'ru');
 Lang.updateLang('page', langEn, 'en');
 
 const propTypes = {
-  page: React.PropTypes.object.isRequired,
+  page: PropTypes.object.isRequired,
 };
 
 class PageHeader extends React.PureComponent {

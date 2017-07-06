@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Lang from 'libs/lang';
 import langRu from './lang/ru';
@@ -11,17 +12,17 @@ Lang.updateLang('footer', langRu, 'ru');
 Lang.updateLang('footer', langEn, 'en');
 
 const propTypes = {
-  onLangChange: React.PropTypes.oneOfType([
-    React.PropTypes.func,
-    React.PropTypes.bool,
+  onLangChange: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.bool,
   ]),
-  lang: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.bool,
+  lang: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
   ]),
-  link: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.bool,
+  link: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
   ]),
 };
 

@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { AppFooter } from 'components/app';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
@@ -8,9 +9,9 @@ import { setLang } from 'actions/lang';
 import Lang from 'libs/lang';
 
 const propTypes = {
-  location: React.PropTypes.string.isRequired,
-  lang: React.PropTypes.string.isRequired,
-  dispatch: React.PropTypes.func.isRequired,
+  location: PropTypes.string.isRequired,
+  lang: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 class FergFooter extends React.PureComponent {

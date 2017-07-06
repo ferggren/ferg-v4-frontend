@@ -134,11 +134,11 @@ $margin_bottom: 20px;
     }
 
     &--right &-image {
-      margin-left: $screen_padding;
+      margin-left: $default_padding;
     }
 
     &--left &-image {
-      margin-right: $screen_padding;
+      margin-right: $default_padding;
     }
 
     &-desc {

@@ -1,30 +1,31 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './components/button';
 import './styles';
 
 const propTypes = {
-  page: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
+  page: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
   ]).isRequired,
-  pages: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
+  pages: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
   ]).isRequired,
-  dynamicSize: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
+  dynamicSize: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
   ]),
-  staticSize: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
+  staticSize: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
   ]),
-  url: React.PropTypes.string,
-  onSelect: React.PropTypes.oneOfType([
-    React.PropTypes.bool,
-    React.PropTypes.func,
+  url: PropTypes.string,
+  onSelect: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.func,
   ]),
 };
 
