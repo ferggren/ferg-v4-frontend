@@ -2,5 +2,142 @@
 @import 'styles/mixins';
 
 .storage {
+  &__files-separator {
+    line-height: 1px;
+    background: #EEE;
+    height: 1px;
+  }
+
+  &__file {
+    &-wrapper {
+      padding: 10px 5px 10px 65px;
+      position: relative;
+      font-size: 12px;
+      color: #666;
+      line-height: 25px;
+      opacity: 1;
+      border-bottom: 1px solid #EEE;
+      transition: background $transition_duration $transition_function,
+                  opacity $transition_duration $transition_function;
+
+      &--deleted {
+        opacity: .5;
+      }
+
+      &:last-child {
+        border-bottom: 0px solid #EEE;
+      }
+
+      &:hover {
+        background: #f5f5f5;
+        cursor: pointer;
+      }
+    }
+
+    &-preview {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      top: 10px;
+      left: 5px;
+      cursor: pointer;
+      border-radius: 3px;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    &-ico {
+      background-size: 30px 30px;
+      width: 30px;
+      height: 30px;
+      opacity: .7;
+      top: 20px;
+      left: 15px;
+      position: absolute;
+
+      &--image {
+        background-image: url(./media/media_image.png);
+      }
+
+      &--video {
+        background-image: url(./media/media_video.png);
+      }
+
+      &--audio {
+        background-image: url(./media/media_audio.png);
+      }
+
+      &--document {
+        background-image: url(./media/media_document.png);
+      }
+
+      &--source {
+        background-image: url(./media/media_source.png);
+      }
+
+      &--archive {
+        background-image: url(./media/media_archive.png);
+      }
+
+      &--other {
+        background-image: url(./media/media_other.png);
+      }
+    }
+
+    &-title {
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+      margin-right: 70px;
+
+      & a {
+        font-weight: bold;
+        color: $link_color_default;
+      }
+    }
+
+    &-loader {
+      position: absolute;
+      top: 15px;
+      right: 5px;
+      height: 25px;
+    }
+
+    &-delete, &-restore {
+      position: absolute;
+      top: 10px;
+      right: 0px;
+      padding: 0px 5px;
+      font-weight: bold;
+      transition: opacity $transition_duration $transition_function;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &-restore {
+      opacity: .9;
+      color: $link_color_default;
+    }
+
+    &-delete {
+      opacity: .5;
+      color: #A20101 !important;
+    }
+
+    &-info {
+      color: #999;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    &-downloads {
+      position: absolute;
+      bottom: 10px;
+      right: 5px;
+    }
+  }
   
 }

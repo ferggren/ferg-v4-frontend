@@ -4,12 +4,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'components/loader';
 import Paginator from 'components/paginator';
-import { Block } from 'components/ui';
+import { Block, Grid, GridItem } from 'components/ui';
 import Request from 'libs/request';
 import Lang from 'libs/lang';
 import deepClone from 'libs/deep-clone';
 import langRu from './lang/ru';
 import langEn from './lang/en';
+import StorageFile from './components/file';
+import './styles';
+
+const FILTERS_WIDTH = '200px';
 
 Lang.updateLang('storage', langRu, 'ru');
 Lang.updateLang('storage', langEn, 'en');
@@ -33,6 +37,7 @@ const propTypes = {
     'uploader',
     'full',
   ]),
+  lang: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -74,6 +79,9 @@ class Storage extends React.PureComponent {
     this.loadStats = this.loadStats.bind(this);
     this.onUpload = this.onUpload.bind(this);
     this.onPageSelect = this.onPageSelect.bind(this);
+    this.onFileSelect = this.onFileSelect.bind(this);
+    this.onFileRestore = this.onFileRestore.bind(this);
+    this.onFileDelete = this.onFileDelete.bind(this);
   }
 
   componentDidMount() {
@@ -167,7 +175,7 @@ class Storage extends React.PureComponent {
           uploads[upload_id].progress = 100;
           uploads[upload_id].request_id = false;
           uploads[upload_id].status = 'error';
-          uploads[upload_id].error = Lang('storage.' + error);
+          uploads[upload_id].error = Lang('storage.' + error, this.props.lang);
 
           this.setState({ uploads });
         },
@@ -436,14 +444,84 @@ class Storage extends React.PureComponent {
     return <Block><Loader /></Block>;
   }
 
+  makeUploader() {
+    if (!this.props.group) return null;
+    return <Block>UPLOAHAH</Block>;
+  }
+
+  makeUploads() {
+    if (!this.props.group) return null;
+    return <Block>UPLOADHS</Block>;
+  }
+
+  makeOptions() {
+    return <Block>OPTNS</Block>;
+  }
+
+  makeFiles() {
+    const files = this.state.files;
+
+    if (files === false) return null;
+
+    if (!files.length) {
+      if (this.state.loading) return null;
+
+      const error = Lang(
+        this.state.media === 'all' ?
+          'storage.error_files_not_uploaded_yet' :
+          'storage.error_files_not_found',
+        this.props.lang
+      );
+
+      return <Block>{error}</Block>;
+    }
+
+    const ret = [];
+
+    files.forEach((file) => {
+      ret.push(
+        <StorageFile
+          key={file.id}
+          file={file}
+          lang={this.props.lang}
+          onFileSelect={this.onFileSelect}
+          onFileDelete={this.onFileDelete}
+          onFileRestore={this.onFileRestore}
+        />
+      );
+    });
+
+    return <Block>{ret}</Block>;
+  }
+
   render() {
     console.log(this.state);
+
+    if (this.props.mode === 'uploader') {
+      return (
+        <Block>
+          {this.makeUploader()}
+          {this.makeUploads()}
+        </Block>
+      );
+    }
+
     return (
       <Block>
-        <Block>UPLOADER</Block>
-        <Block>UPLOADS</Block>
-        <Block>OPTIONS</Block>
-        <Block>FILES</Block>
+        {this.makeUploader()}
+        {this.makeUploads()}
+
+        <Block>
+          <Grid justifyContent="space-between">
+            <GridItem order="2" width={FILTERS_WIDTH}>
+              {this.makeOptions()}
+            </GridItem>
+            <GridItem order="1" width={`calc(100% - ${FILTERS_WIDTH} - 30px)`}>
+              {this.makeFiles()}
+            </GridItem>
+          </Grid>
+        </Block>
+
         {this.makeLoader()}
         {this.makePaginator()}
       </Block>
