@@ -42,7 +42,7 @@ function fetchData(nextState, replace, callback) {
 }
 
 const routes = [
-  <IndexRoute component={AdminStorage} key="index" onEnter={fetchData} />,
+  <IndexRoute component={AdminGallery} key="index" onEnter={fetchData} />,
   <Route path="storage" component={AdminStorage} key="blog" onEnter={fetchData} />,
   <Route path="gallery" component={AdminGallery} key="blog" onEnter={fetchData} />,
 ];
@@ -52,7 +52,7 @@ export default (
     <Route path="/" component={AdminContainer}>
       <Route path="ru/admin/">{routes}</Route>
       <Route path="en/admin/">{routes}</Route>
-      <Route path="*" component={AdminStorage} />
+      <Route path="*" component={AdminGallery} />
     </Route>
   </Router>
 );

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AppContent } from 'components/app';
 import { titleSet } from 'actions/title';
+import Storage from 'components/storage';
 import Lang from 'libs/lang';
 import langRu from './lang/ru';
 import langEn from './lang/en';
@@ -18,6 +19,12 @@ const propTypes = {
 };
 
 class AdminStorage extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.onFileSelect = this.onFileSelect.bind(this);
+  }
+
   componentWillMount() {
     this.updateTitle();
   }
@@ -32,6 +39,11 @@ class AdminStorage extends React.PureComponent {
     }
   }
 
+  onFileSelect(file) {
+    const win = window.open(file.link_download, '_blank');
+    win.focus();
+  }
+
   updateTitle() {
     this.props.dispatch(titleSet(Lang('route-storage.title')));
   }
@@ -39,7 +51,13 @@ class AdminStorage extends React.PureComponent {
   render() {
     return (
       <AppContent>
-        AdminStorage
+        <Storage 
+          onFileSelect={this.onFileSelect}
+          mediaTypes="all"
+          upload_access="public"
+          group="storage"
+          lang={this.props.lang}
+        />
       </AppContent>
     );
   }

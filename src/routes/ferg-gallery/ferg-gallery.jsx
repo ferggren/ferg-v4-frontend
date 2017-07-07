@@ -11,7 +11,7 @@ import TagsCloud from 'components/tags-cloud';
 import Paginator from 'components/paginator';
 import Loader from 'components/loader';
 import Lang from 'libs/lang';
-import clone from 'libs/clone';
+import deepClone from 'libs/deep-clone';
 import langRu from './lang/ru';
 import langEn from './lang/en';
 
@@ -143,7 +143,7 @@ class FergGallery extends React.PureComponent {
       return Lang('gallery.photos_not_found');
     }
 
-    const list = clone(photos.results.photos).map((item) => {
+    const list = deepClone(photos.results.photos).map((item) => {
       item.url = `/${this.props.lang}/gallery/${item.id}/`;
 
       if (photos.options.tag) {

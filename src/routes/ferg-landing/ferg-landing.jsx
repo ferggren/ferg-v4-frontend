@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
 import Lang from 'libs/lang';
-import clone from 'libs/clone';
+import deepClone from 'libs/deep-clone';
 import langRu from './lang/ru';
 import langEn from './lang/en';
 
@@ -147,7 +147,7 @@ class FergLanding extends React.PureComponent {
     let list = feed.results.list;
 
     if (feed.options.tag) {
-      list = clone(list).map((item) => {
+      list = deepClone(list).map((item) => {
         if (item.type === 'gallery') {
           item.url += '?tag=' + encodeURIComponent(feed.options.tag);
         }
@@ -156,7 +156,7 @@ class FergLanding extends React.PureComponent {
       });
     }
 
-    return <ItemsGrid items={list} spacing="5" maxRatio={5} />;
+    return <ItemsGrid items={list} spacing="10" maxRatio={5} />;
   }
 
   makeLoader() {
@@ -212,7 +212,12 @@ class FergLanding extends React.PureComponent {
     return (
       <div>
         <AppContent expand overlapHeader paddingTop={false} contentPadding={false}>
-          <PhotosMap lang={this.props.lang} photos={[]} />
+          <PhotosMap
+            lang={this.props.lang}
+            photos={[]}
+            heightSmall="40vh"
+            heightFull="100vh"
+          />
         </AppContent>
 
         <AppContent paddingTop={false} contentPadding={false}>

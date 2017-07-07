@@ -15,7 +15,21 @@ Lang.updateLang('photos-map', langEn, 'en');
 
 const propTypes = {
   lang: PropTypes.string.isRequired,
-  photos: PropTypes.array.isRequired,
+  photos: PropTypes.array,
+  heightSmall: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  heightFull: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+};
+
+const defaultProps = {
+  photos: [],
+  heightSmall: '30vh',
+  heightFull: '100vh',
 };
 
 class PhotosMap extends React.PureComponent {
@@ -24,6 +38,7 @@ class PhotosMap extends React.PureComponent {
 
     this.state = {
       change_zoom: true,
+      expanded: false,
     };
     
     this.map = false;
@@ -117,7 +132,7 @@ class PhotosMap extends React.PureComponent {
 
     const styledMapType = new google.maps.StyledMapType(gooleMapStyle);
 
-    this.map = new google.maps.Map(document.getElementById('ferg-map'), {
+    this.map = new google.maps.Map(document.getElementById('photos-map'), {
       clickableIcons: false,
       disableDefaultUI: true,
       center: { lat: 55.014578, lng: 82.919764 },
@@ -169,12 +184,24 @@ class PhotosMap extends React.PureComponent {
   }
 
   render() {
-    return (
-      <div className="photos-map ferg-transparent-navigation" id="ferg-map" ref={this.setRefMap} />
-    );
+    const props = {
+      className: 'photos-map ferg-transparent-navigation',
+      id: 'photos-map',
+      ref: this.setRefMap,
+      style: {},
+    };
+
+    if (this.state.expanded) {
+      props.style.height = this.props.heightFull;
+    } else {
+      props.style.height = this.props.heightSmall;
+    }
+
+    return <div {...props} />;
   }
 }
 
 PhotosMap.propTypes = propTypes;
+PhotosMap.defaultProps = defaultProps;
 
 export default PhotosMap;

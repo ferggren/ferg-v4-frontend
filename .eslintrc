@@ -50,7 +50,8 @@
     "no-constant-condition": "off",
     "no-underscore-dangle": "off",
     "react/no-danger": "off",
-    "strict": "off"
+    "strict": "off",
+    "no-useless-constructor": "warn"
   },
   plugins: [
     'react'

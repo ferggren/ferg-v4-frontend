@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import clone from 'libs/clone';
+import deepClone from 'libs/deep-clone';
 import ItemsGridItem from './components/item';
 import './styles';
 
@@ -65,7 +65,7 @@ class ItemsGrid extends React.PureComponent {
   }
 
   render() {
-    const items = clone(this.props.items);
+    const items = deepClone(this.props.items);
     this.updateItemsWidth(items);
 
     const list = items.map((item, index) => {

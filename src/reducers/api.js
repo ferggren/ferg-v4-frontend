@@ -1,7 +1,7 @@
 'use strict';
 
 import Request from 'libs/request';
-import clone from 'libs/clone';
+import deepClone from 'libs/deep-clone';
 
 const initialState = {};
 
@@ -17,7 +17,7 @@ export default function (state = initialState, action) {
     case 'API_DATA_CLEAR': {
       if (!state[action.key]) return state;
 
-      state = clone(state);
+      state = deepClone(state);
 
       abortRequest(state[action.key]);
       
@@ -28,7 +28,7 @@ export default function (state = initialState, action) {
     }
 
     case 'API_DATA_INIT': {
-      state = clone(state);
+      state = deepClone(state);
 
       if (!state[action.key]) {
         state[action.key] = {
@@ -54,7 +54,7 @@ export default function (state = initialState, action) {
       if (!state[action.key]) return state;
       if (!state[action.key].request) return state;
 
-      state = clone(state);
+      state = deepClone(state);
 
       abortRequest(state[action.key]);
 
@@ -65,7 +65,7 @@ export default function (state = initialState, action) {
       if (!state[action.key]) return state;
       if (state[action.key].loaded) return state;
 
-      state = clone(state);
+      state = deepClone(state);
 
       abortRequest(state[action.key]);
       state[action.key].request = action.request;
@@ -76,7 +76,7 @@ export default function (state = initialState, action) {
     case 'API_LOAD_STARTED': {
       if (!state[action.key]) return state;
 
-      state = clone(state);
+      state = deepClone(state);
 
       state[action.key].loading = true;
       state[action.key].loaded = false;
@@ -88,7 +88,7 @@ export default function (state = initialState, action) {
     case 'API_LOAD_ERROR': {
       if (!state[action.key]) return state;
 
-      state = clone(state);
+      state = deepClone(state);
 
       state[action.key].request = false;
       state[action.key].loading = false;
@@ -102,7 +102,7 @@ export default function (state = initialState, action) {
     case 'API_LOAD_SUCCESS': {
       if (!state[action.key]) return state;
       
-      state = clone(state);
+      state = deepClone(state);
 
       state[action.key].request = false;
       state[action.key].loading = false;
