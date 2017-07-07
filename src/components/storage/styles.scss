@@ -1,7 +1,61 @@
 @import 'styles/variables';
 @import 'styles/mixins';
 
+$storage_upload_height: 25px;
+
 .storage {
+  &__upload {
+    height: $storage_upload_height;
+    position: relative;
+    background: #f5f5f5;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background $transition_duration $transition_function,
+                color $transition_duration $transition_function;
+
+    &-progress {
+      position: absolute;
+      height: $storage_upload_height;
+      top: 0px;
+      left: 0px;
+      transition: background $transition_duration $transition_function;
+      border-radius: 3px;
+      background: rgba(185, 208, 163, 0.6);
+
+      &--error {
+        background: rgba(177, 7, 7, 0.3);
+      }
+    }
+
+    &:hover &-progress {
+      background: rgba(185, 208, 163, 0.8);
+    }
+
+    &:hover &-progress--error {
+        background: rgba(177, 7, 7, 0.5);
+    }
+
+    &-title {
+      top: 0px;
+      left: 0px;
+      margin-right: 150px;
+      padding-left: 10px;
+      position: relative;
+      line-height: $storage_upload_height;
+      font-weight: bold;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    &-status {
+      top: 0px;
+      right: 10px;
+      position: absolute;
+      line-height: $storage_upload_height;
+    }
+  }
+
   &__uploader {
     &-wrapper {
       position: relative;

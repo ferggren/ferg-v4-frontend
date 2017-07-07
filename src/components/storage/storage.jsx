@@ -10,6 +10,7 @@ import Lang from 'libs/lang';
 import deepClone from 'libs/deep-clone';
 import langRu from './lang/ru';
 import langEn from './lang/en';
+import StorageUpload from './components/upload';
 import StorageUploader from './components/uploader';
 import StorageFile from './components/file';
 import StorageOptionMedia from './components/option-media';
@@ -86,6 +87,7 @@ class Storage extends React.PureComponent {
     this.onFileRestore = this.onFileRestore.bind(this);
     this.onFileDelete = this.onFileDelete.bind(this);
     this.onOptionChange = this.onOptionChange.bind(this);
+    this.onUploadToggle = this.onUploadToggle.bind(this);
   }
 
   componentDidMount() {
@@ -135,11 +137,11 @@ class Storage extends React.PureComponent {
     }
   }
 
-  onUpload(form_data) {
+  onUpload(file) {
     const upload_id = ++this.next_upload_id;
 
-    console.log(form_data);
-    return;
+    const form_data = new FormData();
+    form_data.append('upload', file);
 
     const upload = {
       upload_id,
@@ -150,12 +152,8 @@ class Storage extends React.PureComponent {
       error: false,
     };
 
-    if (form_data.get) {
-      const file = form_data.get('upload');
-
-      if (file && file.name) {
-        upload.file_name = file.name;
-      }
+    if (file && file.name) {
+      upload.file_name = file.name;
     }
 
     form_data.append('file_access', this.props.upload_access);
@@ -165,7 +163,7 @@ class Storage extends React.PureComponent {
     upload.request_id = Request.fetch(
       '/api/storage/upload', {
         method: 'POST',
-        success: (file) => {
+        success: (response) => {
           const uploads = deepClone(this.state.uploads);
 
           uploads[upload_id].progress = 100;
@@ -174,7 +172,7 @@ class Storage extends React.PureComponent {
 
           this.setState({ uploads });
 
-          this.onFileUploaded(file, upload);
+          this.onFileUploaded(response, upload);
         },
         error: (error) => {
           const uploads = deepClone(this.state.uploads);
@@ -463,7 +461,24 @@ class Storage extends React.PureComponent {
 
   makeUploads() {
     if (!this.props.group) return null;
-    return <Block>UPLOADHS</Block>;
+
+    const ret = [];
+
+    Object.keys(this.state.uploads).forEach((upload_id) => {
+      const upload = this.state.uploads[upload_id];
+
+      ret.push(
+        <Block key={`upload_${upload.upload_id}`}>
+          <StorageUpload
+            upload={upload}
+            lang={this.props.lang}
+            onUploadClick={this.onUploadToggle}
+          />
+        </Block>
+      );
+    });
+
+    return ret;
   }
 
   makeOptions() {
@@ -523,8 +538,6 @@ class Storage extends React.PureComponent {
   }
 
   render() {
-    console.log(this.state);
-
     if (this.props.mode === 'uploader') {
       return (
         <Block>
