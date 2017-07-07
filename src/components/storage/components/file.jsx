@@ -48,7 +48,7 @@ class StorageFile extends React.PureComponent {
     if (downloads <= 0) {
       return Lang('storage.file_not_downloaded', this.props.lang);
     }
-
+    
     return Lang('storage.file_downloads', { downloads }, this.props.lang);
   }
 

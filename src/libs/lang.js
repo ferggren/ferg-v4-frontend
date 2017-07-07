@@ -146,6 +146,7 @@ function _processRupluralize(string) {
 }
 
 function _rupluralize(amount, first, second, third) {
+  amount = parseInt(amount, 10) || 0;
   amount %= 100;
 
   if (amount >= 10 && amount <= 20) return third;
@@ -176,6 +177,7 @@ function _processPluralize(string) {
 }
 
 function _pluralize(amount, one, many) {
+  amount = parseInt(amount, 10) || 0;
   return amount === 1 ? one : many;
 }
 
