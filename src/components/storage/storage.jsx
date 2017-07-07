@@ -11,6 +11,8 @@ import deepClone from 'libs/deep-clone';
 import langRu from './lang/ru';
 import langEn from './lang/en';
 import StorageFile from './components/file';
+import StorageOptionMedia from './components/option-media';
+import StorageOptionOrderBy from './components/option-orderby';
 import './styles';
 
 const FILTERS_WIDTH = '200px';
@@ -82,6 +84,7 @@ class Storage extends React.PureComponent {
     this.onFileSelect = this.onFileSelect.bind(this);
     this.onFileRestore = this.onFileRestore.bind(this);
     this.onFileDelete = this.onFileDelete.bind(this);
+    this.onOptionChange = this.onOptionChange.bind(this);
   }
 
   componentDidMount() {
@@ -455,7 +458,23 @@ class Storage extends React.PureComponent {
   }
 
   makeOptions() {
-    return <Block>OPTNS</Block>;
+    return [
+      <StorageOptionOrderBy
+        key="orderby"
+        onOptionChange={this.onOptionChange}
+        orderby={this.state.orderby}
+        lang={this.props.lang}
+      />,
+
+      <StorageOptionMedia
+        key="media"
+        onOptionChange={this.onOptionChange}
+        media={this.state.media}
+        lang={this.props.lang}
+        media_types={this.state.media_types}
+        media_stats={this.state.media_stats}
+      />,
+    ];
   }
 
   makeFiles() {
