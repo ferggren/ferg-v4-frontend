@@ -71,7 +71,7 @@ class Footer extends React.PureComponent {
 
           <div className="ui-footer__contacts-wrapper">
             <h4 className="ui-footer__contacts-title">
-              {Lang('landing.contact', {}, lang)}
+              {Lang('footer.contact', lang)}
             </h4>
             
             <ul className="ui-footer__contacts">
@@ -79,9 +79,9 @@ class Footer extends React.PureComponent {
                 <a
                   href="mailto:me@ferg.in"
                   rel="noreferrer noopener"
-                  title={Lang('landing.contact_via_email', {}, lang)}
+                  title={Lang('footer.contact_via_email', lang)}
                 >
-                  {Lang('landing.contact_via_email', {}, lang)}
+                  {Lang('footer.contact_via_email', lang)}
                 </a>
               </li>
 
@@ -89,9 +89,9 @@ class Footer extends React.PureComponent {
                 <a
                   href="skype:ferggren?chat"
                   rel="noreferrer noopener"
-                  title={Lang('landing.contact_via_skype', {}, lang)}
+                  title={Lang('footer.contact_via_skype', lang)}
                 >
-                  {Lang('landing.contact_via_skype', {}, lang)}
+                  {Lang('footer.contact_via_skype', lang)}
                 </a>
               </li>
 
@@ -100,9 +100,9 @@ class Footer extends React.PureComponent {
                   target="_blank"
                   rel="nofollow noopener noreferrer"
                   href="https://github.com/ferggren" 
-                  title={Lang('landing.contact_via_github', {}, lang)}
+                  title={Lang('footer.contact_via_github', lang)}
                 >
-                  {Lang('landing.contact_via_github', {}, lang)}
+                  {Lang('footer.contact_via_github', lang)}
                 </a>
               </li>
 
@@ -111,9 +111,9 @@ class Footer extends React.PureComponent {
                   target="_blank"
                   rel="nofollow noopener noreferrer"
                   href="https://linkedin.com/in/ferggren/" 
-                  title={Lang('landing.contact_via_linkedin', {}, lang)}
+                  title={Lang('footer.contact_via_linkedin', lang)}
                 >
-                  {Lang('landing.contact_via_linkedin', {}, lang)}
+                  {Lang('footer.contact_via_linkedin', lang)}
                 </a>
               </li>
 
@@ -122,9 +122,9 @@ class Footer extends React.PureComponent {
                   target="_blank"
                   rel="nofollow noopener noreferrer"
                   href="https://www.facebook.com/ferggren"
-                  title={Lang('landing.contact_via_facebook', {}, lang)}
+                  title={Lang('footer.contact_via_facebook', lang)}
                 >
-                  {Lang('landing.contact_via_facebook', {}, lang)}
+                  {Lang('footer.contact_via_facebook', lang)}
                 </a>
               </li>
 
@@ -133,9 +133,9 @@ class Footer extends React.PureComponent {
                   target="_blank"
                   rel="nofollow noopener noreferrer"
                   href="https://vk.com/id4867738"
-                  title={Lang('landing.contact_via_vk', {}, lang)}
+                  title={Lang('footer.contact_via_vk', lang)}
                 >
-                  {Lang('landing.contact_via_vk', {}, lang)}
+                  {Lang('footer.contact_via_vk', lang)}
                 </a>
               </li>
 
@@ -144,9 +144,9 @@ class Footer extends React.PureComponent {
                   target="_blank"
                   rel="nofollow noopener noreferrer"
                   href="https://500px.com/ferggren"
-                  title={Lang('landing.contact_via_500px', {}, lang)}
+                  title={Lang('footer.contact_via_500px', lang)}
                 >
-                  {Lang('landing.contact_via_500px', {}, lang)}
+                  {Lang('footer.contact_via_500px', lang)}
                 </a>
               </li>
 
@@ -155,9 +155,9 @@ class Footer extends React.PureComponent {
                   target="_blank"
                   rel="nofollow noopener noreferrer"
                   href="https://www.flickr.com/photos/ferggren/"
-                  title={Lang('landing.contact_via_flickr', {}, lang)}
+                  title={Lang('footer.contact_via_flickr', lang)}
                 >
-                  {Lang('landing.contact_via_flickr', {}, lang)}
+                  {Lang('footer.contact_via_flickr', lang)}
                 </a>
               </li>
 
@@ -166,9 +166,9 @@ class Footer extends React.PureComponent {
                   target="_blank"
                   rel="nofollow noopener noreferrer"
                   href="https://instagram.com/ferggren/"
-                  title={Lang('landing.contact_via_instagram', {}, lang)}
+                  title={Lang('footer.contact_via_instagram', lang)}
                 >
-                  {Lang('landing.contact_via_instagram', {}, lang)}
+                  {Lang('footer.contact_via_instagram', lang)}
                 </a>
               </li>
             </ul>

@@ -22,8 +22,19 @@ const langStrings = {};
  *  @return {string} Processed string associated to stringId
  */
 function Lang(stringId, replaces, locale) {
-  if (typeof stringId !== 'string') return stringId;
-  if (typeof replaces !== 'object') replaces = {};
+  if (typeof stringId !== 'string') {
+    return stringId;
+  }
+
+  if (!locale && typeof replaces === 'string') {
+    locale = replaces;
+    replaces = {};
+  }
+
+  if (typeof replaces !== 'object') {
+    replaces = {};
+  }
+
   locale = locale || currentLang;
 
   const pos = stringId.indexOf('.');
