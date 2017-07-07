@@ -10,6 +10,7 @@ import Lang from 'libs/lang';
 import deepClone from 'libs/deep-clone';
 import langRu from './lang/ru';
 import langEn from './lang/en';
+import StorageUploader from './components/uploader';
 import StorageFile from './components/file';
 import StorageOptionMedia from './components/option-media';
 import StorageOptionOrderBy from './components/option-orderby';
@@ -136,6 +137,9 @@ class Storage extends React.PureComponent {
 
   onUpload(form_data) {
     const upload_id = ++this.next_upload_id;
+
+    console.log(form_data);
+    return;
 
     const upload = {
       upload_id,
@@ -449,7 +453,12 @@ class Storage extends React.PureComponent {
 
   makeUploader() {
     if (!this.props.group) return null;
-    return <Block>UPLOAHAH</Block>;
+
+    return (
+      <Block>
+        <StorageUploader onUpload={this.onUpload} lang={this.props.lang} />
+      </Block>
+    );
   }
 
   makeUploads() {
