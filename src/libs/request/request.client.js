@@ -331,10 +331,9 @@ const Request = {
       request.options.url
     );
 
-    if (request.data) {
+    if (request.data && !request.isFormData) {
       request.xhr.setRequestHeader(
-        'Content-Type',
-        'application/x-www-form-urlencoded; charset=UTF-8'
+        'Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8'
       );
     }
 
