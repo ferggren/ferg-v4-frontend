@@ -9,7 +9,7 @@ const propTypes = {
   item: PropTypes.object.isRequired,
 };
 
-class AppNavigationLink extends React.PureComponent {
+class NavigationLink extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -29,12 +29,12 @@ class AppNavigationLink extends React.PureComponent {
   render() {
     const item = this.props.item;
     const props = {
-      className: 'app-nav__link',
+      className: 'ui-nav__link',
       onClick: this.onClick,
     };
 
     if (item.current === true) {
-      props.className += ' app-nav__link--current';
+      props.className += ' ui-nav__link--current';
     }
 
     let link = null;
@@ -53,6 +53,6 @@ class AppNavigationLink extends React.PureComponent {
   }
 }
 
-AppNavigationLink.propTypes = propTypes;
+NavigationLink.propTypes = propTypes;
 
-export default AppNavigationLink;
+export default NavigationLink;

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AppContent, AppContentTitle } from 'components/app';
+import { Block, BlockTitle } from 'components/ui';
 import { niceMonthFormat } from 'libs/nice-time';
 import './styles';
 
@@ -17,11 +17,11 @@ class PhotoDetails extends React.PureComponent {
     if (!photo.title) return null;
 
     return (
-      <AppContent>
-        <AppContentTitle>
+      <Block>
+        <BlockTitle>
           {photo.title}
-        </AppContentTitle>
-      </AppContent>
+        </BlockTitle>
+      </Block>
     );
   }
 
@@ -31,9 +31,9 @@ class PhotoDetails extends React.PureComponent {
     if (!photo.timestamp) return null;
 
     return (
-      <AppContent>
+      <Block>
         {niceMonthFormat(photo.timestamp)}
-      </AppContent>
+      </Block>
     );
   }
 

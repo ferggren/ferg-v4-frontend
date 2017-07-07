@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AppContent, AppContentTitle } from 'components/app';
+import { ContentWrapper, Block, BlockTitle } from 'components/ui';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
 import ItemsGrid from 'components/items-grid';
@@ -123,13 +123,15 @@ class FergGallery extends React.PureComponent {
     const selected_url = `/${this.props.lang}/gallery/`;
 
     return (
-      <TagsCloud
-        group={'gallery'}
-        tags={tags.results}
-        selected={this.props.photos ? this.props.photos.options.tag : ''}
-        tagUrl={url}
-        selectedTagUrl={selected_url}
-      />
+      <Block>
+        <TagsCloud
+          group={'gallery'}
+          tags={tags.results}
+          selected={this.props.photos ? this.props.photos.options.tag : ''}
+          tagUrl={url}
+          selectedTagUrl={selected_url}
+        />
+      </Block>
     );
   }
 
@@ -153,7 +155,11 @@ class FergGallery extends React.PureComponent {
       return item;
     });
 
-    return <ItemsGrid items={list} spacing="3" maxRatio={5} />;
+    return (
+      <Block id="ferg-gallery">
+        <ItemsGrid items={list} spacing="3" maxRatio={5} />
+      </Block>
+    );
   }
 
   makePagination() {
@@ -173,24 +179,20 @@ class FergGallery extends React.PureComponent {
     url += 'page=%page%';
 
     return (
-      <AppContent>
+      <Block>
         <Paginator
           page={photos.results.page}
           pages={photos.results.pages}
           url={url}
         />
-      </AppContent>
+      </Block>
     );
   }
 
   makeLoader() {
     if (!this.props.photos || !this.props.photos.loading) return null;
 
-    return (
-      <AppContent expand>
-        <Loader />
-      </AppContent>
-    );
+    return <Block><Loader /></Block>;
   }
 
   makeTitle() {
@@ -199,30 +201,23 @@ class FergGallery extends React.PureComponent {
     if (!photos.options.tag) return null;
 
     return (
-      <AppContent expand>
-        <AppContentTitle align="center">
+      <Block>
+        <BlockTitle align="center">
           {photos.options.tag}
-        </AppContentTitle>
-      </AppContent>
+        </BlockTitle>
+      </Block>
     );
   }
 
   render() {
     return (
-      <div>
+      <ContentWrapper>
         {this.makeTitle()}
         {this.makeLoader()}
-        
-        <AppContent id="ferg-gallery">
-          {this.makePhotos()}
-        </AppContent>
-
+        {this.makePhotos()}
         {this.makePagination()}
-
-        <AppContent>
-          {this.makeTags()}
-        </AppContent>
-      </div>
+        {this.makeTags()}
+      </ContentWrapper>
     );
   }
 }

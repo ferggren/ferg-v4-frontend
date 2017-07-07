@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AppFooter } from 'components/app';
+import { Footer } from 'components/ui';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { setLang } from 'actions/lang';
@@ -42,7 +42,7 @@ class FergFooter extends React.PureComponent {
 
   render() {
     return (
-      <AppFooter
+      <Footer
         link={this.getNewLocation()}
         lang={this.props.lang}
         onLangChange={this.changeLang}

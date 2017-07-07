@@ -18,10 +18,10 @@ const defaultProps = {
   align: 'left',
 };
 
-class AppContentTitle extends React.PureComponent {
+class BlockTitle extends React.PureComponent {
   render() {
     const props = {
-      className: 'app-content-title',
+      className: 'ui-content-title',
       style: {
         textAlign: this.props.align,
       },
@@ -35,7 +35,7 @@ class AppContentTitle extends React.PureComponent {
   }
 }
 
-AppContentTitle.propTypes = propTypes;
-AppContentTitle.defaultProps = defaultProps;
+BlockTitle.propTypes = propTypes;
+BlockTitle.defaultProps = defaultProps;
 
-export default AppContentTitle;
+export default BlockTitle;

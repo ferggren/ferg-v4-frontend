@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AppContent, AppContentTitle } from 'components/app';
+import { ContentWrapper, Block, BlockTitle } from 'components/ui';
 import ItemsGrid from 'components/items-grid';
 import TagsCloud from 'components/tags-cloud';
 import Loader from 'components/loader';
@@ -124,13 +124,15 @@ class FergLanding extends React.PureComponent {
     const selected_url = `/${this.props.lang}/`;
 
     return (
-      <TagsCloud
-        group={'feed'}
-        tags={tags.results}
-        selected={this.props.feed ? this.props.feed.options.tag : ''}
-        tagUrl={url}
-        selectedTagUrl={selected_url}
-      />
+      <Block>
+        <TagsCloud
+          group={'feed'}
+          tags={tags.results}
+          selected={this.props.feed ? this.props.feed.options.tag : ''}
+          tagUrl={url}
+          selectedTagUrl={selected_url}
+        />
+      </Block>
     );
   }
 
@@ -156,17 +158,16 @@ class FergLanding extends React.PureComponent {
       });
     }
 
-    return <ItemsGrid items={list} spacing="10" maxRatio={5} />;
+    return (
+      <Block id="ferg-feed">
+        <ItemsGrid items={list} spacing="10" maxRatio={5} />
+      </Block>
+    );
   }
 
   makeLoader() {
     if (!this.props.feed || !this.props.feed.loading) return null;
-
-    return (
-      <AppContent expand>
-        <Loader />
-      </AppContent>
-    );
+    return <Block><Loader /></Block>;
   }
 
   makeTitle() {
@@ -175,11 +176,11 @@ class FergLanding extends React.PureComponent {
     if (!feed.options.tag) return null;
 
     return (
-      <AppContent expand>
-        <AppContentTitle align="left">
+      <Block>
+        <BlockTitle align="left">
           {feed.options.tag}
-        </AppContentTitle>
-      </AppContent>
+        </BlockTitle>
+      </Block>
     );
   }
 
@@ -200,42 +201,35 @@ class FergLanding extends React.PureComponent {
     url += 'page=%page%';
 
     return (
-      <Paginator
-        page={feed.results.page}
-        pages={feed.results.pages}
-        url={url}
-      />
+      <Block>
+        <Paginator
+          page={feed.results.page}
+          pages={feed.results.pages}
+          url={url}
+        />
+      </Block>
     );
   }
 
   render() {
     return (
       <div>
-        <AppContent expand overlapHeader paddingTop={false} contentPadding={false}>
+        <ContentWrapper navigationOverlap fullWidth>
           <PhotosMap
             lang={this.props.lang}
             photos={[]}
             heightSmall="40vh"
             heightFull="100vh"
           />
-        </AppContent>
+        </ContentWrapper>
 
-        <AppContent paddingTop={false} contentPadding={false}>
+        <ContentWrapper>
           {this.makeTitle()}
           {this.makeLoader()}
-
-          <AppContent expand id="ferg-feed">
-            {this.makeFeed()}
-          </AppContent>
-
-          <AppContent expand>
-            {this.makePagination()}
-          </AppContent>
-
-          <AppContent expand>
-            {this.makeTags()}
-          </AppContent>
-        </AppContent>
+          {this.makeFeed()}
+          {this.makePagination()}
+          {this.makeTags()}
+        </ContentWrapper>
       </div>
     );
   }

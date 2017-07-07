@@ -12,17 +12,17 @@ const defaultProps = {
   children: null,
 };
 
-class AppContainer extends React.PureComponent {
+class Container extends React.PureComponent {
   render() {
     return (
-      <div className="app-wrapper">
+      <div className="ui-wrapper">
         {this.props.children}
       </div>
     );
   }
 }
 
-AppContainer.propTypes = propTypes;
-AppContainer.defaultProps = defaultProps;
+Container.propTypes = propTypes;
+Container.defaultProps = defaultProps;
 
-export default AppContainer;
+export default Container;

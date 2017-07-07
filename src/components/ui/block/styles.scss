@@ -1,0 +1,18 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.ui-block {
+  font-family: $font_default;
+  font-size: 14px;
+  margin-bottom: $default_padding;
+  width: 100%;
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+
+  &--with-content-padding {
+    padding-left: $default_padding;
+    padding-right: $default_padding;
+  }
+}

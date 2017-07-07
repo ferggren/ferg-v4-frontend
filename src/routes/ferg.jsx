@@ -4,10 +4,10 @@ import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import FergContainer from 'containers/ferg-container';
 import { makeFetchParams, fetchRoutesData } from 'libs/fetch-data';
-import FergPages from './ferg-pages';
-import FergPagesPage from './ferg-pages-page';
-import FergGallery from './ferg-gallery';
-import FergGalleryPhoto from './ferg-gallery-photo';
+// import FergPages from './ferg-pages';
+// import FergPagesPage from './ferg-pages-page';
+// import FergGallery from './ferg-gallery';
+// import FergGalleryPhoto from './ferg-gallery-photo';
 import FergLanding from './ferg-landing';
 
 /* global NODE_MODE */
@@ -47,12 +47,12 @@ function fetchData(nextState, replace, callback) {
 
 const routes = [
   <IndexRoute component={FergLanding} key="index" onEnter={fetchData} />,
-  <Route path="gallery" component={FergGallery} key="gallery" onEnter={fetchData} />,
-  <Route path="gallery/:photo_id" component={FergGalleryPhoto} key="gallery_photo" onEnter={fetchData} />,
-  <Route path="travel" component={FergPages} key="travel" onEnter={fetchData} />,
-  <Route path="travel/:page_id" component={FergPagesPage} key="travel_page" onEnter={fetchData} />,
-  <Route path="blog" component={FergPages} key="blog" onEnter={fetchData} />,
-  <Route path="blog/:page_id" component={FergPagesPage} key="blog_page" onEnter={fetchData} />,
+  // <Route path="gallery" component={FergGallery} key="gallery" onEnter={fetchData} />,
+  // <Route path="gallery/:photo_id" component={FergGalleryPhoto} key="gallery_photo" onEnter={fetchData} />,
+  // <Route path="travel" component={FergPages} key="travel" onEnter={fetchData} />,
+  // <Route path="travel/:page_id" component={FergPagesPage} key="travel_page" onEnter={fetchData} />,
+  // <Route path="blog" component={FergPages} key="blog" onEnter={fetchData} />,
+  // <Route path="blog/:page_id" component={FergPagesPage} key="blog_page" onEnter={fetchData} />,
 ];
 
 export default (

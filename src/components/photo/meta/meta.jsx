@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AppContent } from 'components/app';
+import { Block } from 'components/ui';
 import TagsCloud from 'components/tags-cloud';
 import Lang from 'libs/lang';
 import langRu from './lang/ru';
@@ -57,11 +57,7 @@ class PhotoMeta extends React.PureComponent {
 
     if (!ret.length) return null;
 
-    return (
-      <AppContent>
-        {ret}
-      </AppContent>
-    );
+    return <Block>{ret}</Block>;
   }
 
   makeTags() {
@@ -75,13 +71,13 @@ class PhotoMeta extends React.PureComponent {
     });
 
     return (
-      <AppContent>
+      <Block>
         <TagsCloud
           group="gallery"
           tags={tags}
           tagUrl={`/${this.props.lang}/gallery/?tag=%tag%`}
         />
-      </AppContent>
+      </Block>
     );
   }
 

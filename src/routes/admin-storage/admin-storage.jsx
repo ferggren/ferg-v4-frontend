@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AppContent } from 'components/app';
+import { ContentWrapper } from 'components/ui';
 import { titleSet } from 'actions/title';
 import Storage from 'components/storage';
 import Lang from 'libs/lang';
@@ -50,7 +50,7 @@ class AdminStorage extends React.PureComponent {
 
   render() {
     return (
-      <AppContent>
+      <ContentWrapper>
         <Storage 
           onFileSelect={this.onFileSelect}
           mediaTypes="all"
@@ -58,7 +58,7 @@ class AdminStorage extends React.PureComponent {
           group="storage"
           lang={this.props.lang}
         />
-      </AppContent>
+      </ContentWrapper>
     );
   }
 }

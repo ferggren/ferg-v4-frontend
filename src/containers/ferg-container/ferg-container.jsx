@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AppContainer } from 'components/app';
+import { Container } from 'components/ui';
 import LocationWatcher from 'containers/location-watcher';
 import RequestProgress from 'containers/request-progress';
 import TitleWatcher from 'containers/ferg-title-watcher';
@@ -21,7 +21,7 @@ const defaultProps = {
 class FergContainer extends React.PureComponent {
   render() {
     return (
-      <AppContainer>
+      <Container>
         <FergNavigation />
         
         <LocationWatcher />
@@ -29,10 +29,12 @@ class FergContainer extends React.PureComponent {
         <RequestProgress />
         <Tracker />
 
-        {this.props.children}
+        <div>
+          {this.props.children}
+        </div>
 
         <FergFooter />
-      </AppContainer>
+      </Container>
     );
   }
 }

@@ -46,10 +46,10 @@ const defaultProps = {
   grow: false,
 };
 
-class ContentGridItem extends React.PureComponent {
+class GridItem extends React.PureComponent {
   render() {
     const props = {
-      className: 'app-grid__item',
+      className: 'ui-grid__item',
       style: {},
     };
 
@@ -62,7 +62,7 @@ class ContentGridItem extends React.PureComponent {
     }
 
     if (this.props.withContentPadding) {
-      props.className += ' app-grid__item--with-content-padding';
+      props.className += ' ui-grid__item--with-content-padding';
     }
 
     if (this.props.width) {
@@ -85,7 +85,7 @@ class ContentGridItem extends React.PureComponent {
   }
 }
 
-ContentGridItem.propTypes = propTypes;
-ContentGridItem.defaultProps = defaultProps;
+GridItem.propTypes = propTypes;
+GridItem.defaultProps = defaultProps;
 
-export default ContentGridItem;
+export default GridItem;

@@ -32,7 +32,7 @@ const defaultProps = {
   link: false,
 };
 
-class AppFooter extends React.PureComponent {
+class Footer extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -49,17 +49,17 @@ class AppFooter extends React.PureComponent {
 
   render() {
     const lang = this.props.lang;
-    let switch_class = 'app-footer__lang-switch';
+    let switch_class = 'ui-footer__lang-switch';
 
     if (lang) {
-      switch_class += ` app-footer__lang-switch--${this.props.lang}`;
+      switch_class += ` ui-footer__lang-switch--${this.props.lang}`;
     }
 
     return (
-      <div className="app-footer__wrapper">
-        <div className="app-footer">
+      <div className="ui-footer__wrapper">
+        <div className="ui-footer">
 
-          <div className="app-footer__lang">
+          <div className="ui-footer__lang">
             <Link
               className={switch_class}
               to={this.props.link}
@@ -69,13 +69,13 @@ class AppFooter extends React.PureComponent {
             </Link>
           </div>
 
-          <div className="app-footer__contacts-wrapper">
-            <h4 className="app-footer__contacts-title">
+          <div className="ui-footer__contacts-wrapper">
+            <h4 className="ui-footer__contacts-title">
               {Lang('landing.contact', {}, lang)}
             </h4>
             
-            <ul className="app-footer__contacts">
-              <li className="app-footer__contact app-footer__contact--mail">
+            <ul className="ui-footer__contacts">
+              <li className="ui-footer__contact ui-footer__contact--mail">
                 <a
                   href="mailto:me@ferg.in"
                   rel="noreferrer noopener"
@@ -85,7 +85,7 @@ class AppFooter extends React.PureComponent {
                 </a>
               </li>
 
-              <li className="app-footer__contact app-footer__contact--skype">
+              <li className="ui-footer__contact ui-footer__contact--skype">
                 <a
                   href="skype:ferggren?chat"
                   rel="noreferrer noopener"
@@ -95,7 +95,7 @@ class AppFooter extends React.PureComponent {
                 </a>
               </li>
 
-              <li className="app-footer__contact app-footer__contact--github">
+              <li className="ui-footer__contact ui-footer__contact--github">
                 <a
                   target="_blank"
                   rel="nofollow noopener noreferrer"
@@ -106,7 +106,7 @@ class AppFooter extends React.PureComponent {
                 </a>
               </li>
 
-              <li className="app-footer__contact app-footer__contact--linkedin">
+              <li className="ui-footer__contact ui-footer__contact--linkedin">
                 <a
                   target="_blank"
                   rel="nofollow noopener noreferrer"
@@ -117,7 +117,7 @@ class AppFooter extends React.PureComponent {
                 </a>
               </li>
 
-              <li className="app-footer__contact app-footer__contact--facebook">
+              <li className="ui-footer__contact ui-footer__contact--facebook">
                 <a
                   target="_blank"
                   rel="nofollow noopener noreferrer"
@@ -128,7 +128,7 @@ class AppFooter extends React.PureComponent {
                 </a>
               </li>
 
-              <li className="app-footer__contact app-footer__contact--vk">
+              <li className="ui-footer__contact ui-footer__contact--vk">
                 <a
                   target="_blank"
                   rel="nofollow noopener noreferrer"
@@ -139,7 +139,7 @@ class AppFooter extends React.PureComponent {
                 </a>
               </li>
 
-              <li className="app-footer__contact app-footer__contact--500px">
+              <li className="ui-footer__contact ui-footer__contact--500px">
                 <a
                   target="_blank"
                   rel="nofollow noopener noreferrer"
@@ -150,7 +150,7 @@ class AppFooter extends React.PureComponent {
                 </a>
               </li>
 
-              <li className="app-footer__contact app-footer__contact--flickr">
+              <li className="ui-footer__contact ui-footer__contact--flickr">
                 <a
                   target="_blank"
                   rel="nofollow noopener noreferrer"
@@ -161,7 +161,7 @@ class AppFooter extends React.PureComponent {
                 </a>
               </li>
 
-              <li className="app-footer__contact app-footer__contact--instagram">
+              <li className="ui-footer__contact ui-footer__contact--instagram">
                 <a
                   target="_blank"
                   rel="nofollow noopener noreferrer"
@@ -174,7 +174,7 @@ class AppFooter extends React.PureComponent {
             </ul>
           </div>
 
-          <div className="app-footer__copy">
+          <div className="ui-footer__copy">
             ferg.in &copy; 2013 – 2017
           </div>
 
@@ -185,7 +185,7 @@ class AppFooter extends React.PureComponent {
   }
 }
 
-AppFooter.propTypes = propTypes;
-AppFooter.defaultProps = defaultProps;
+Footer.propTypes = propTypes;
+Footer.defaultProps = defaultProps;
 
-export default AppFooter;
+export default Footer;

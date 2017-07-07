@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from './components/link';
+import NavigationLink from './components/link';
 import './styles';
 
 const propTypes = {
@@ -20,7 +20,7 @@ const defaultProps = {
   title: '',
 };
 
-class AppNavigation extends React.PureComponent {
+class Navigation extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -42,12 +42,12 @@ class AppNavigation extends React.PureComponent {
   }
 
   makeClassName() {
-    let className = 'app-nav__wrapper';
-    className += ` app-nav__wrapper--${this.props.style}`;
-    className += ` app-nav--${this.props.style}`;
+    let className = 'ui-nav__wrapper';
+    className += ` ui-nav__wrapper--${this.props.style}`;
+    className += ` ui-nav--${this.props.style}`;
 
     if (this.state.open) {
-      className += ' app-nav--open';
+      className += ' ui-nav--open';
     }
 
     return className;
@@ -61,8 +61,8 @@ class AppNavigation extends React.PureComponent {
 
       if (!links.length) return;
 
-      let className = 'app-nav__links-block';
-      className += ` app-nav__links-block--${align}`;
+      let className = 'ui-nav__links-block';
+      className += ` ui-nav__links-block--${align}`;
 
       ret.push(
         <ul key={align} className={className}>
@@ -85,7 +85,7 @@ class AppNavigation extends React.PureComponent {
       }
 
       ret.push(
-        <Link
+        <NavigationLink
           item={item}
           onClick={this.hideNavigation}
           key={item.name + item.link}
@@ -104,13 +104,13 @@ class AppNavigation extends React.PureComponent {
   render() {
     return (
       <div className={this.makeClassName()}>
-        <div className="app-nav">
-          <h1 className="app-nav__title">
+        <div className="ui-nav">
+          <h1 className="ui-nav__title">
             {this.props.title}
           </h1>
 
           <div
-            className="app-nav__links"
+            className="ui-nav__links"
             onWheel={this.preventScroll}
             onScroll={this.preventScroll}
             onTouchMove={this.preventScroll}
@@ -121,14 +121,14 @@ class AppNavigation extends React.PureComponent {
 
           <div
             onClick={this.toggleNavigation}
-            className="app-nav__shadow"
+            className="ui-nav__shadow"
             onWheel={this.preventScroll}
             onScroll={this.preventScroll}
             onTouchMove={this.preventScroll}
           />
 
           <div
-            className="app-nav__toggle"
+            className="ui-nav__toggle"
             onClick={this.toggleNavigation}
           />
         </div>
@@ -137,7 +137,7 @@ class AppNavigation extends React.PureComponent {
   }
 }
 
-AppNavigation.propTypes = propTypes;
-AppNavigation.defaultProps = defaultProps;
+Navigation.propTypes = propTypes;
+Navigation.defaultProps = defaultProps;
 
-export default AppNavigation;
+export default Navigation;

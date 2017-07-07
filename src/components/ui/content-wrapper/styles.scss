@@ -1,0 +1,47 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.ui-content-wrapper {
+  font-family: $font_default;
+  font-size: 14px;
+  z-index: $z_index_content;
+  margin-bottom: $default_padding;
+
+  @include respond_to(desktop) {
+    &--with-navigation-overlap {
+      &:first-child {
+        margin-top: -1 * $navigation_height_desktop;
+      }
+    }
+
+    &--with-navigation-padding {
+      &:first-child {
+        margin-top: $default_padding * 2;
+      }
+    }
+  }
+
+  @include respond_to(mobile) {
+    &--with-navigation-padding {
+      &:first-child {
+        margin-top: $default_padding;
+      }
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+
+  &--centered {
+    min-width: $screen_min;
+    max-width: $screen_max;
+    padding-left: $default_padding;
+    padding-right: $default_padding;
+    margin: auto;
+  }
+}

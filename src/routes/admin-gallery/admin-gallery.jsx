@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AppContent } from 'components/app';
+import { ContentWrapper } from 'components/ui';
 import { titleSet } from 'actions/title';
 import Lang from 'libs/lang';
 import langRu from './lang/ru';
@@ -38,9 +38,9 @@ class AdminGallery extends React.PureComponent {
 
   render() {
     return (
-      <AppContent>
+      <ContentWrapper>
         AdminGallery
-      </AppContent>
+      </ContentWrapper>
     );
   }
 }

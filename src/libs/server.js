@@ -238,7 +238,7 @@ export function renderClientHTML(clientHTML, state, scriptsEnabled, counters) {
       <body style="padding: 0px; margin: 0px;">
         <div id="react-root">${clientHTML}</div>
         ${scripts_redux}
-        <div class="app-counters">
+        <div class="ui-counters">
           ${analytics}
         </div>
       </body>

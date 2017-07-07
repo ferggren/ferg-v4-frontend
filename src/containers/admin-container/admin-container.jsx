@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AppContainer } from 'components/app';
+import { Container } from 'components/ui';
 import AdminTitleWatcher from 'containers/admin-title-watcher';
 import LocationWatcher from 'containers/location-watcher';
 import RequestProgress from 'containers/request-progress';
@@ -20,17 +20,19 @@ const defaultProps = {
 class AdminContainer extends React.PureComponent {
   render() {
     return (
-      <AppContainer>
+      <Container>
         <AdminNavigation />
         
         <LocationWatcher />
         <AdminTitleWatcher />
         <RequestProgress />
 
-        {this.props.children}
+        <div>
+          {this.props.children}
+        </div>
 
         <AdminFooter />
-      </AppContainer>
+      </Container>
     );
   }
 }

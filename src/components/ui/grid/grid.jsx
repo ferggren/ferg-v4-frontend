@@ -35,7 +35,7 @@ const defaultProps = {
   alignItems: 'flex-start',
 };
 
-class ContentGrid extends React.PureComponent {
+class Grid extends React.PureComponent {
   render() {
     const style = {
       flexDirection: this.props.direction,
@@ -44,14 +44,14 @@ class ContentGrid extends React.PureComponent {
     };
 
     return (
-      <div className="app-grid" style={style}>
+      <div className="ui-grid" style={style}>
         {this.props.children}
       </div>
     );
   }
 }
 
-ContentGrid.propTypes = propTypes;
-ContentGrid.defaultProps = defaultProps;
+Grid.propTypes = propTypes;
+Grid.defaultProps = defaultProps;
 
-export default ContentGrid;
+export default Grid;

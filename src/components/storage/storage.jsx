@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'components/loader';
 import Paginator from 'components/paginator';
-import { AppContent } from 'components/app';
+import { Block } from 'components/ui';
 import Request from 'libs/request';
 import Lang from 'libs/lang';
 import deepClone from 'libs/deep-clone';
@@ -420,33 +420,33 @@ class Storage extends React.PureComponent {
     if (this.state.loading) return null;
 
     return (
-      <AppContent>
+      <Block>
         <Paginator
           page={this.state.page}
           pages={this.state.pages}
           onSelect={this.onPageSelect}
         />
-      </AppContent>
+      </Block>
     );
   }
 
   makeLoader() {
     if (!this.state.loading) return null;
 
-    return <AppContent><Loader /></AppContent>;
+    return <Block><Loader /></Block>;
   }
 
   render() {
     console.log(this.state);
     return (
-      <AppContent>
-        <AppContent>UPLOADER</AppContent>
-        <AppContent>UPLOADS</AppContent>
-        <AppContent>OPTIONS</AppContent>
-        <AppContent>FILES</AppContent>
+      <Block>
+        <Block>UPLOADER</Block>
+        <Block>UPLOADS</Block>
+        <Block>OPTIONS</Block>
+        <Block>FILES</Block>
         {this.makeLoader()}
         {this.makePaginator()}
-      </AppContent>
+      </Block>
     );
   }
 }

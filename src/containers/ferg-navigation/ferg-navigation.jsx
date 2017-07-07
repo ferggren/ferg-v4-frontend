@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { userLogout } from 'actions/user';
-import { AppNavigation } from 'components/app';
+import { Navigation } from 'components/ui';
 import { connect } from 'react-redux';
 import Lang from 'libs/lang';
 import Request from 'libs/request';
@@ -156,7 +156,7 @@ class FergNavigation extends React.PureComponent {
 
   render() {
     return (
-      <AppNavigation
+      <Navigation
         navigation={this.getNavigation()}
         title={this.props.title}
         style={this.state.style}
