@@ -559,12 +559,11 @@ class Storage extends React.PureComponent {
             </GridItem>
             <GridItem order="1" width={`calc(100% - ${FILTERS_WIDTH} - 30px)`}>
               {this.makeFiles()}
+              {this.makeLoader()}
+              {this.makePaginator()}
             </GridItem>
           </Grid>
         </Block>
-
-        {this.makeLoader()}
-        {this.makePaginator()}
       </Block>
     );
   }
