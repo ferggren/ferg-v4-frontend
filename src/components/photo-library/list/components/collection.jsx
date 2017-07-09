@@ -151,7 +151,7 @@ class PhotoLibraryCollection extends React.PureComponent {
     }
 
     const props = {
-      disabled: collection.loading ? { disabled: true } : {},
+      disabled: !!collection.loading,
       type: 'text',
       ref: this.setRefInput,
       defaultValue: collection.name_edit,

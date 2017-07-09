@@ -850,8 +850,10 @@ class PhotoLibraryList extends React.PureComponent {
 
     return (
       <Block>
-        {ret}
-        <div className="photolibrary__photos-clear" />
+        <div className="photolibrary__photos">
+          {ret}
+          <div className="photolibrary__photos-clear" />
+        </div>
       </Block>
     );
   }
@@ -898,38 +900,36 @@ class PhotoLibraryList extends React.PureComponent {
   render() {
     return (
       <Block>
-        <Block>
-          <Storage 
-            onFileUpload={this.createNewPhoto}
-            mediaTypes="image"
-            group="photolibrary"
-            mode="uploader"
-            upload_access="private"
-            lang={this.props.lang}
-          />
-        </Block>
-
-        <Block>
-          <Grid justifyContent="space-between">
-            <GridItem width={`calc(100% - ${TAGS_WIDTH} - 30px)`}>
-              {this.makeCollections()}
-              {this.makeCover()}
-              <Block><PhotoLibrarySeparator /></Block>
-              {this.makePhotos()}
-              {this.makeLoader()}
-              {this.makePaginator()}
-              {this.makeButton()}
-            </GridItem>
-
-            <GridItem width={TAGS_WIDTH}>
-              <PhotoLibraryTags
-                onTagSelect={this.selectTag}
-                tags={this.state.tags[this.state.collection] || false}
-                selected={this.state.tags_selected}
+        <Grid justifyContent="space-between">
+          <GridItem width={`calc(100% - ${TAGS_WIDTH} - 30px)`}>
+            <Block>
+              <Storage 
+                onFileUpload={this.createNewPhoto}
+                mediaTypes="image"
+                group="photolibrary"
+                mode="uploader"
+                upload_access="private"
+                lang={this.props.lang}
               />
-            </GridItem>
-          </Grid>
-        </Block>
+            </Block>
+
+            {this.makeCollections()}
+            {this.makeCover()}
+            <Block><PhotoLibrarySeparator /></Block>
+            {this.makePhotos()}
+            {this.makeLoader()}
+            {this.makePaginator()}
+            {this.makeButton()}
+          </GridItem>
+
+          <GridItem width={TAGS_WIDTH}>
+            <PhotoLibraryTags
+              onTagSelect={this.selectTag}
+              tags={this.state.tags[this.state.collection] || false}
+              selected={this.state.tags_selected}
+            />
+          </GridItem>
+        </Grid>
       </Block>
     );
   }
