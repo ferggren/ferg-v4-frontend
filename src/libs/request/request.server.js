@@ -40,7 +40,7 @@ const Request = {
     })
     .catch((error) => {
       if (typeof options.error === 'function') {
-        options.error(error);
+        options.error((error && error.message) ? error.message : 'internal_server_error');
       }
     });
 
