@@ -4,7 +4,7 @@ export default {
   blog: 'Блог',
   travel: 'Трэвел',
   gallery: 'Галерея',
-  photostream: 'Фотопоток',
+  photos: 'Фото',
   storage: 'Storage',
   home: 'Home',
 };

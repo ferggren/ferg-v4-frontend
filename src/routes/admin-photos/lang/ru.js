@@ -1,5 +1,5 @@
 'use strict';
 
 export default {
-  title: 'Галерея',
+  title: 'Фото',
 };

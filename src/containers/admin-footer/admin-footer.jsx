@@ -38,6 +38,8 @@ class AdminFooter extends React.PureComponent {
     this.props.dispatch(setLang(new_lang));
     Lang.setLang(new_lang);
     browserHistory.push(this.getNewLocation());
+    
+    window.scrollTo(0, 0);
   }
 
   render() {

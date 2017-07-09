@@ -6,7 +6,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import configureStore from 'reducers/store-ferg';
+import configureStore from 'reducers';
 import onload from 'libs/onload';
 import Lang from 'libs/lang';
 import Ferg from 'containers/ferg-app';

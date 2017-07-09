@@ -1,5 +1,7 @@
 'use strict';
 
+/* Here you can find a lot of legacy code */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'components/loader';

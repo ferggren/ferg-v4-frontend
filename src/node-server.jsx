@@ -18,7 +18,7 @@ import {
 } from 'libs/server';
 import { makeFetchParams, fetchComponentsData } from 'libs/fetch-data';
 import Lang from 'libs/lang';
-import configureStore from 'reducers/store-ferg';
+import configureStore from 'reducers';
 import { setUserIp } from 'actions/user_ip';
 import { setLang } from 'actions/lang';
 import { setLocation } from 'actions/location';
