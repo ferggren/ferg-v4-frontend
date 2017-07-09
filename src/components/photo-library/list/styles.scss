@@ -1,2 +1,10 @@
 @import 'styles/variables';
 @import 'styles/mixins';
+
+.photo-library {
+  &__separator {
+    height: 1px;
+    background: #c5c5c5;
+    margin: $default_padding 0px;
+  }
+}

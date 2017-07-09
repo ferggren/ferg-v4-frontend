@@ -7,8 +7,16 @@ import PropTypes from 'prop-types';
 import deepClone from 'libs/deep-clone';
 import Lang from 'libs/lang';
 import Request from 'libs/request';
-import PhotoLibraryEditor from 'components/photo-library/editor';
+import Loader from 'components/loader';
+import Storage from 'components/storage';
+import { Block, Grid, GridItem } from 'components/ui';
+import Paginator from 'components/paginator';
+import PhotoLibraryTags from './components/tags';
+import PhotoLibraryAttachButton from './components/attach-button';
+import PhotoLibrarySeparator from './components/separator';
 import './styles';
+
+const TAGS_WIDTH = '200px';
 
 const propTypes = {
   onSelect: PropTypes.oneOfType([
@@ -52,6 +60,9 @@ class PhotoLibraryList extends React.PureComponent {
     this.loadPhotos = this.loadPhotos.bind(this);
     this.loadTags = this.loadTags.bind(this);
     this.loadCollections = this.loadCollections.bind(this);
+    this.createNewPhoto = this.createNewPhoto.bind(this);
+    this.clearSelectedPhotos = this.clearSelectedPhotos.bind(this);
+    this.attachSelectedPhotos = this.attachSelectedPhotos.bind(this);
   }
 
   componentDidMount() {
@@ -373,8 +384,8 @@ class PhotoLibraryList extends React.PureComponent {
       page: this.state.page,
     };
 
-    Object.keys(this.state.tags_selected).forEach((tag) => {
-      data[`tag_${tag}`] = this.state.tags_selected[tag];
+    Object.keys(this.state.tags_selected).forEach((group) => {
+      data[`tag_${group}`] = this.state.tags_selected[group];
       data.tags = true;
     });
 
@@ -502,14 +513,14 @@ class PhotoLibraryList extends React.PureComponent {
     });
   }
 
-  selectTag(tag, value) {
+  selectTag(tag, group) {
     const tags = deepClone(this.state.tags_selected);
 
-    if (typeof tags[tag] !== 'undefined' && tags[tag] === value) {
-      tags[tag] = null;
-      delete tags[tag];
+    if (typeof tags[group] !== 'undefined' && tags[group] === tag) {
+      tags[group] = null;
+      delete tags[group];
     } else {
-      tags[tag] = value;
+      tags[group] = tag;
     }
 
     this.setState({ tags_selected: tags }, this.loadPhotos);
@@ -751,13 +762,88 @@ class PhotoLibraryList extends React.PureComponent {
     console.log('edit', photo);
   }
 
-  render() {
-    console.log(this.state);
+  makeCollections() {
+    return <Block>Collections</Block>;
+  }
+
+  makeCover() {
+    return <Block>Cover</Block>;
+  }
+
+  makePhotos() {
+    return <Block>PHOTOS</Block>;
+  }
+
+  makeLoader() {
+    if (!this.state.loading) return null;
+
+    return <Block><Loader /></Block>;
+  }
+
+  makePaginator() {
+    if (this.state.loading) return null;
 
     return (
-      <div>
-        PhotoLibraryList OMG
-      </div>
+      <Block>
+        <Paginator
+          page={this.state.page}
+          pages={this.state.pages}
+          onSelect={this.selectPage}
+        />
+      </Block>
+    );
+  }
+
+  makeButton() {
+    if (this.state.loading) return null;
+
+    return (
+      <Block>
+        <PhotoLibraryAttachButton
+          onAbort={this.clearSelectedPhotos}
+          onAttach={this.attachSelectedPhotos}
+          selected={this.state.selected}
+        />
+      </Block>
+    );
+  }
+
+  render() {
+    return (
+      <Block>
+        <Block>
+          <Storage 
+            onFileUpload={this.createNewPhoto}
+            mediaTypes="image"
+            group="photolibrary"
+            mode="uploader"
+            upload_access="private"
+            lang={this.props.lang}
+          />
+        </Block>
+
+        <Block>
+          <Grid justifyContent="space-between">
+            <GridItem width={`calc(100% - ${TAGS_WIDTH} - 30px)`}>
+              {this.makeCollections()}
+              {this.makeCover()}
+              <Block><PhotoLibrarySeparator /></Block>
+              {this.makePhotos()}
+              {this.makeLoader()}
+              {this.makePaginator()}
+              {this.makeButton()}
+            </GridItem>
+
+            <GridItem width={TAGS_WIDTH}>
+              <PhotoLibraryTags
+                onTagSelect={this.selectTag}
+                tags={this.state.tags[this.state.collection] || false}
+                selected={this.state.tags_selected}
+              />
+            </GridItem>
+          </Grid>
+        </Block>
+      </Block>
     );
   }
 }
