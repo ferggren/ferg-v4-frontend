@@ -11,9 +11,12 @@ import Loader from 'components/loader';
 import Storage from 'components/storage';
 import { Block, Grid, GridItem } from 'components/ui';
 import Paginator from 'components/paginator';
+import PhotoLibraryCollections from './components/collections';
+import PhotoLibraryCover from './components/cover';
 import PhotoLibraryTags from './components/tags';
 import PhotoLibraryAttachButton from './components/attach-button';
 import PhotoLibrarySeparator from './components/separator';
+import PhotoLibraryPhoto from './components/photo';
 import './styles';
 
 const TAGS_WIDTH = '200px';
@@ -23,16 +26,13 @@ const propTypes = {
     PropTypes.bool,
     PropTypes.func,
   ]),
-  onUpload: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.func,
-  ]),
   lang: PropTypes.string.isRequired,
+  multiple: PropTypes.bool,
 };
 
 const defaultProps = {
   onSelect: false,
-  onUpload: false,
+  multiple: false,
 };
 
 class PhotoLibraryList extends React.PureComponent {
@@ -63,6 +63,16 @@ class PhotoLibraryList extends React.PureComponent {
     this.createNewPhoto = this.createNewPhoto.bind(this);
     this.clearSelectedPhotos = this.clearSelectedPhotos.bind(this);
     this.attachSelectedPhotos = this.attachSelectedPhotos.bind(this);
+    this.toggleEditCollection = this.toggleEditCollection.bind(this);
+    this.updateCollection = this.updateCollection.bind(this);
+    this.deleteCollection = this.deleteCollection.bind(this);
+    this.restoreCollection = this.restoreCollection.bind(this);
+    this.deletePhoto = this.deletePhoto.bind(this);
+    this.restorePhoto = this.restorePhoto.bind(this);
+    this.setPhotoSelected = this.setPhotoSelected.bind(this);
+    this.setPhotoUnselected = this.setPhotoUnselected.bind(this);
+    this.editPhoto = this.editPhoto.bind(this);
+    this.selectPhoto = this.selectPhoto.bind(this);
   }
 
   componentDidMount() {
@@ -474,7 +484,7 @@ class PhotoLibraryList extends React.PureComponent {
     this.setState({ collections });
   }
 
-  selectCollection(collection) {
+  selectCollection(collection = 0) {
     if (typeof collection !== 'object') {
       let found = false;
       collection = parseInt(collection, 10);
@@ -763,15 +773,82 @@ class PhotoLibraryList extends React.PureComponent {
   }
 
   makeCollections() {
-    return <Block>Collections</Block>;
+    if (this.state.collection) return null;
+
+    return (
+      <Block>
+        <PhotoLibraryCollections
+          collections={this.state.collections}
+          default_collections={[0, -1]}
+          onCollectionSelect={this.selectCollection}
+          onCollectionEdit={this.toggleEditCollection}
+          onCollectionEditCancel={this.toggleEditCollection}
+          onCollectionUpdate={this.updateCollection}
+          onCollectionDelete={this.deleteCollection}
+          onCollectionRestore={this.restoreCollection}
+          lang={this.props.lang}
+        />
+      </Block>
+    );
   }
 
   makeCover() {
-    return <Block>Cover</Block>;
+    if (this.state.collection <= 0) {
+      return null;
+    }
+
+    const collection = this.state.collections.find((e) => {
+      return e.id === this.state.collection;
+    });
+
+    if (!collection) {
+      return null;
+    }
+
+    return (
+      <Block>
+        <PhotoLibraryCover
+          collection={collection}
+          onBack={this.selectCollection}
+          lang={this.props.lang}
+        />
+      </Block>
+    );
   }
 
   makePhotos() {
-    return <Block>PHOTOS</Block>;
+    if (!this.state.photos.length) {
+      if (this.state.loading) {
+        return null;
+      }
+
+      return <Block>{Lang('photolibrary.photos_not_found', this.props.lang)}</Block>;
+    }
+
+    const ret = this.state.photos.map((photo) => {
+      return (
+        <PhotoLibraryPhoto
+          key={photo.id}
+          photo={photo}
+          lang={this.props.lang}
+          multiselect={this.props.multiple}
+          selected={typeof this.state.selected[photo.id] !== 'undefined'}
+          onPhotoDelete={this.deletePhoto}
+          onPhotoRestore={this.restorePhoto}
+          onPhotoSelect={this.setPhotoSelected}
+          onPhotoUnselect={this.setPhotoUnselected}
+          onPhotoEdit={this.editPhoto}
+          onPhotoClick={this.selectPhoto}
+        />
+      );
+    });
+
+    return (
+      <Block>
+        {ret}
+        <div className="photolibrary__photos-clear" />
+      </Block>
+    );
   }
 
   makeLoader() {
@@ -797,12 +874,17 @@ class PhotoLibraryList extends React.PureComponent {
   makeButton() {
     if (this.state.loading) return null;
 
+    const selected = Object.keys(this.state.selected).length;
+
+    if (!selected) return null;
+
     return (
       <Block>
         <PhotoLibraryAttachButton
           onAbort={this.clearSelectedPhotos}
           onAttach={this.attachSelectedPhotos}
-          selected={this.state.selected}
+          selected={selected}
+          lang={this.props.lang}
         />
       </Block>
     );
