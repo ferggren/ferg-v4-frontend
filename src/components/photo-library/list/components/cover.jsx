@@ -49,7 +49,7 @@ class PhotoLibraryCover extends React.PureComponent {
       <div className="photolibrary__cover-wrapper">
         <div className="photolibrary__cover" style={style}>
           <a className="photolibrary__cover-back" onClick={this.onBack}>
-            {Lang('photolibrary.collections_back', this.props.lang)}
+            {Lang('photolibrary-list.collections_back', this.props.lang)}
           </a>
 
           <div className="photolibrary__cover-name-wrapper">

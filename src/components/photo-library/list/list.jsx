@@ -17,9 +17,14 @@ import PhotoLibraryTags from './components/tags';
 import PhotoLibraryAttachButton from './components/attach-button';
 import PhotoLibrarySeparator from './components/separator';
 import PhotoLibraryPhoto from './components/photo';
+import langRu from './lang/ru';
+import langEn from './lang/en';
 import './styles';
 
 const TAGS_WIDTH = '200px';
+
+Lang.updateLang('photolibrary-list', langRu, 'ru');
+Lang.updateLang('photolibrary-list', langEn, 'en');
 
 const propTypes = {
   onSelect: PropTypes.oneOfType([
@@ -584,13 +589,13 @@ class PhotoLibraryList extends React.PureComponent {
 
           collections.push({
             id: -1,
-            name: Lang('photolibrary.collection_add', this.props.lang),
+            name: Lang('photolibrary-list.collection_add', this.props.lang),
             updated: 0,
           });
 
           collections.push({
             id: 0,
-            name: Lang('photolibrary.photos_all', this.props.lang),
+            name: Lang('photolibrary-list.photos_all', this.props.lang),
             updated: 0,
           });
 
@@ -822,7 +827,7 @@ class PhotoLibraryList extends React.PureComponent {
         return null;
       }
 
-      return <Block>{Lang('photolibrary.photos_not_found', this.props.lang)}</Block>;
+      return <Block>{Lang('photolibrary-list.photos_not_found', this.props.lang)}</Block>;
     }
 
     const ret = this.state.photos.map((photo) => {

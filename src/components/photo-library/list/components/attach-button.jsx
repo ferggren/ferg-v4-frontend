@@ -20,12 +20,12 @@ class PhotoLibraryAttachButton extends React.PureComponent {
     return (
       <div className="photolibrary__selector">
         <div className="photolibrary__selector-abort" onClick={this.props.onAbort}>
-          {Lang('photolibrary.selected_photos_abort', this.props.lang)}
+          {Lang('photolibrary-list.selected_photos_abort', this.props.lang)}
         </div>
 
         <div className="photolibrary__selector-attach" onClick={this.props.onAttach}>
           {Lang(
-            'photolibrary.selected_photos_attach',
+            'photolibrary-list.selected_photos_attach',
             { selected: this.props.selected },
             this.props.lang
           )}
