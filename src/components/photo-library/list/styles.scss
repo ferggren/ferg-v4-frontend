@@ -41,6 +41,20 @@
       }
     }
 
+    &-photostream {
+      border: 1px solid #333;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      height: 14px;
+      width: 14px;
+      border-radius: 50%;
+      border-width: 2px;
+      border-style: solid;
+      opacity: .6;
+      background: #d60000;
+    }
+
     &-button {
       border: 1px solid #CCC;
       position: absolute;

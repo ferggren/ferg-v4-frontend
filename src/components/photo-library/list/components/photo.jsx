@@ -158,6 +158,16 @@ class PhotoLibraryPhoto extends React.PureComponent {
     return <div className="photolibrary__photo-loader"><Loader type="small" /></div>;
   }
 
+  makePhotostream() {
+    const photo = this.props.photo;
+
+    if (photo.loading || !photo.photostream) {
+      return null;
+    }
+
+    return <div className="photolibrary__photo-photostream" />;
+  }
+
   render() {
     const photo = this.props.photo;
 
@@ -182,6 +192,7 @@ class PhotoLibraryPhoto extends React.PureComponent {
           {this.makeRestore()}
           {this.makeRemove()}
           {this.makeLoader()}
+          {this.makePhotostream()}
         </div>
       </div>
     );
