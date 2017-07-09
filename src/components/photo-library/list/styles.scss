@@ -167,13 +167,15 @@
 
   &__collection {
     margin: 0px 0px 5px 5px;
-    height: 100px;
+    height: 120px;
     cursor: pointer;
     position: relative;
     background: #ecf1f5;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
+    border-radius: 2px;
+    overflow: hidden;
     transition: opacity $transition_duration $transition_function;
 
     &--deleted {
@@ -186,17 +188,20 @@
     }
 
     &-name {
-      line-height: 20px;
+      line-height: 1;
       display: inline-block;
       border-radius: 3px;
       padding: 5px 10px;
       margin: 0px 5px;
+      font-size: 16px;
+      letter-spacing: 0.6px;
       color: #FFF;
-      background: rgba(60, 60, 60, 0.7);
+      text-shadow: 0px 0px 20px rgba(40, 40, 40, 1);
 
       &-wrapper {
         text-align: center;
-        line-height: 100px;
+        line-height: 120px;
+        background: rgba(150, 150, 150, 0.6);
       }
     }
 
@@ -239,8 +244,9 @@
 
     &-editor {
       display: block;
-      line-height: 100px;
+      line-height: 120px;
       text-align: center;
+      background: rgba(150, 150, 150, 0.6);
 
       & input[type="text"] {
         padding: 2px 5px; 
@@ -250,8 +256,8 @@
   }
 
   &__cover {
-    margin: 5px;
-    height: 120px;
+    margin: 5px 0px;
+    height: 140px;
     position: relative;
     background: #ecf1f5;
     background-size: cover;
@@ -286,17 +292,20 @@
     }
 
     &-name {
-      line-height: 20px;
+      line-height: 1;
       display: inline-block;
       border-radius: 3px;
       padding: 5px 10px;
       margin: 0px 5px;
       color: #FFF;
-      background: rgba(60, 60, 60, 0.7);
+      font-size: 20px;
+      letter-spacing: 1px;
+      text-shadow: 0px 0px 20px rgba(40, 40, 40, 1);
 
       &-wrapper {
         text-align: center;
-        line-height: 120px;
+        line-height: 140px;
+        background: rgba(150, 150, 150, 0.6);
       }
     }
   }

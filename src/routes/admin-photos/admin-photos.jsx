@@ -53,7 +53,6 @@ class AdminPhotos extends React.PureComponent {
         <PhotoLibraryList
           onSelect={this.onSelect}
           lang={this.props.lang}
-          multiple
         />
       </ContentWrapper>
     );

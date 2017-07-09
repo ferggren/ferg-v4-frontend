@@ -392,7 +392,7 @@ class PhotoLibraryList extends React.PureComponent {
       Request.abort(this.requests.lp);
     }
 
-    this.setState({ loading: true });
+    this.setState({ loading: true, photos: {} });
 
     const data = {
       collection: this.state.collection ? this.state.collection : '',
