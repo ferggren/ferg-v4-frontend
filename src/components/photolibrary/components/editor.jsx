@@ -14,7 +14,7 @@ const TAGS_WIDTH = '200px';
 const propTypes = {
   photo: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
-  lang: PropTypes.string.isRequired,
+  lang: PropTypes.string,
   error: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.string,
@@ -25,7 +25,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-
+  lang: 'en',
 };
 
 class PhotoLibraryEditor extends React.PureComponent {
@@ -131,6 +131,7 @@ class PhotoLibraryEditor extends React.PureComponent {
           values={Object.keys(this.props.tags[tag])}
           multiple={tag === 'category'}
           onSelect={this.onTagSelect}
+          lang={this.props.lang}
         />
       );
     });

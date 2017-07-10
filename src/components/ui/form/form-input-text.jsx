@@ -169,7 +169,7 @@ class FormInputText extends React.PureComponent {
       e.preventDefault();
       e.stopPropagation();
       
-      this.props.onSubmit();
+      this.props.onSubmit(this.ref_input.value, this.props.name || null);
     }
   }
 

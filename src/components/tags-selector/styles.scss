@@ -1,0 +1,32 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.tags-selector {
+  &__tag {
+    line-height: 24px;
+    height: 24px;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 0px 5px;
+    font-size: 12px;
+    color: #666;
+    position: relative;
+    transition: color $transition_duration $transition_function;
+
+    &:hover {
+      color: #000;
+    }
+
+    &-name {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+    }
+
+    &-value {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+    }
+  }
+}
