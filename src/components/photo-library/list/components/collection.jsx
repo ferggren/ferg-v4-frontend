@@ -208,10 +208,24 @@ class PhotoLibraryCollection extends React.PureComponent {
     return <div className="photolibrary__collection-loader"><Loader type="small" /></div>;
   }
 
+  makeCover() {
+    const collection = this.props.collection;
+
+    if (!collection.cover) {
+      return null;
+    }
+
+    return (
+      <div
+        style={{ backgroundImage: `url('${collection.cover}')` }}
+        className="photolibrary__collection-cover"
+      />
+    );
+  }
+
   render() {
     const props = {
       className: 'photolibrary__collection',
-      style: {},
       onClick: this.onCollectionSelect,
     };
 
@@ -221,16 +235,13 @@ class PhotoLibraryCollection extends React.PureComponent {
       props.className += ' photolibrary__collection--deleted';
     }
 
-    if (collection.cover) {
-      props.style.backgroundImage = `url('${collection.cover}')`;
-    }
-
     return (
       <div className="photolibrary__collection-wrapper">
         <div {...props}>
-          {this.makePhotos()}
+          {this.makeCover()}
           {this.makeName()}
           {this.makeForm()}
+          {this.makePhotos()}
           {this.makeAbort()}
           {this.makeEdit()}
           {this.makeRemove()}
