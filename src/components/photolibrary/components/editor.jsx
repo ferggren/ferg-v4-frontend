@@ -7,7 +7,6 @@ import { Block, Grid, GridItem, FormButton, FormInputText, FormInputSelect } fro
 import TagsSelector from 'components/tags-selector';
 import deepClone from 'libs/deep-clone';
 import Lang from 'libs/lang';
-import PhotoLibrarySeparator from './separator';
 
 const TAGS_WIDTH = '200px';
 
@@ -118,21 +117,18 @@ class PhotoLibraryEditor extends React.PureComponent {
     const ret = [];
 
     Object.keys(this.props.tags).forEach((tag) => {
-      if (ret.length) {
-        ret.push(<PhotoLibrarySeparator key={`${tag}_spacing`} />);
-      }
-
       ret.push(
-        <TagsSelector
-          key={`${tag}_selector`}
-          tag={tag}
-          name={Lang(`photolibrary.tag_${tag}`)}
-          value={this.state.tags[tag]}
-          values={Object.keys(this.props.tags[tag])}
-          multiple={tag === 'category'}
-          onSelect={this.onTagSelect}
-          lang={this.props.lang}
-        />
+        <Block key={`${tag}_selector`}>
+          <TagsSelector
+            tag={tag}
+            name={Lang(`photolibrary.tag_${tag}`)}
+            value={this.state.tags[tag]}
+            values={Object.keys(this.props.tags[tag])}
+            multiple={tag === 'category'}
+            onSelect={this.onTagSelect}
+            lang={this.props.lang}
+          />
+        </Block>
       );
     });
 

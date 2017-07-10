@@ -10,6 +10,8 @@ export default {
   photo_restore: 'restore',
   photo_delete: 'x',
   photo_edit: 'edit',
+  photo_remove_from_stream: 'hide',
+  photo_add_to_stream: 'show',
   photo_update: 'Update photo',
   photo_remove_category: 'Without category',
   selected_photos_attach: 'Attach %selected% photo',

@@ -16,6 +16,7 @@ const propTypes = {
   onPhotoUnselect: PropTypes.func.isRequired,
   onPhotoEdit: PropTypes.func.isRequired,
   onPhotoClick: PropTypes.func.isRequired,
+  onPhotoToggleStream: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
@@ -32,6 +33,14 @@ class PhotoLibraryPhoto extends React.PureComponent {
     this.onPhotoUnselect = this.onPhotoUnselect.bind(this);
     this.onPhotoEdit = this.onPhotoEdit.bind(this);
     this.onPhotoClick = this.onPhotoClick.bind(this);
+    this.onPhotoToggleStream = this.onPhotoToggleStream.bind(this);
+  }
+
+  onPhotoToggleStream(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    this.props.onPhotoToggleStream(this.props.photo);
   }
 
   onPhotoDelete(e) {
@@ -158,14 +167,36 @@ class PhotoLibraryPhoto extends React.PureComponent {
     return <div className="photolibrary__photo-loader"><Loader type="small" /></div>;
   }
 
-  makePhotostream() {
+  makePhotostreamBulb() {
     const photo = this.props.photo;
 
     if (photo.loading || !photo.photostream) {
       return null;
     }
 
-    return <div className="photolibrary__photo-photostream" />;
+    return <div className="photolibrary__photo-photostream-bulb" />;
+  }
+
+  makePhotostreamToggle() {
+    const photo = this.props.photo;
+
+    if (photo.loading || photo.deleted) {
+      return null;
+    }
+
+    let title = null;
+
+    if (photo.photostream) {
+      title = Lang('photolibrary.photo_remove_from_stream', this.props.lang);
+    } else {
+      title = Lang('photolibrary.photo_add_to_stream', this.props.lang);
+    }
+
+    return (
+      <a className="photolibrary__photo-photostream-toggle" onClick={this.onPhotoToggleStream}>
+        {title}
+      </a>
+    );
   }
 
   render() {
@@ -192,7 +223,8 @@ class PhotoLibraryPhoto extends React.PureComponent {
           {this.makeRestore()}
           {this.makeRemove()}
           {this.makeLoader()}
-          {this.makePhotostream()}
+          {this.makePhotostreamBulb()}
+          {this.makePhotostreamToggle()}
         </div>
       </div>
     );

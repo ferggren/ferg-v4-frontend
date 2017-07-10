@@ -12,6 +12,8 @@ export default {
   photo_edit: 'изменить',
   photo_update: 'Обновить фото',
   photo_remove_category: 'Без категории',
+  photo_remove_from_stream: 'Скрыть',
+  photo_add_to_stream: 'Показать',
   selected_photos_attach: 'Прикрепить %selected% фото',
   selected_photos_abort: 'Отменить',
   collection_restore: 'восстановить',

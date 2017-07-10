@@ -75,6 +75,7 @@ class PhotoLibrary extends React.PureComponent {
     this.toggleEditCollection = this.toggleEditCollection.bind(this);
     this.updateCollection = this.updateCollection.bind(this);
     this.deleteCollection = this.deleteCollection.bind(this);
+    this.togglePhotoStream = this.togglePhotoStream.bind(this);
     this.restoreCollection = this.restoreCollection.bind(this);
     this.deletePhoto = this.deletePhoto.bind(this);
     this.restorePhoto = this.restorePhoto.bind(this);
@@ -684,6 +685,65 @@ class PhotoLibrary extends React.PureComponent {
     this.setState({ photos, selected });
   }
 
+  togglePhotoStream(toggled_photo) {
+    const request = `ps_${toggled_photo.id}`;
+    const photos = deepClone(this.state.photos);
+    const photo = photos.find((e) => { return e.id === toggled_photo.id; });
+
+    if (!photo) {
+      return;
+    }
+
+    if (this.requests[request]) {
+      Request.abort(this.requests[request]);
+    }
+
+    photo.loading = true;
+
+    this.requests[request] = Request.fetch(
+      `/api/photolibrary/${toggled_photo.photostream ? 'removeFromPhotostream' : 'addToPhotostream'}`, {
+        method: 'POST',
+
+        success: (response) => {
+          const photos_edited = deepClone(this.state.photos);
+          const p_edited = photos_edited.find((e) => { return e.id === toggled_photo.id; });
+
+          if (p_edited) {
+            p_edited.loading = false;
+            p_edited.photostream = !toggled_photo.photostream;
+          }
+
+          if (response && response.collection) {
+            this.updateCollectionStats(response.collection);
+          }
+
+          this.requests[request] = null;
+          delete this.requests[request];
+
+          this.setState({ photos: photos_edited });
+        },
+
+        error: () => {
+          const photos_edited = deepClone(this.state.photos);
+          const p_edited = photos_edited.find((e) => { return e.id === toggled_photo.id; });
+
+          if (p_edited) {
+            p_edited.loading = false;
+          }
+
+          this.requests[request] = null;
+          delete this.requests[request];
+
+          this.setState({ photos: photos_edited });
+        },
+
+        data: { photo_id: photo.id },
+      }
+    );
+
+    this.setState({ photos });
+  }
+
   restorePhoto(deleted_photo) {
     const request = `pr_${deleted_photo.id}`;
     const selected = deepClone(this.state.selected);
@@ -977,6 +1037,7 @@ class PhotoLibrary extends React.PureComponent {
           onPhotoUnselect={this.setPhotoUnselected}
           onPhotoEdit={this.editPhoto}
           onPhotoClick={this.selectPhoto}
+          onPhotoToggleStream={this.togglePhotoStream}
         />
       );
     });
