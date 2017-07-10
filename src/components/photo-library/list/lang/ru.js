@@ -30,6 +30,7 @@ export default {
   tag_category: 'Категория',
   tag_fl: 'ФР',
   tag_efl: 'ЭФР',
+  tag_location: 'Лоакция',
 
   // upload error
   file_is_not_image: 'Загруженный файл не является изображением',
@@ -43,4 +44,19 @@ export default {
   invalid_collection_id: 'Некорректный ID альбома',
   invalid_file_id: 'Некорректный ID файла',
   invalid_photo_id: 'Некорректный ID фото',
+
+  // photo editor erros
+  invalid_title_ru: 'Некорректный русский заголовок',
+  invalid_title_en: 'Некорректный английский заголовок',
+  invalid_gps: 'Некорректные координаты GPS',
+  invalid_taken: 'Некорректная дата',
+  invalid_iso: 'Некорректное ISO',
+  invalid_aperture: 'Некорректная диафрагма',
+  invalid_shutter_speed: 'Некорректная выдержка',
+  invalid_camera: 'Некорректное название объектива',
+  invalid_lens: 'Некорректное название камеры',
+  invalid_category: 'Некорректная категория',
+  invalid_fl: 'Некорректное ФР',
+  invalid_efl: 'Некорректное ЭФР',
+  invalid_location: 'Некорректная локация',
 };

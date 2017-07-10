@@ -25,6 +25,19 @@ html, body, #react-root {
   box-sizing: border-box;
 }
 
+body.modal-open {
+  overflow: hidden;
+  touch-action: none;
+
+  @include respond_to(mobile) {
+    position: fixed;
+  }
+
+  @include respond_to(desktop) {
+    position: absolute;
+  }
+}
+
 *, *:before, *:after {
   box-sizing: inherit;
 }

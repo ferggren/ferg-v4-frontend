@@ -60,7 +60,7 @@ class PhotoLibraryCollections extends React.PureComponent {
   makeExpandButton() {
     return (
       <div className="photolibrary__collections-expand" onClick={this.expandCollections}>
-        {Lang('photolibrary-list.collections_expand', this.props.lang)}
+        {Lang('photolibrary.collections_expand', this.props.lang)}
       </div>
     );
   }
@@ -68,7 +68,7 @@ class PhotoLibraryCollections extends React.PureComponent {
   makeCollapseButton() {
     return (
       <div className="photolibrary__collections-collapse" onClick={this.collapseCollections}>
-        {Lang('photolibrary-list.collections_collapse', this.props.lang)}
+        {Lang('photolibrary.collections_collapse', this.props.lang)}
       </div>
     );
   }

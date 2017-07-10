@@ -2,6 +2,24 @@
 @import 'styles/mixins';
 
 .photolibrary {
+  &__editor {
+    @include respond_to(mobile) {
+      min-width: 280px;
+    }
+
+    @include respond_to(desktop) {
+      min-width: 520px;
+    }
+
+    &-cover {
+      height: 150px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      margin-bottom: $default_padding;
+    }
+  }
+
   &__separator {
     height: 1px;
     background: #c5c5c5;

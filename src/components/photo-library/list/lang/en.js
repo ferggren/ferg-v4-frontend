@@ -30,6 +30,7 @@ export default {
   tag_category: 'Category',
   tag_fl: 'FL',
   tag_efl: 'EFL',
+  tag_location: 'Location',
 
   // upload error
   file_is_not_image: 'Uploaded file is not an image',
@@ -43,4 +44,19 @@ export default {
   invalid_collection_id: 'Incorrect collection id',
   invalid_file_id: 'Invalid file id',
   invalid_photo_id: 'Invalid photo id',
+
+  // photo editor
+  invalid_title_ru: 'Incorrect russian title',
+  invalid_title_en: 'Incorrect english title',
+  invalid_gps: 'Incorrect gps coordinates',
+  invalid_taken: 'Incorrect photo date',
+  invalid_iso: 'Incorrect ISO',
+  invalid_aperture: 'Incorrect aperture',
+  invalid_shutter_speed: 'Incorrect shutter speed',
+  invalid_camera: 'Incorrect camera name',
+  invalid_lens: 'Incorrect lens name',
+  invalid_category: 'Incorrect category',
+  invalid_fl: 'Incorrect FL',
+  invalid_efl: 'Incorrect EFL',
+  invalid_location: 'Incorrect location',
 };

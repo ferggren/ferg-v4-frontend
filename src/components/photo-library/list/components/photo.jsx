@@ -115,7 +115,7 @@ class PhotoLibraryPhoto extends React.PureComponent {
 
     return (
       <a className="photolibrary__photo-edit" onClick={this.onPhotoEdit}>
-        {Lang('photolibrary-list.photo_edit', this.props.lang)}
+        {Lang('photolibrary.photo_edit', this.props.lang)}
       </a>
     );
   }
@@ -129,7 +129,7 @@ class PhotoLibraryPhoto extends React.PureComponent {
 
     return (
       <a className="photolibrary__photo-restore" onClick={this.onPhotoRestore}>
-        {Lang('photolibrary-list.photo_restore', this.props.lang)}
+        {Lang('photolibrary.photo_restore', this.props.lang)}
       </a>
     );
   }
@@ -143,7 +143,7 @@ class PhotoLibraryPhoto extends React.PureComponent {
 
     return (
       <a className="photolibrary__photo-delete" onClick={this.onPhotoDelete}>
-        {Lang('photolibrary-list.photo_delete', this.props.lang)}
+        {Lang('photolibrary.photo_delete', this.props.lang)}
       </a>
     );
   }

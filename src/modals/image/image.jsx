@@ -55,7 +55,14 @@ class ImageModal extends React.PureComponent {
     this.props.dispatch(closeModal('IMAGE'));
   }
 
-  closeModal() {
+  closeModal(e) {
+    if (e.target.className !== 'image-modal') {
+      return;
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
+    
     this.props.dispatch(closeModal('IMAGE'));
   }
 

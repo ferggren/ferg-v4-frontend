@@ -17,14 +17,15 @@ import PhotoLibraryTags from './components/tags';
 import PhotoLibraryAttachButton from './components/attach-button';
 import PhotoLibrarySeparator from './components/separator';
 import PhotoLibraryPhoto from './components/photo';
+import PhotoLibraryEditor from './components/editor';
 import langRu from './lang/ru';
 import langEn from './lang/en';
 import './styles';
 
 const TAGS_WIDTH = '200px';
 
-Lang.updateLang('photolibrary-list', langRu, 'ru');
-Lang.updateLang('photolibrary-list', langEn, 'en');
+Lang.updateLang('photolibrary', langRu, 'ru');
+Lang.updateLang('photolibrary', langEn, 'en');
 
 const propTypes = {
   onSelect: PropTypes.oneOfType([
@@ -54,7 +55,9 @@ class PhotoLibraryList extends React.PureComponent {
       selected: {},
       tags: {},
       tags_selected: {},
-      editor_photo_id: 0,
+      editor_photo: 0,
+      editor_loading: false,
+      editor_error: false,
     };
 
     this.requests = {};
@@ -77,7 +80,9 @@ class PhotoLibraryList extends React.PureComponent {
     this.setPhotoSelected = this.setPhotoSelected.bind(this);
     this.setPhotoUnselected = this.setPhotoUnselected.bind(this);
     this.editPhoto = this.editPhoto.bind(this);
+    this.abortEditPhoto = this.abortEditPhoto.bind(this);
     this.selectPhoto = this.selectPhoto.bind(this);
+    this.updatePhoto = this.updatePhoto.bind(this);
   }
 
   componentDidMount() {
@@ -589,13 +594,13 @@ class PhotoLibraryList extends React.PureComponent {
 
           collections.push({
             id: -1,
-            name: Lang('photolibrary-list.collection_add', this.props.lang),
+            name: Lang('photolibrary.collection_add', this.props.lang),
             updated: 0,
           });
 
           collections.push({
             id: 0,
-            name: Lang('photolibrary-list.photos_all', this.props.lang),
+            name: Lang('photolibrary.photos_all', this.props.lang),
             updated: 0,
           });
 
@@ -743,6 +748,120 @@ class PhotoLibraryList extends React.PureComponent {
     this.setState({ photos, selected });
   }
 
+  updatePhoto(photo, info) {
+    const request = `update_${photo.id}`;
+    const photos = deepClone(this.state.photos);
+    const p = photos.find((e) => { return e.id === photo.id; });
+
+    if (!p) {
+      return;
+    }
+
+    if (this.requests[request]) {
+      Request.abort(this.requests[request]);
+    }
+
+    photo.loading = true;
+
+    this.requests[request] = Request.fetch(
+      '/api/photolibrary/updatePhoto', {
+        method: 'POST',
+
+        success: (response) => {
+          const photos_edited = deepClone(this.state.photos);
+          const p_edited = photos_edited.find((e) => { return e.id === photo.id; });
+
+          if (p_edited) {
+            p_edited.loading = false;
+            p_edited.title_ru = info.title_ru;
+            p_edited.title_en = info.title_en;
+            p_edited.gps = info.gps;
+            p_edited.taken = info.taken;
+            p_edited.collection_id = info.collection;
+
+            p_edited.tags.aperture = info.tags.aperture;
+            p_edited.tags.shutter_speed = info.tags.shutter_speed;
+            p_edited.tags.camera = info.tags.camera;
+            p_edited.tags.lens = info.tags.lens;
+            p_edited.tags.iso = info.tags.iso;
+            p_edited.tags.category = info.tags.category;
+            p_edited.tags.fl = info.tags.fl;
+            p_edited.tags.efl = info.tags.efl;
+            p_edited.tags.location = info.tags.location;
+          }
+
+          const tags = deepClone(this.state.tags);
+          tags[response.collection] = response.tags;
+
+          this.requests[request] = null;
+          delete this.requests[request];
+
+          if (photo.collection_id === info.collection) {
+            this.setState({
+              photos: photos_edited,
+              editor_loading: false,
+              editor_photo: false,
+              tags,
+            });
+          } else {
+            this.setState({
+              photos: photos_edited,
+              editor_loading: false,
+              editor_photo: false,
+              tags,
+            }, () => {
+              this.loadPhotos();
+              this.loadCollections();
+            });
+          }
+        },
+
+        error: (error) => {
+          const photos_edited = deepClone(this.state.photos);
+          const p_edited = photos_edited.find((e) => { return e.id === photo.id; });
+
+          if (p_edited) {
+            p_edited.loading = false;
+          }
+
+          this.requests[request] = null;
+          delete this.requests[request];
+
+          this.setState({
+            photos: photos_edited,
+            editor_loading: false,
+            editor_error: Lang(`photolibrary.${error}`, this.props.lang),
+          });
+        },
+
+        data: {
+          id: photo.id,
+          title_ru: info.title_ru,
+          title_en: info.title_en,
+          gps: info.gps,
+          taken: info.taken,
+          iso: info.tags.iso,
+          shutter_speed: info.tags.shutter_speed,
+          aperture: info.tags.aperture,
+          camera: info.tags.camera,
+          lens: info.tags.lens,
+          category: info.tags.category,
+          fl: info.tags.fl,
+          efl: info.tags.efl,
+          location: info.tags.location,
+          photo_collection: info.collection,
+          tags_collection: this.state.collection,
+        },
+      }
+    );
+
+    this.setState({
+      photos,
+      editor_loading: true,
+      editor_error: false,
+    });
+  }
+
   selectPhoto(photo) {
     if (photo.deleted) {
       return;
@@ -783,7 +902,11 @@ class PhotoLibraryList extends React.PureComponent {
   }
 
   editPhoto(photo) {
-    console.log('edit', photo);
+    this.setState({ editor_photo: photo.id });
+  }
+
+  abortEditPhoto() {
+    this.setState({ editor_photo: false });
   }
 
   makeCollections() {
@@ -836,7 +959,7 @@ class PhotoLibraryList extends React.PureComponent {
         return null;
       }
 
-      return <Block>{Lang('photolibrary-list.photos_not_found', this.props.lang)}</Block>;
+      return <Block>{Lang('photolibrary.photos_not_found', this.props.lang)}</Block>;
     }
 
     const ret = this.state.photos.map((photo) => {
@@ -906,9 +1029,38 @@ class PhotoLibraryList extends React.PureComponent {
     );
   }
 
+  makeEditor() {
+    if (!this.state.editor_photo || !this.state.tags[0]) {
+      return null;
+    }
+
+    const photo = this.state.photos.find((e) => {
+      return e.id === this.state.editor_photo;
+    });
+
+    if (!photo) {
+      return null;
+    }
+
+    return (
+      <PhotoLibraryEditor
+        photo={photo}
+        loading={this.state.editor_loading}
+        error={this.state.editor_error}
+        tags={this.state.tags[0]}
+        collections={this.state.collections}
+        lang={this.props.lang}
+        onClose={this.abortEditPhoto}
+        onUpdate={this.updatePhoto}
+      />
+    );
+  }
+
   render() {
     return (
       <Block>
+        {this.makeEditor()}
+
         <Grid justifyContent="space-between">
           <GridItem width={`calc(100% - ${TAGS_WIDTH} - 30px)`}>
             <Block>

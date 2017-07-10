@@ -56,7 +56,7 @@ class PhotoLibraryCover extends React.PureComponent {
         </div>
         
         <a className="photolibrary__cover-back" onClick={this.onBack}>
-          {Lang('photolibrary-list.collections_back', this.props.lang)}
+          {Lang('photolibrary.collections_back', this.props.lang)}
         </a>
 
         {this.makePhotos()}

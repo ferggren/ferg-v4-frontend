@@ -124,7 +124,7 @@ class PhotoLibraryCollection extends React.PureComponent {
 
     return (
       <a className="photolibrary__collection-edit" onClick={this.onCollectionEdit}>
-        {Lang('photolibrary-list.collection_edit', this.props.lang)}
+        {Lang('photolibrary.collection_edit', this.props.lang)}
       </a>
     );
   }
@@ -138,7 +138,7 @@ class PhotoLibraryCollection extends React.PureComponent {
 
     return (
       <a className="photolibrary__collection-abort" onClick={this.onCollectionEditCancel}>
-        {Lang('photolibrary-list.collection_abort', this.props.lang)}
+        {Lang('photolibrary.collection_abort', this.props.lang)}
       </a>
     );
   }
@@ -177,7 +177,7 @@ class PhotoLibraryCollection extends React.PureComponent {
 
     return (
       <a className="photolibrary__collection-delete" onClick={this.onCollectionDelete}>
-        {Lang('photolibrary-list.collection_delete', this.props.lang)}
+        {Lang('photolibrary.collection_delete', this.props.lang)}
       </a>
     );
   }
@@ -195,7 +195,7 @@ class PhotoLibraryCollection extends React.PureComponent {
 
     return (
       <a className="photolibrary__collection-restore" onClick={this.onCollectionRestore}>
-        {Lang('photolibrary-list.collection_restore', this.props.lang)}
+        {Lang('photolibrary.collection_restore', this.props.lang)}
       </a>
     );
   }

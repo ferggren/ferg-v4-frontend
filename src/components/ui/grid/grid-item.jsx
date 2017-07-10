@@ -24,6 +24,11 @@ const propTypes = {
     PropTypes.number,
     PropTypes.string,
   ]),
+  minWidth: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   order: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.number,
@@ -42,6 +47,7 @@ const defaultProps = {
   withContentPadding: false,
   align: 'auto',
   width: false,
+  minWidth: false,
   order: false,
   grow: false,
 };
@@ -63,6 +69,10 @@ class GridItem extends React.PureComponent {
 
     if (this.props.withContentPadding) {
       props.className += ' ui-grid__item--with-content-padding';
+    }
+
+    if (this.props.minWidth) {
+      props.style.minWidth = this.props.minWidth;
     }
 
     if (this.props.width) {
