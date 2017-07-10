@@ -41,7 +41,7 @@ const defaultProps = {
   multiple: false,
 };
 
-class PhotoLibraryList extends React.PureComponent {
+class PhotoLibrary extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -1096,7 +1096,7 @@ class PhotoLibraryList extends React.PureComponent {
   }
 }
 
-PhotoLibraryList.propTypes = propTypes;
-PhotoLibraryList.defaultProps = defaultProps;
+PhotoLibrary.propTypes = propTypes;
+PhotoLibrary.defaultProps = defaultProps;
 
-export default PhotoLibraryList;
+export default PhotoLibrary;

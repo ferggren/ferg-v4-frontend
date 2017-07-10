@@ -39,7 +39,7 @@ const propTypes = {
     PropTypes.bool,
   ]),
   disabled: PropTypes.bool,
-  icon: React.PropTypes.string,
+  icon: PropTypes.string,
 };
 
 const defaultProps = {

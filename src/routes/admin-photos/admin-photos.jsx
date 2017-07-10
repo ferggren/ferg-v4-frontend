@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ContentWrapper } from 'components/ui';
 import { titleSet } from 'actions/title';
-import { PhotoLibraryList } from 'components/photo-library';
+import PhotoLibrary from 'components/photolibrary';
 import Request from 'libs/request';
 import Lang from 'libs/lang';
 import { openModal } from 'actions/modals';
@@ -99,7 +99,7 @@ class AdminPhotos extends React.PureComponent {
   render() {
     return (
       <ContentWrapper>
-        <PhotoLibraryList
+        <PhotoLibrary
           onSelect={this.onSelect}
           lang={this.props.lang}
         />

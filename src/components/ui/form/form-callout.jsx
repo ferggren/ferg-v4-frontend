@@ -1,11 +1,12 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import './styles';
 
 const propTypes = {
-  children: React.PropTypes.node.isRequired,
-  type: React.PropTypes.string,
+  children: PropTypes.node.isRequired,
+  type: PropTypes.string,
 };
 
 const defaultProps = {
