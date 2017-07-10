@@ -748,6 +748,15 @@ class PhotoLibraryList extends React.PureComponent {
       return;
     }
 
+    if (this.props.multiple) {
+      if (this.state.selected[photo.id]) {
+        this.setPhotoUnselected(photo);
+      } else {
+        this.setPhotoSelected(photo);
+      }
+      return;
+    }
+
     if (!this.props.onSelect) {
       return;
     }

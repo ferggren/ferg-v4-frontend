@@ -8,6 +8,7 @@ import user from './user';
 import lang from './lang';
 import location from './location';
 import title from './title';
+import modals from './modals';
 import api from './api';
 
 /* global NODE_ENV */
@@ -21,6 +22,7 @@ export default function (state = {}) {
     user,
     title,
     api,
+    modals,
   });
 
   let composeEnhancers = compose;

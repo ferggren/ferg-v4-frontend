@@ -7,6 +7,7 @@ import LocationWatcher from 'containers/location-watcher';
 import RequestProgress from 'containers/request-progress';
 import TitleWatcher from 'containers/ferg-title-watcher';
 import Tracker from 'containers/tracker';
+import Modals from 'containers/modals';
 import FergNavigation from 'containers/ferg-navigation';
 import FergFooter from 'containers/ferg-footer';
 
@@ -28,6 +29,7 @@ class FergContainer extends React.PureComponent {
         <TitleWatcher />
         <RequestProgress />
         <Tracker />
+        <Modals />
 
         <div>
           {this.props.children}

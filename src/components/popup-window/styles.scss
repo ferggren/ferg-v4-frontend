@@ -1,0 +1,61 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.popup__window {
+  position: relative;
+  background: #FFF;
+  padding: $default_padding * 2;
+  border-radius: 2px;
+  font-family: $font_default;
+  overflow-x: none;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: scroll;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+
+  @include respond_to(desktop) {
+    max-width: 80vw;
+    max-height: 70vh;
+  }
+
+  @include respond_to(mobile) {
+    width: 100%;
+    height: 100%;
+  }
+
+  &-close {
+    @include respond_to(desktop) {
+      display: none;
+    }
+
+    @include respond_to(mobile) {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 26px;
+      height: 26px;
+      background-image: url('./media/close.svg');
+      background-size: 26px auto;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      opacity: .6;
+    }
+  }
+
+  &-title {
+    font-size: 20px;
+    line-height: 20px;
+    color: #666;
+    margin: 0px 0px 15px 0px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &-content {
+    font-size: 14px;
+  }
+}

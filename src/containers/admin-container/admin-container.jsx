@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Container } from 'components/ui';
 import AdminTitleWatcher from 'containers/admin-title-watcher';
 import LocationWatcher from 'containers/location-watcher';
+import Modals from 'containers/modals';
 import RequestProgress from 'containers/request-progress';
 import AdminNavigation from 'containers/admin-navigation';
 import AdminFooter from 'containers/admin-footer';
@@ -26,6 +27,7 @@ class AdminContainer extends React.PureComponent {
         <LocationWatcher />
         <AdminTitleWatcher />
         <RequestProgress />
+        <Modals />
 
         <div>
           {this.props.children}

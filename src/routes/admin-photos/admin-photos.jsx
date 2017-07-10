@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 import { ContentWrapper } from 'components/ui';
 import { titleSet } from 'actions/title';
 import { PhotoLibraryList } from 'components/photo-library';
+import Request from 'libs/request';
 import Lang from 'libs/lang';
+import { openModal } from 'actions/modals';
 import langRu from './lang/ru';
 import langEn from './lang/en';
 
@@ -21,6 +23,12 @@ const propTypes = {
 class AdminPhotos extends React.PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = {
+      loading: false,
+    };
+
+    this.request = false;
 
     this.onSelect = this.onSelect.bind(this);
   }
@@ -39,8 +47,49 @@ class AdminPhotos extends React.PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    if (this.request) {
+      Request.abort(this.request);
+      this.request = false;
+    }
+  }
+
   onSelect(photo) {
-    console.log(photo);
+    if (this.request) {
+      Request.abort(this.request);
+    }
+
+    this.setState({ loading: true });
+
+    this.request = Request.fetch(
+      '/api/adminphotos/getPhotoUrl', {
+        method: 'POST',
+
+        success: (data) => {
+          this.props.dispatch(openModal({
+            type: 'IMAGE',
+            data: {
+              src: data.src,
+              width: data.width || 0,
+              height: data.height || 0,
+              href: data.src,
+            },
+            replace: true,
+            style: 'minimal',
+          }));
+
+          this.setState({ loading: false });
+          this.request = false;
+        },
+
+        error: () => {
+          this.setState({ loading: false });
+          this.request = false;
+        },
+
+        data: { photo_id: photo[0] },
+      }
+    );
   }
 
   updateTitle() {
