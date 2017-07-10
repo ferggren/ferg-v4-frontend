@@ -19,6 +19,7 @@ import PhotoLibraryAttachButton from './components/attach-button';
 import PhotoLibrarySeparator from './components/separator';
 import PhotoLibraryPhoto from './components/photo';
 import PhotoLibraryEditor from './components/editor';
+import PhotoLibraryStreamSwitch from './components/stream-switch';
 import langRu from './lang/ru';
 import langEn from './lang/en';
 import './styles';
@@ -59,6 +60,7 @@ class PhotoLibrary extends React.PureComponent {
       editor_photo: 0,
       editor_loading: false,
       editor_error: false,
+      photostream: 'all',
     };
 
     this.requests = {};
@@ -85,6 +87,7 @@ class PhotoLibrary extends React.PureComponent {
     this.abortEditPhoto = this.abortEditPhoto.bind(this);
     this.selectPhoto = this.selectPhoto.bind(this);
     this.updatePhoto = this.updatePhoto.bind(this);
+    this.onPhotostreamChange = this.onPhotostreamChange.bind(this);
   }
 
   componentDidMount() {
@@ -100,6 +103,10 @@ class PhotoLibrary extends React.PureComponent {
     });
 
     this.requests = {};
+  }
+
+  onPhotostreamChange(photostream) {
+    this.setState({ photostream, page: 1 }, this.loadPhotos);
   }
 
   setPhotoSelected(photo) {
@@ -404,6 +411,7 @@ class PhotoLibrary extends React.PureComponent {
     const data = {
       collection: this.state.collection ? this.state.collection : '',
       page: this.state.page,
+      photostream: this.state.photostream,
     };
 
     Object.keys(this.state.tags_selected).forEach((group) => {
@@ -1147,11 +1155,20 @@ class PhotoLibrary extends React.PureComponent {
           </GridItem>
 
           <GridItem width={TAGS_WIDTH}>
-            <PhotoLibraryTags
-              onTagSelect={this.selectTag}
-              tags={this.state.tags[this.state.collection] || false}
-              selected={this.state.tags_selected}
-            />
+            <Block>
+              <PhotoLibraryStreamSwitch
+                photostream={this.state.photostream}
+                onPhotostreamChange={this.onPhotostreamChange}
+                lang={this.props.lang}
+              />
+            </Block>
+            <Block>
+              <PhotoLibraryTags
+                onTagSelect={this.selectTag}
+                tags={this.state.tags[this.state.collection] || false}
+                selected={this.state.tags_selected}
+              />
+            </Block>
           </GridItem>
         </Grid>
       </Block>

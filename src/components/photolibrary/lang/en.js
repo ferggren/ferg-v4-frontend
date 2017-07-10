@@ -33,6 +33,9 @@ export default {
   tag_fl: 'FL',
   tag_efl: 'EFL',
   tag_location: 'Location',
+  switch_all: 'All photos',
+  switch_in_photostream: 'In photostream',
+  switch_not_in_photostream: 'Not in photostream',
 
   // upload error
   file_is_not_image: 'Uploaded file is not an image',

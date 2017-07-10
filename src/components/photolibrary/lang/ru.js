@@ -33,6 +33,9 @@ export default {
   tag_fl: 'ФР',
   tag_efl: 'ЭФР',
   tag_location: 'Лоакция',
+  switch_all: 'Все фото',
+  switch_in_photostream: 'В фотопотоке',
+  switch_not_in_photostream: 'Не в фотопотоке',
 
   // upload error
   file_is_not_image: 'Загруженный файл не является изображением',
