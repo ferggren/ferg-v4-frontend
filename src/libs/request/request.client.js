@@ -14,6 +14,7 @@ import { getCookie, setCookie } from 'libs/cookies';
 const Request = {
   /** Requests queue */
   _requests: {},
+  _requests_next_id: 1,
 
   /** Interval for XMLHTTP readyState watcher */
   _watch_inverval: false,
@@ -184,13 +185,8 @@ const Request = {
    *  @return {number} Uniq id
    */
   _makeNewRequestId() {
-    for (let i = 1; ; ++i) {
-      if (typeof (Request._requests[i]) === 'object') {
-        continue;
-      }
-
-      return i;
-    }
+    Request._requests_next_id++;
+    return Request._requests_next_id;
   },
 
   /**
