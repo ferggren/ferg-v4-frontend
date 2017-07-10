@@ -11,7 +11,7 @@ const propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-class Popup extends React.PureComponent {
+class Popup extends React.Component {
   constructor(props) {
     super(props);
     
