@@ -15,7 +15,15 @@ const defaultProps = {
   title: '',
 };
 
-class PopupWindow extends React.PureComponent {
+class PopupWindow extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.title !== this.props.title) {
+      return true;
+    }
+
+    return false;
+  }
+  
   makeTitle() {
     if (!this.props.title) return null;
 

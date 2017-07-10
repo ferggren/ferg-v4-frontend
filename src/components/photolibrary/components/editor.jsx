@@ -4,7 +4,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'components/loader';
 import { Block, Grid, GridItem, FormButton, FormInputText, FormInputSelect } from 'components/ui';
-import PopupWindow from 'components/popup-window';
 import TagsSelector from 'components/tags-selector';
 import deepClone from 'libs/deep-clone';
 import Lang from 'libs/lang';
@@ -22,7 +21,6 @@ const propTypes = {
   ]).isRequired,
   tags: PropTypes.object.isRequired,
   collections: PropTypes.array.isRequired,
-  onClose: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
 
@@ -191,71 +189,69 @@ class PhotoLibraryEditor extends React.PureComponent {
     };
 
     return (
-      <PopupWindow onClose={this.props.onClose}>
-        <div className="photolibrary__editor">
-          <div {...coverProps} />
-          {this.makeError()}
+      <div className="photolibrary__editor">
+        <div {...coverProps} />
+        {this.makeError()}
 
-          <Block>
-            <Grid justifyContent="space-between">
-              <GridItem width={`calc(100% - ${TAGS_WIDTH} - 30px)`}>
-                {this.makeLoader()}
+        <Block>
+          <Grid justifyContent="space-between">
+            <GridItem width={`calc(100% - ${TAGS_WIDTH} - 30px)`}>
+              {this.makeLoader()}
 
-                <Block>
-                  <FormInputText
-                    type="text"
-                    name="title_ru"
-                    value={this.state.title_ru}
-                    placeholder={Lang('photolibrary.photo_title_ru')}
-                    disabled={this.props.loading}
-                    onChange={this.onChange}
-                  />
-                </Block>
+              <Block>
+                <FormInputText
+                  type="text"
+                  name="title_ru"
+                  value={this.state.title_ru}
+                  placeholder={Lang('photolibrary.photo_title_ru')}
+                  disabled={this.props.loading}
+                  onChange={this.onChange}
+                />
+              </Block>
 
-                <Block>
-                  <FormInputText
-                    type="text"
-                    name="title_en"
-                    value={this.state.title_en}
-                    placeholder={Lang('photolibrary.photo_title_en')}
-                    disabled={this.props.loading}
-                    onChange={this.onChange}
-                  />
-                </Block>
+              <Block>
+                <FormInputText
+                  type="text"
+                  name="title_en"
+                  value={this.state.title_en}
+                  placeholder={Lang('photolibrary.photo_title_en')}
+                  disabled={this.props.loading}
+                  onChange={this.onChange}
+                />
+              </Block>
 
-                <Block>
-                  <FormInputText
-                    type="text"
-                    name="gps"
-                    value={this.state.gps}
-                    placeholder={Lang('photolibrary.photo_gps')}
-                    disabled={this.props.loading}
-                    onChange={this.onChange}
-                  />
-                </Block>
+              <Block>
+                <FormInputText
+                  type="text"
+                  name="gps"
+                  value={this.state.gps}
+                  placeholder={Lang('photolibrary.photo_gps')}
+                  disabled={this.props.loading}
+                  onChange={this.onChange}
+                />
+              </Block>
 
-                <Block>
-                  <FormInputText
-                    type="text"
-                    name="taken"
-                    value={this.state.taken}
-                    placeholder={Lang('photolibrary.photo_taken')}
-                    disabled={this.props.loading}
-                    onChange={this.onChange}
-                  />
-                </Block>
+              <Block>
+                <FormInputText
+                  type="text"
+                  name="taken"
+                  value={this.state.taken}
+                  placeholder={Lang('photolibrary.photo_taken')}
+                  disabled={this.props.loading}
+                  onChange={this.onChange}
+                />
+              </Block>
 
-                {this.makeCollectionSelect()}
-                {this.makeButton()}
-              </GridItem>
+              {this.makeCollectionSelect()}
+              {this.makeButton()}
+            </GridItem>
 
-              <GridItem width={TAGS_WIDTH}>
-                {this.makeTags()}
-              </GridItem>
-            </Grid>
-          </Block>
-        </div>
-      </PopupWindow>
+            <GridItem width={TAGS_WIDTH}>
+              {this.makeTags()}
+            </GridItem>
+          </Grid>
+        </Block>
+      </div>
     );
   }
 }

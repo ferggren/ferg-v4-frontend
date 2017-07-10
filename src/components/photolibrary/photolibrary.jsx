@@ -9,6 +9,7 @@ import Lang from 'libs/lang';
 import Request from 'libs/request';
 import Loader from 'components/loader';
 import Storage from 'components/storage';
+import PopupWindow from 'components/popup-window';
 import { Block, Grid, GridItem } from 'components/ui';
 import Paginator from 'components/paginator';
 import PhotoLibraryCollections from './components/collections';
@@ -1043,16 +1044,17 @@ class PhotoLibrary extends React.PureComponent {
     }
 
     return (
-      <PhotoLibraryEditor
-        photo={photo}
-        loading={this.state.editor_loading}
-        error={this.state.editor_error}
-        tags={this.state.tags[0]}
-        collections={this.state.collections}
-        lang={this.props.lang}
-        onClose={this.abortEditPhoto}
-        onUpdate={this.updatePhoto}
-      />
+      <PopupWindow onClose={this.abortEditPhoto}>
+        <PhotoLibraryEditor
+          photo={photo}
+          loading={this.state.editor_loading}
+          error={this.state.editor_error}
+          tags={this.state.tags[0]}
+          collections={this.state.collections}
+          lang={this.props.lang}
+          onUpdate={this.updatePhoto}
+        />
+      </PopupWindow>
     );
   }
 

@@ -25,6 +25,10 @@ class Popup extends React.PureComponent {
     this.popup_id = this.popup.id;
     this.componentDidUpdate();
   }
+  
+  shouldComponentUpdate() {
+    return false;
+  }
 
   componentDidUpdate() {
     if (this.rendered) {
