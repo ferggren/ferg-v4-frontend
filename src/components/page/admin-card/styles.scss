@@ -1,0 +1,107 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.page-admin-card {
+  height: 250px;
+  background: #f5f5f5;
+  cursor: pointer;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  position: relative;
+  text-shadow: 0px 0px 20px #000;
+  text-shadow: 0px 0px 20px rgba(0, 0, 0, 1);
+  margin-bottom: 3px;
+  opacity: 1;
+  transition: opacity $transition_duration $transition_function;
+
+  &--hidden {
+    opacity: .9;
+  }
+
+  &--deleted {
+    opacity: .5;
+  }
+
+  &:before {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    content: " ";
+    background: -moz-linear-gradient(top, rgba(0,0,0,0.1) 10%, rgba(0,0,0,0.40) 100%);
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.1) 10%,rgba(0,0,0,0.40) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 10%,rgba(0,0,0,0.40) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#69000000',GradientType=0 );
+  }
+
+  &__header {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    margin-right: 120px;
+    color: #FFF;
+
+    &-title {
+      font-size: 24px;
+      line-height: 30px;
+
+      @include respond_to(mobile) {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+
+    &-desc {
+      font-size: 14px;
+      line-height: 18px;
+      margin-top: 5px;
+
+      @include respond_to(mobile) {
+        font-size: 12px;
+        line-height: 16px;
+      }
+    }
+  }
+
+  &__button {
+    position: absolute;
+    font-size: 12px;
+    color: #FFF !important;
+    padding: 0px 5px;
+    line-height: 20px;
+    border-radius: 3px;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &--delete, &--restore {
+      top: 10px;
+      right: 10px;
+    }
+
+    &--show, &--hide {
+      top: 10px;
+      left: 10px;
+    }
+  }
+
+  &__date {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  &__versions {
+    bottom: 35px;
+    right: 10px;
+  }
+
+  &__loader {
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+  }
+}

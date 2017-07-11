@@ -188,7 +188,7 @@ class LocationPicker extends React.PureComponent {
     this.map = new google.maps.Map(this.ref_map, {
       clickableIcons: false,
       center: location || defaultLocation,
-      zoom: location ? 13 : 7,
+      zoom: location ? 11 : 7,
       fullscreenControl: this.props.showControls,
       mapTypeControl: this.props.showControls,
       zoomControl: this.props.showControls,

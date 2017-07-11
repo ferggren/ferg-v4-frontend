@@ -7,6 +7,7 @@ import { AppContent, AppContentTitle } from 'components/app';
 import { PageHeader, PageContent } from 'components/page';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
+import { getPagesType } from 'libs/pages';
 import Loader from 'components/loader';
 import TagsCloud from 'components/tags-cloud';
 import Lang from 'libs/lang';
@@ -21,13 +22,6 @@ const PAGE_API_KEY = {
 
 Lang.updateLang('page', langRu, 'ru');
 Lang.updateLang('page', langEn, 'en');
-
-function getPagesType(location) {
-  const match = location.match(/^\/(?:en\/|ru\/)?(blog|travel)\//);
-
-  if (!match) return 'blog';
-  return match[1];
-}
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
