@@ -9,6 +9,7 @@ import AdminContainer from 'containers/admin-container';
 import AdminStorage from './admin-storage';
 import AdminPhotos from './admin-photos';
 import AdminPages from './admin-pages';
+import AdminPage from './admin-page';
 
 function fetchData(nextState, replace, callback) {
   // we dont need fetchData on server side
@@ -46,7 +47,9 @@ const routes = [
   <IndexRoute component={AdminPhotos} key="index" onEnter={fetchData} />,
   <Route path="storage" component={AdminStorage} key="storage" onEnter={fetchData} />,
   <Route path="photos" component={AdminPhotos} key="photos" onEnter={fetchData} />,
+  <Route path="travel/:id" component={AdminPage} key="page-travel" onEnter={fetchData} />,
   <Route path="travel" component={AdminPages} key="pages-travel" onEnter={fetchData} />,
+  <Route path="blog/:id" component={AdminPage} key="page-blog" onEnter={fetchData} />,
   <Route path="blog" component={AdminPages} key="pages-blog" onEnter={fetchData} />,
 ];
 

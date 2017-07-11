@@ -9,6 +9,10 @@ import './styles';
 const defaultLocation = { lat: 55.014578, lng: 82.919764 };
 
 const propTypes = {
+  onClick: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.func,
+  ]).isRequired,
   onChange: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.func,
@@ -37,6 +41,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  onClick: false,
   onChange: false,
   location: false,
   showControls: true,
@@ -331,6 +336,14 @@ class LocationPicker extends React.PureComponent {
     );
   }
 
+  makeOverlay() {
+    if (!this.props.onClick) {
+      return null;
+    }
+
+    return <div className="location-picker__overlay" onClick={this.props.onClick} />;
+  }
+
   render() {
     const props = {
       className: 'location-picker',
@@ -353,6 +366,7 @@ class LocationPicker extends React.PureComponent {
       <div {...props}>
         {this.makeInput()}
         <div ref={this.setRefMap} style={{ width: '100%', height: '100%' }} />
+        {this.makeOverlay()}
       </div>
     );
   }

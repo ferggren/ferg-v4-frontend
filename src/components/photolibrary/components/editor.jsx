@@ -205,7 +205,7 @@ class PhotoLibraryEditor extends React.PureComponent {
         <LocationPicker
           location={this.state.gps}
           onChange={this.onLocationChange}
-          className="photolibrary__editor-location-popup"
+          className="photolibrary__editor-location-picker"
         />
       </PopupWindow>
     );
@@ -277,17 +277,12 @@ class PhotoLibraryEditor extends React.PureComponent {
               {this.makeCollectionSelect()}
 
               <Block>
-                <div className="photolibrary__editor-location-wrapper">
-                  <LocationPicker
-                    location={this.state.gps}
-                    showControls={false}
-                  />
-
-                  <div
-                    className="photolibrary__editor-location-overlay"
-                    onClick={this.showLocationPopup}
-                  />
-                </div>
+                <LocationPicker
+                  location={this.state.gps}
+                  showControls={false}
+                  onClick={this.showLocationPopup}
+                  height="150px"
+                />
               </Block>
             </GridItem>
 
