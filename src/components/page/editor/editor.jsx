@@ -6,7 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'libs/lang';
 import Loader from 'components/loader';
-import { Grid, GridItem, Block, FormInputText } from 'components/ui';
+import { Grid, GridItem, Block, FormInputText, FormCallout } from 'components/ui';
 import TagsSelector from 'components/tags-selector';
 import PopupWindow from 'components/popup-window';
 import LocationPicker from 'components/location-picker';
@@ -36,6 +36,7 @@ class PageEditor extends React.PureComponent {
     super(props);
 
     this.state = {
+      error: false,
       page: false,
       loading: false,
       tags: false,
@@ -44,11 +45,13 @@ class PageEditor extends React.PureComponent {
 
     this.requests = {};
 
+    this.updateDate = this.updateDate.bind(this);
     this.updateTag = this.updateTag.bind(this);
     this.updateGps = this.updateGps.bind(this);
     this.updateLocation = this.updateLocation.bind(this);
     this.showLocationPopup = this.showLocationPopup.bind(this);
     this.hideLocationPopup = this.hideLocationPopup.bind(this);
+    this.updatePreview = this.updatePreview.bind(this);
   }
 
   componentDidMount() {
@@ -88,11 +91,11 @@ class PageEditor extends React.PureComponent {
 
   loadPage() {
     if (!this.props.page_id) {
-      this.setState({ loading: false, page: false });
+      this.setState({ loading: false, page: false, error: false });
       return;
     }
 
-    this.setState({ loading: false, page: false });
+    this.setState({ loading: false, page: false, error: false });
 
     if (this.requests.page) {
       Request.abort(this.requests.page);
@@ -107,9 +110,9 @@ class PageEditor extends React.PureComponent {
           this.setState({ page, loading: false });
         },
 
-        error: () => {
+        error: (error) => {
           this.requests.page = null;
-          this.setState({ loading: false });
+          this.setState({ loading: false, error });
         },
 
         data: {
@@ -134,8 +137,9 @@ class PageEditor extends React.PureComponent {
           this.setState({ tags });
         },
 
-        error: () => {
+        error: (error) => {
           this.requests.tags = null;
+          this.setState({ error });
         },
 
         data: {
@@ -156,7 +160,7 @@ class PageEditor extends React.PureComponent {
       Request.abort(this.requests.update);
     }
 
-    this.setState({ loading: true });
+    this.setState({ loading: true, error: false });
 
     this.requests.update = Request.fetch(
       '/api/pages/updatePhoto/', {
@@ -171,9 +175,9 @@ class PageEditor extends React.PureComponent {
           this.setState({ page, loading: false });
         },
 
-        error: () => {
+        error: (error) => {
           this.requests.update = null;
-          this.setState({ loading: false });
+          this.setState({ loading: false, error });
         },
 
         data: {
@@ -186,7 +190,12 @@ class PageEditor extends React.PureComponent {
   }
 
   updateDate(date) {
-    if (this.state.loading) {
+    if (this.state.loading || date === this.state.page.date) {
+      return;
+    }
+
+    if (!date.match(/^\d{4}\.\d{1,2}\.\d{1,2}$/)) {
+      this.setState({ error: 'invalid_date' });
       return;
     }
 
@@ -194,7 +203,7 @@ class PageEditor extends React.PureComponent {
       Request.abort(this.requests.update);
     }
 
-    this.setState({ loading: true });
+    this.setState({ loading: true, error: false });
 
     this.requests.update = Request.fetch(
       '/api/pages/updateDate/', {
@@ -210,9 +219,9 @@ class PageEditor extends React.PureComponent {
           this.setState({ page, loading: false });
         },
 
-        error: () => {
+        error: (error) => {
           this.requests.update = null;
-          this.setState({ loading: false });
+          this.setState({ loading: false, error });
         },
 
         data: {
@@ -225,7 +234,46 @@ class PageEditor extends React.PureComponent {
   }
 
   updateGps(gps) {
-    console.log(gps);
+    if (this.state.loading || gps === this.state.page.gps) {
+      return;
+    }
+
+    if (gps && !gps.match(/^-?\d+\.\d+\s+-?\d+\.\d+$/)) {
+      this.setState({ error: 'invalid_gps' });
+      return;
+    }
+    
+    if (this.requests.update) {
+      Request.abort(this.requests.update);
+    }
+
+    this.setState({ loading: true, error: false });
+
+    this.requests.update = Request.fetch(
+      '/api/pages/updateGps/', {
+        method: 'POST',
+        
+        success: (response) => {
+          this.requests.update = null;
+
+          const page = deepClone(this.state.page);
+          page.gps = response.gps;
+
+          this.setState({ page, loading: false });
+        },
+
+        error: (error) => {
+          this.requests.update = null;
+          this.setState({ loading: false, error });
+        },
+
+        data: {
+          type: this.props.type,
+          id: this.props.page_id,
+          gps: gps || '',
+        },
+      }
+    );
   }
 
   updateLocation(location) {
@@ -241,7 +289,7 @@ class PageEditor extends React.PureComponent {
       Request.abort(this.requests.update);
     }
 
-    this.setState({ loading: true });
+    this.setState({ loading: true, error: false });
 
     this.requests.update = Request.fetch(
       '/api/pages/updateTags/', {
@@ -252,6 +300,7 @@ class PageEditor extends React.PureComponent {
 
           const page = deepClone(this.state.page);
           page.tags = response.page_tags;
+          page.location = response.page_location;
 
           this.setState({
             tags: response.tags,
@@ -260,9 +309,9 @@ class PageEditor extends React.PureComponent {
           });
         },
 
-        error: () => {
+        error: (error) => {
           this.requests.update = null;
-          this.setState({ loading: false });
+          this.setState({ loading: false, error });
         },
 
         data: {
@@ -341,6 +390,20 @@ class PageEditor extends React.PureComponent {
     );
   }
 
+  makeError() {
+    if (!this.state.error) {
+      return null;
+    }
+
+    return (
+      <Block>
+        <FormCallout>
+          {Lang(`page-editor.error_${this.state.error}`)}
+        </FormCallout>
+      </Block>
+    );
+  }
+
   render() {
     if (!this.state.page) {
       return <Block><Loader /></Block>;
@@ -353,12 +416,24 @@ class PageEditor extends React.PureComponent {
         <Block>
           <Grid justifyContent="space-between">
             <GridItem width={`calc(100% - ${TAGS_WIDTH} - 30px)`}>
+              {this.makeError()}
+
               <Block>
                 PREVIEW
               </Block>
 
               <Block>
-                DATE
+                <Block>
+                  <FormInputText
+                    type="text"
+                    name="date"
+                    value={this.state.page.date}
+                    placeholder={Lang('page-editor.page_date')}
+                    disabled={this.state.loading}
+                    onSubmit={this.updateDate}
+                    onBlur={this.updateDate}
+                  />
+                </Block>
               </Block>
 
               <Block>
@@ -369,6 +444,7 @@ class PageEditor extends React.PureComponent {
                   placeholder={Lang('page-editor.page_gps')}
                   disabled={this.state.loading}
                   onSubmit={this.updateGps}
+                  onBlur={this.updateGps}
                 />
               </Block>
 
@@ -386,10 +462,6 @@ class PageEditor extends React.PureComponent {
               {this.makeTagsList()}
             </GridItem>
           </Grid>
-        </Block>
-
-        <Block>
-          BUTT
         </Block>
 
         <Block>

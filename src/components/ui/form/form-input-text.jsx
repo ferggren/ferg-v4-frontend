@@ -181,14 +181,24 @@ class FormInputText extends React.PureComponent {
     }
   }
 
-  onBlur(e) {
+  onBlur() {
     this.hideSuggestions();
-    if (this.props.onBlur) this.props.onBlur(e);
+
+    if (!this.ref_input) return;
+
+    if (this.props.onBlur) {
+      this.props.onBlur(this.ref_input.value, this.props.name || null);
+    }
   }
 
-  onFocus(e) {
+  onFocus() {
     this.showSuggestions();
-    if (this.props.onFocus) this.props.onFocus(e);
+
+    if (!this.ref_input) return;
+
+    if (this.props.onFocus) {
+      this.props.onFocus(this.ref_input.value, this.props.name || null);
+    }
   }
 
   setRefInput(c) {
