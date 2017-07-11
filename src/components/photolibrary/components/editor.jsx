@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import Loader from 'components/loader';
 import { Block, Grid, GridItem, FormButton, FormInputText, FormInputSelect } from 'components/ui';
 import TagsSelector from 'components/tags-selector';
+import PopupWindow from 'components/popup-window';
+import LocationPicker from 'components/location-picker';
 import deepClone from 'libs/deep-clone';
 import Lang from 'libs/lang';
 
@@ -35,6 +37,7 @@ class PhotoLibraryEditor extends React.PureComponent {
     const tags = photo.tags;
 
     this.state = {
+      show_location_popup: false,
       tags: {
         iso: tags.iso,
         aperture: tags.aperture,
@@ -56,6 +59,9 @@ class PhotoLibraryEditor extends React.PureComponent {
     this.onChange = this.onChange.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
     this.onTagSelect = this.onTagSelect.bind(this);
+    this.onLocationChange = this.onLocationChange.bind(this);
+    this.showLocationPopup = this.showLocationPopup.bind(this);
+    this.hideLocationPopup = this.hideLocationPopup.bind(this);
   }
 
   onChange(value, name) {
@@ -95,6 +101,18 @@ class PhotoLibraryEditor extends React.PureComponent {
     tags[tag] = value;
 
     this.setState({ tags });
+  }
+
+  onLocationChange(location) {
+    this.setState({ gps: `${location.lat} ${location.lng}` });
+  }
+
+  showLocationPopup() {
+    this.setState({ show_location_popup: true });
+  }
+
+  hideLocationPopup() {
+    this.setState({ show_location_popup: false });
   }
 
   makeError() {
@@ -177,6 +195,22 @@ class PhotoLibraryEditor extends React.PureComponent {
     );
   }
 
+  makeLocationPopup() {
+    if (!this.state.show_location_popup) {
+      return null;
+    }
+
+    return (
+      <PopupWindow onClose={this.hideLocationPopup}>
+        <LocationPicker
+          location={this.state.gps}
+          onChange={this.onLocationChange}
+          className="photolibrary__editor-location-popup"
+        />
+      </PopupWindow>
+    );
+  }
+
   render() {
     const coverProps = {
       className: 'photolibrary__editor-cover',
@@ -189,6 +223,7 @@ class PhotoLibraryEditor extends React.PureComponent {
       <div className="photolibrary__editor">
         <div {...coverProps} />
         {this.makeError()}
+        {this.makeLocationPopup()}
 
         <Block>
           <Grid justifyContent="space-between">
@@ -240,7 +275,20 @@ class PhotoLibraryEditor extends React.PureComponent {
               </Block>
 
               {this.makeCollectionSelect()}
-              {this.makeButton()}
+
+              <Block>
+                <div className="photolibrary__editor-location-wrapper">
+                  <LocationPicker
+                    location={this.state.gps}
+                    showControls={false}
+                  />
+
+                  <div
+                    className="photolibrary__editor-location-overlay"
+                    onClick={this.showLocationPopup}
+                  />
+                </div>
+              </Block>
             </GridItem>
 
             <GridItem width={TAGS_WIDTH}>
@@ -248,6 +296,8 @@ class PhotoLibraryEditor extends React.PureComponent {
             </GridItem>
           </Grid>
         </Block>
+
+        {this.makeButton()}
       </div>
     );
   }

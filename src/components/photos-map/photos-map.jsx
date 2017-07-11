@@ -125,14 +125,14 @@ class PhotosMap extends React.PureComponent {
   initMap() {
     if (this.map) return;
 
-    if (typeof window.google === 'undefined') {
+    if (typeof window.google === 'undefined' || !this.ref_map) {
       this.watch_google_loaded = setTimeout(this.initMap, 100);
       return;
     }
 
     const styledMapType = new google.maps.StyledMapType(gooleMapStyle);
 
-    this.map = new google.maps.Map(document.getElementById('photos-map'), {
+    this.map = new google.maps.Map(this.ref_map, {
       clickableIcons: false,
       disableDefaultUI: true,
       center: { lat: 55.014578, lng: 82.919764 },
@@ -186,7 +186,6 @@ class PhotosMap extends React.PureComponent {
   render() {
     const props = {
       className: 'photos-map ferg-transparent-navigation',
-      id: 'photos-map',
       ref: this.setRefMap,
       style: {},
     };

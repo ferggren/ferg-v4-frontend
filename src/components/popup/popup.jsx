@@ -11,7 +11,7 @@ const propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-class Popup extends React.Component {
+class Popup extends React.PureComponent {
   constructor(props) {
     super(props);
     
@@ -25,22 +25,12 @@ class Popup extends React.Component {
     this.popup_id = this.popup.id;
     this.componentDidUpdate();
   }
-  
-  shouldComponentUpdate() {
-    return false;
-  }
 
   componentDidUpdate() {
-    if (this.rendered) {
-      ReactDOM.unmountComponentAtNode(this.popup.node);
-    }
-
     ReactDOM.render(
       <div className="popup__root">{this.props.children}</div>,
       this.popup.node
     );
-
-    this.rendered = true;
   }
 
   componentWillUnmount() {
