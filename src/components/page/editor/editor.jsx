@@ -9,9 +9,11 @@ import Loader from 'components/loader';
 import { Grid, GridItem, Block, FormInputText, FormCallout } from 'components/ui';
 import TagsSelector from 'components/tags-selector';
 import PopupWindow from 'components/popup-window';
+import MediaEditor from 'components/media-editor';
 import LocationPicker from 'components/location-picker';
 import Request from 'libs/request';
 import deepClone from 'libs/deep-clone';
+import PageEditorPreview from './components/preview';
 import langRu from './lang/ru';
 import langEn from './lang/en';
 import './styles';
@@ -45,6 +47,7 @@ class PageEditor extends React.PureComponent {
 
     this.requests = {};
 
+    this.updatePageInfo = this.updatePageInfo.bind(this);
     this.updateDate = this.updateDate.bind(this);
     this.updateTag = this.updateTag.bind(this);
     this.updateGps = this.updateGps.bind(this);
@@ -410,7 +413,7 @@ class PageEditor extends React.PureComponent {
     }
 
     return (
-      <Block>
+      <div>
         {this.makeLocationPopup()}
 
         <Block>
@@ -419,7 +422,12 @@ class PageEditor extends React.PureComponent {
               {this.makeError()}
 
               <Block>
-                PREVIEW
+                <PageEditorPreview
+                  page={this.state.page}
+                  lang={this.props.lang}
+                  loading={this.state.loading}
+                  onSelect={this.updatePreview}
+                />
               </Block>
 
               <Block>
@@ -453,7 +461,7 @@ class PageEditor extends React.PureComponent {
                   location={this.state.page.gps}
                   showControls={false}
                   onClick={this.showLocationPopup}
-                  height="150px"
+                  height="100px"
                 />
               </Block>
             </GridItem>
@@ -465,9 +473,17 @@ class PageEditor extends React.PureComponent {
         </Block>
 
         <Block>
-          EDITAH
+          <MediaEditor
+            onUpdate={this.updatePageInfo}
+            entry_key={`page_${this.state.page.id}`}
+            lang={this.props.lang}
+            langs={[
+              this.props.lang,
+              this.props.lang === 'en' ? 'ru' : 'en',
+            ]}
+          />
         </Block>
-      </Block>
+      </div>
     );
   }
 }

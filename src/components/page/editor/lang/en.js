@@ -5,4 +5,7 @@ export default {
   tags_location: 'location',
   page_gps: 'Coordinates (lat, lng)',
   page_date: 'Date (Y.m.d)',
+  update_preview: 'Update cover',
+  set_preview: 'Set cover',
+  clear_preview: 'Clear cover',
 };
