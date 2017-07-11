@@ -6,6 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'components/loader';
 import Paginator from 'components/paginator';
+import TagsCloud from 'components/tags-cloud';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { ContentWrapper, Block, Grid, GridItem, FormButton, FormCallout } from 'components/ui';
@@ -93,7 +94,6 @@ class AdminPages extends React.PureComponent {
       Request.abort(this.requests.pages);
     }
 
-
     this.requests.pages = Request.fetch(
       '/api/pages/getPages/', {
         method: 'POST',
@@ -123,7 +123,7 @@ class AdminPages extends React.PureComponent {
       }
     );
 
-    this.setState({ loading: true, page });
+    this.setState({ loading: true, page, list: [] });
   }
 
   loadTags() {
@@ -156,10 +156,8 @@ class AdminPages extends React.PureComponent {
     this.setState({ tags: false });
   }
 
-  selectTag(group, tag) {
+  selectTag(tag) {
     this.setState({
-      page: 1,
-      pages: 1,
       tag: this.state.tag === tag ? '' : tag,
     }, this.loadPages);
   }
@@ -472,7 +470,7 @@ class AdminPages extends React.PureComponent {
   }
 
   makeLoader() {
-    if (!this.state.loading || !this.state.creating) {
+    if (!this.state.loading && !this.state.creating) {
       return null;
     }
 
@@ -495,6 +493,25 @@ class AdminPages extends React.PureComponent {
     );
   }
 
+  makeTags() {
+    if (this.state.tags === false) {
+      return <Block><Loader /></Block>;
+    }
+
+    if (this.state.tags.length === 0) {
+      return <Block>{Lang('admin-pages.tags_not_found', this.props.lang)}</Block>;
+    }
+
+    return (
+      <TagsCloud
+        group={`pages_${this.props.type}_all`}
+        tags={this.state.tags}
+        selected={this.state.tag}
+        onSelect={this.selectTag}
+      />
+    );
+  }
+
   render() {
     return (
       <ContentWrapper>
@@ -507,7 +524,7 @@ class AdminPages extends React.PureComponent {
           </GridItem>
 
           <GridItem width={TAGS_WIDTH}>
-            TAGS
+            {this.makeTags()}
           </GridItem>
         </Grid>
       </ContentWrapper>

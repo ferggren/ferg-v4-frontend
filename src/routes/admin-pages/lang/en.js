@@ -5,4 +5,5 @@ export default {
   'blog-title': 'Blog',
   pages_not_found: 'Pages not found',
   create_new_page: 'Create new page',
+  tags_not_found: 'Tags not found',
 };
