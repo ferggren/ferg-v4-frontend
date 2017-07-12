@@ -53,6 +53,11 @@ const propTypes = {
     PropTypes.number,
     PropTypes.bool,
   ]),
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool,
+  ]),
   placeholder: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -102,6 +107,7 @@ const defaultProps = {
   autoComplete: false,
   readOnly: false,
   focusOnMount: false,
+  defaultValue: false,
 };
 
 class FormInputText extends React.PureComponent {
@@ -300,7 +306,7 @@ class FormInputText extends React.PureComponent {
       onBlur: this.onBlur,
       onFocus: this.onFocus,
       onKeyDown: this.onKeyDown,
-      defaultValue: this.props.value || '',
+      defaultValue: this.props.value || this.props.defaultValue || '',
       ref: this.setRefInput,
     };
 

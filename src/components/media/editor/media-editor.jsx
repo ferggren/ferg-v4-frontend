@@ -18,6 +18,7 @@ import {
 import Loader from 'components/loader';
 import PopupWindow from 'components/popup-window';
 import deepClone from 'libs/deep-clone';
+import MediaEditorContent from 'components/media/content';
 import MediaEditorLangs from './components/langs';
 import MediaEditorPhotos from './components/photos';
 import langRu from './lang/ru';
@@ -498,7 +499,7 @@ class MediaEditor extends React.PureComponent {
 
     return (
       <PopupWindow onClose={this.closePreview}>
-        {this.state.preview}
+        <MediaEditorContent content={this.state.preview} />
       </PopupWindow>
     );
   }
