@@ -226,6 +226,10 @@
       cursor: not-allowed;
       color: #999;
     }
+
+    &--multiline {
+      min-height: 300px;
+    }
   }
 
   &__button {

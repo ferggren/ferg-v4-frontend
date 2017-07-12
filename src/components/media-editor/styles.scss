@@ -2,5 +2,108 @@
 @import 'styles/mixins';
 
 .media-editor {
+  &__langs {
+    display: block;
+    border-bottom: 1px solid #DDD;
+  }
 
+  &__lang {
+    font-size: 12px;
+    display: inline-block;
+    padding: 6px 14px;
+    cursor: pointer;
+    margin: 0px 5px 0px 0px;
+    border-radius: 3px 3px 0px 0px;
+    background: #EEE;
+    transition: background $transition_duration $transition_function;
+
+    &--selected, &:hover {
+      background: #CCC;
+    }
+  }
+
+  &__photos {
+    max-height: 650px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    @include respond_to(mobile) {
+      max-height: 200px;
+    }
+  }
+
+  &__photo {
+    height: 80px;
+    cursor: pointer;
+    background: #EEE;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 5px;
+    position: relative;
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
+
+    &--create {
+      line-height: 80px;
+      text-align: center;
+      font-size: 24px;
+      color: #999;
+      transition: color $transition_duration $transition_function;
+
+      &:hover {
+        color: #666;
+      }
+    }
+
+    &-button {
+      opacity: .8;
+      font-size: 12px;
+      color: #FFF !important;
+      padding: 0px 5px;
+      line-height: 20px;
+      border-radius: 3px;
+      background: rgba(90, 90, 90, 0.7);
+      transition: opacity $transition_duration $transition_function;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &--title {
+        opacity: .9;
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 200px;
+      }
+
+      &--restore, &--delete {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+      }
+    }
+
+    &-loader {
+      position: absolute;
+      right: 10px;
+      bottom: 15px;
+    }
+
+    &-tags {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+
+    &-tag {
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
 }
