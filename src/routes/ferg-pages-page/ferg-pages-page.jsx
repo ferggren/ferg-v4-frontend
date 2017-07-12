@@ -3,8 +3,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AppContent, AppContentTitle } from 'components/app';
-import { PageHeader, PageContent } from 'components/page';
+import { ContentWrapper, Block, BlockTitle } from 'components/ui';
+import { PageHeader } from 'components/page';
+import { MediaContent } from 'components/media';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
 import { getPagesType } from 'libs/pages';
@@ -104,34 +105,30 @@ class FergBlogPage extends React.PureComponent {
   }
 
   makeLoader() {
-    return (
-      <AppContent>
-        <Loader />
-      </AppContent>
-    );
+    return <ContentWrapper><Loader /></ContentWrapper>;
   }
 
   makeError() {
     return (
-      <div>
-        <AppContent>
-          <AppContentTitle align="left">
+      <ContentWrapper>
+        <Block>
+          <BlockTitle align="left">
             Whoops
-          </AppContentTitle>
-        </AppContent>
+          </BlockTitle>
+        </Block>
 
-        <AppContent>
+        <Block>
           {Lang('page.not_found')}
-        </AppContent>
-      </div>
+        </Block>
+      </ContentWrapper>
     );
   }
 
   makeHeader() {
     return (
-      <AppContent expand overlapHeader paddingTop={false} contentPadding={false}>
+      <ContentWrapper navigationOverlap fullWidth>
         <PageHeader page={this.props.page.results} />
-      </AppContent>
+      </ContentWrapper>
     );
   }
 
@@ -140,16 +137,16 @@ class FergBlogPage extends React.PureComponent {
 
     if (!page.html) {
       return (
-        <AppContent>
+        <ContentWrapper>
           {Lang('page.page_is_empty')}
-        </AppContent>
+        </ContentWrapper>
       );
     }
 
     return (
-      <AppContent>
-        <PageContent content={page.html} />
-      </AppContent>
+      <ContentWrapper>
+        <MediaContent content={page.html} />
+      </ContentWrapper>
     );
   }
 

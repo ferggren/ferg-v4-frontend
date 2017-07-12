@@ -7,7 +7,7 @@ import ItemsGrid from 'components/items-grid';
 import TagsCloud from 'components/tags-cloud';
 import Loader from 'components/loader';
 import Paginator from 'components/paginator';
-import PhotosMap from 'components/photos-map';
+// import PhotosMap from 'components/photos-map';
 import { connect } from 'react-redux';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
