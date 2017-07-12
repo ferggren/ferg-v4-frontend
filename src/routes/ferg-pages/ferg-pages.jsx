@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AppContent, AppContentTitle } from 'components/app';
+import { ContentWrapper, Block, BlockTitle } from 'components/ui';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
 import { getPagesType } from 'libs/pages';
@@ -132,7 +132,7 @@ class FergPages extends React.PureComponent {
     const tags = this.props.tags;
 
     if (!tags) return null;
-    if (tags.loading) return <Loader />;
+    if (tags.loading) return <Block><Loader /></Block>;
     if (tags.error) return tags.error;
     if (!Object.keys(tags.results).length) {
       return Lang('pages.tags_not_found');
@@ -142,13 +142,15 @@ class FergPages extends React.PureComponent {
     const selected_url = `/${this.props.lang}/${this.props.type}/`;
 
     return (
-      <TagsCloud
-        group={this.props.type}
-        tags={tags.results}
-        selected={this.props.pages ? this.props.pages.options.tag : ''}
-        tagUrl={url}
-        selectedTagUrl={selected_url}
-      />
+      <Block>
+        <TagsCloud
+          group={this.props.type}
+          tags={tags.results}
+          selected={this.props.pages ? this.props.pages.options.tag : ''}
+          tagUrl={url}
+          selectedTagUrl={selected_url}
+        />
+      </Block>
     );
   }
 
@@ -174,17 +176,16 @@ class FergPages extends React.PureComponent {
       };
     });
 
-    return <ItemsGrid items={list} spacing="10" maxRatio={3} />;
+    return (
+      <Block id="ferg-pages">
+        <ItemsGrid items={list} spacing="10" maxRatio={3} />
+      </Block>
+    );
   }
 
   makeLoader() {
     if (!this.props.pages || !this.props.pages.loading) return null;
-
-    return (
-      <AppContent expand>
-        <Loader />
-      </AppContent>
-    );
+    return <Block><Loader /></Block>;
   }
 
   makeTitle() {
@@ -193,11 +194,11 @@ class FergPages extends React.PureComponent {
     if (!pages.options.tag) return null;
 
     return (
-      <AppContent expand>
-        <AppContentTitle align="left">
+      <Block>
+        <BlockTitle align="left">
           {pages.options.tag}
-        </AppContentTitle>
-      </AppContent>
+        </BlockTitle>
+      </Block>
     );
   }
 
@@ -218,34 +219,25 @@ class FergPages extends React.PureComponent {
     url += 'page=%page%';
 
     return (
-      <AppContent>
+      <Block>
         <Paginator
           page={pages.results.page}
           pages={pages.results.pages}
           url={url}
         />
-      </AppContent>
+      </Block>
     );
   }
 
   render() {
     return (
-      <AppContent paddingTop={false} contentPadding={false}>
+      <ContentWrapper>
         {this.makeTitle()}
         {this.makeLoader()}
-
-        <AppContent expand id="ferg-pages">
-          {this.makePages()}
-        </AppContent>
-
-        <AppContent expand>
-          {this.makePagination()}
-        </AppContent>
-
-        <AppContent>
-          {this.makeTags()}
-        </AppContent>
-      </AppContent>
+        {this.makePages()}
+        {this.makePagination()}
+        {this.makeTags()}
+      </ContentWrapper>
     );
   }
 }

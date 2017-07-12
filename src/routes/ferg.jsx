@@ -4,7 +4,7 @@ import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import FergContainer from 'containers/ferg-container';
 import { makeFetchParams, fetchRoutesData } from 'libs/fetch-data';
-// import FergPages from './ferg-pages';
+import FergPages from './ferg-pages';
 // import FergPagesPage from './ferg-pages-page';
 import FergPhotostream from './ferg-photostream';
 import FergPhotostreamPhoto from './ferg-photostream-photo';
@@ -49,9 +49,9 @@ const routes = [
   <IndexRoute component={FergLanding} key="index" onEnter={fetchData} />,
   <Route path="photostream" component={FergPhotostream} key="photostream" onEnter={fetchData} />,
   <Route path="photostream/:photo_id" component={FergPhotostreamPhoto} key="photostream_photo" onEnter={fetchData} />,
-  // <Route path="travel" component={FergPages} key="travel" onEnter={fetchData} />,
+  <Route path="travel" component={FergPages} key="travel" onEnter={fetchData} />,
   // <Route path="travel/:page_id" component={FergPagesPage} key="travel_page" onEnter={fetchData} />,
-  // <Route path="blog" component={FergPages} key="blog" onEnter={fetchData} />,
+  <Route path="blog" component={FergPages} key="blog" onEnter={fetchData} />,
   // <Route path="blog/:page_id" component={FergPagesPage} key="blog_page" onEnter={fetchData} />,
 ];
 
