@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AppContent, AppContentTitle, AppGrid, AppGridItem } from 'components/app';
+import { ContentWrapper, Block, BlockTitle, Grid, GridItem } from 'components/ui';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
 import { PhotoExposition, PhotoMeta, PhotoDetails } from 'components/photo';
@@ -12,11 +12,11 @@ import Lang from 'libs/lang';
 import langRu from './lang/ru';
 import langEn from './lang/en';
 
-const GALLERY_PHOTO_API_URL = '/api/gallery/getPhoto';
-const GALLERY_PHOTO_API_KEY = 'gallery_photo';
+const PHOTOSTREAM_PHOTO_API_URL = '/api/photostream/getPhoto';
+const PHOTOSTREAM_PHOTO_API_KEY = 'photostream_photo';
 
-Lang.updateLang('gallery-photo', langRu, 'ru');
-Lang.updateLang('gallery-photo', langEn, 'en');
+Lang.updateLang('photostream-photo', langRu, 'ru');
+Lang.updateLang('photostream-photo', langEn, 'en');
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -45,19 +45,19 @@ class FergGalleryPhoto extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    this.props.dispatch(apiErrorDataClear(GALLERY_PHOTO_API_KEY));
+    this.props.dispatch(apiErrorDataClear(PHOTOSTREAM_PHOTO_API_KEY));
   }
 
   updateTitle() {
     const photo = this.props.photo;
 
     if (!photo || !photo.results.info || !photo.results.info.title) {
-      this.props.dispatch(titleSet(Lang('gallery-photo.title')));
+      this.props.dispatch(titleSet(Lang('photostream-photo.title')));
       return;
     }
     
     this.props.dispatch(titleSet(Lang(
-      'gallery-photo.photo-title', {
+      'photostream-photo.photo-title', {
         title: photo.results.info.title,
       }
     )));
@@ -79,7 +79,7 @@ class FergGalleryPhoto extends React.PureComponent {
     }
 
     this.props.dispatch(apiFetch(
-      GALLERY_PHOTO_API_KEY, GALLERY_PHOTO_API_URL, {
+      PHOTOSTREAM_PHOTO_API_KEY, PHOTOSTREAM_PHOTO_API_URL, {
         id,
         tag,
         cache: true,
@@ -100,15 +100,15 @@ class FergGalleryPhoto extends React.PureComponent {
   makeError() {
     return (
       <div>
-        <AppContent>
-          <AppContentTitle align="left">
+        <Block>
+          <BlockTitle align="left">
             Whoops
-          </AppContentTitle>
-        </AppContent>
+          </BlockTitle>
+        </Block>
 
-        <AppContent>
-          {Lang('gallery-photo.not_found')}
-        </AppContent>
+        <Block>
+          {Lang('photostream-photo.not_found')}
+        </Block>
       </div>
     );
   }
@@ -150,12 +150,7 @@ class FergGalleryPhoto extends React.PureComponent {
 
   makeLoader() {
     if (!this.props.photo || !this.props.photo.loading) return null;
-
-    return (
-      <AppContent>
-        <Loader />
-      </AppContent>
-    );
+    return <ContentWrapper><Loader /></ContentWrapper>;
   }
 
   render() {
@@ -171,20 +166,20 @@ class FergGalleryPhoto extends React.PureComponent {
 
     return (
       <div>
-        <AppContent expand paddingTop={false} contentPadding={false}>
+        <ContentWrapper navigationOverlap fullWidth>
           {this.makePhoto()}
-        </AppContent>
+        </ContentWrapper>
 
-        <AppContent paddingTop={false} contentPadding={false}>
-          <AppGrid direction="row">
-            <AppGridItem order="1" width="70%">
+        <ContentWrapper>
+          <Grid>
+            <GridItem width="70%">
               {this.makeDesc()}
-            </AppGridItem>
-            <AppGridItem order="2" width="30%">
+            </GridItem>
+            <GridItem width="30%">
               {this.makeMeta()}
-            </AppGridItem>
-          </AppGrid>
-        </AppContent>
+            </GridItem>
+          </Grid>
+        </ContentWrapper>
 
         {this.makeLoader()}
       </div>
@@ -199,10 +194,10 @@ FergGalleryPhoto.fetchData = function (store, params) {
   const ret = [];
   const api = state.api;
 
-  if (!api[GALLERY_PHOTO_API_KEY]) {
+  if (!api[PHOTOSTREAM_PHOTO_API_KEY]) {
     ret.push(
       store.dispatch(apiFetch(
-        GALLERY_PHOTO_API_KEY, GALLERY_PHOTO_API_URL, {
+        PHOTOSTREAM_PHOTO_API_KEY, PHOTOSTREAM_PHOTO_API_URL, {
           id: parseInt(params.photo_id, 10) || 0,
           tag: params.tag || '',
           cache: true,
@@ -212,7 +207,7 @@ FergGalleryPhoto.fetchData = function (store, params) {
   }
 
   if (!state.title) {
-    store.dispatch(titleSet(Lang('gallery-photo.title', {}, state.lang)));
+    store.dispatch(titleSet(Lang('photostream-photo.title', {}, state.lang)));
   }
 
   return ret;
@@ -221,7 +216,7 @@ FergGalleryPhoto.fetchData = function (store, params) {
 export default connect((state) => {
   return {
     lang: state.lang,
-    photo: state.api[GALLERY_PHOTO_API_KEY] || false,
+    photo: state.api[PHOTOSTREAM_PHOTO_API_KEY] || false,
   };
 })(FergGalleryPhoto);
 

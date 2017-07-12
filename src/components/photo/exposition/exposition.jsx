@@ -8,7 +8,10 @@ import './styles';
 
 const propTypes = {
   lang: PropTypes.string.isRequired,
-  photo: PropTypes.object.isRequired,
+  photo: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]).isRequired,
   next: PropTypes.oneOfType([
     PropTypes.bool.isRequired,
     PropTypes.array.isRequired,
@@ -65,7 +68,7 @@ class PhotoExposition extends React.PureComponent {
     if (!this.props.prev || !this.props.prev.length) return null;
 
     const prev = this.props.prev[0].id;
-    let url = `/${this.props.lang}/gallery/${prev}`;
+    let url = `/${this.props.lang}/photostream/${prev}`;
 
     if (this.props.tag) {
       url += `?tag=${encodeURIComponent(this.props.tag)}`;
@@ -85,7 +88,7 @@ class PhotoExposition extends React.PureComponent {
     if (!this.props.next || !this.props.next.length) return null;
 
     const next = this.props.next[0].id;
-    let url = `/${this.props.lang}/gallery/${next}`;
+    let url = `/${this.props.lang}/photostream/${next}`;
 
     if (this.props.tag) {
       url += `?tag=${encodeURIComponent(this.props.tag)}`;
@@ -125,7 +128,7 @@ class PhotoExposition extends React.PureComponent {
       const props = {
         className: 'photo-exposition__navigation-link',
         key: item.id,
-        to: `/${this.props.lang}/gallery/${item.id}`,
+        to: `/${this.props.lang}/photostream/${item.id}`,
         style: {
           backgroundImage: `url('${item.preview}')`,
         },

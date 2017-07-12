@@ -9,8 +9,8 @@ import langRu from './lang/ru';
 import langEn from './lang/en';
 import './styles';
 
-Lang.updateLang('gallery-photo', langRu, 'ru');
-Lang.updateLang('gallery-photo', langEn, 'en');
+Lang.updateLang('photostream-photo', langRu, 'ru');
+Lang.updateLang('photostream-photo', langEn, 'en');
 
 const propTypes = {
   lang: PropTypes.string.isRequired,
@@ -37,7 +37,7 @@ class PhotoMeta extends React.PureComponent {
       if (!tags[key]) return;
 
       details.info.push(Lang(
-        `gallery-photo.photo_${key}`, {
+        `photostream-photo.photo_${key}`, {
           param: tags[key],
         }
       ));
@@ -73,9 +73,9 @@ class PhotoMeta extends React.PureComponent {
     return (
       <Block>
         <TagsCloud
-          group="gallery"
+          group="photostream"
           tags={tags}
-          tagUrl={`/${this.props.lang}/gallery/?tag=%tag%`}
+          tagUrl={`/${this.props.lang}/photostream/?tag=%tag%`}
         />
       </Block>
     );
