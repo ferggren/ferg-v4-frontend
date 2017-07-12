@@ -39,13 +39,19 @@ class ItemsGrid extends React.PureComponent {
       let ratio = 0;
       let stop = position;
 
+      if (!items[stop].ratio) {
+        items[stop].width = 100;
+        ++position;
+        continue;
+      }
+
       for (; stop < length; ++stop) {
         if (ratio === 0) {
           ratio += items[stop].ratio;
           continue;
         }
 
-        if (ratio + items[stop].ratio <= this.props.maxRatio) {
+        if (items[stop].ratio && (ratio + items[stop].ratio <= this.props.maxRatio)) {
           ratio += items[stop].ratio;
           continue;
         }

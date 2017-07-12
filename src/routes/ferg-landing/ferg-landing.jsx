@@ -150,7 +150,7 @@ class FergLanding extends React.PureComponent {
 
     if (feed.options.tag) {
       list = deepClone(list).map((item) => {
-        if (item.type === 'gallery') {
+        if (item.type === 'photostream') {
           item.url += '?tag=' + encodeURIComponent(feed.options.tag);
         }
 

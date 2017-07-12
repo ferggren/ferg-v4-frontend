@@ -168,7 +168,7 @@ class FergPages extends React.PureComponent {
       return {
         type: page.type,
         date: page.timestamp,
-        ratio: 10,
+        ratio: 0,
         title: page.title,
         desc: page.desc,
         url: `/${this.props.lang}/${page.type}/${page.id}`,
@@ -191,7 +191,7 @@ class FergPages extends React.PureComponent {
   makeTitle() {
     const pages = this.props.pages;
 
-    if (!pages.options.tag) return null;
+    if (!pages || !pages.options.tag) return null;
 
     return (
       <Block>
