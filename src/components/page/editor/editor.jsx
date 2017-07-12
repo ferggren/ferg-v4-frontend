@@ -9,7 +9,7 @@ import Loader from 'components/loader';
 import { Grid, GridItem, Block, FormInputText, FormCallout } from 'components/ui';
 import TagsSelector from 'components/tags-selector';
 import PopupWindow from 'components/popup-window';
-import { MediaEditor } from 'components/media';
+import MediaEditor from 'components/media/editor';
 import LocationPicker from 'components/location-picker';
 import Request from 'libs/request';
 import deepClone from 'libs/deep-clone';
@@ -18,7 +18,7 @@ import langRu from './lang/ru';
 import langEn from './lang/en';
 import './styles';
 
-const TAGS_WIDTH = '200px';
+const TAGS_WIDTH = '240px';
 
 Lang.updateLang('page-editor', langRu, 'ru');
 Lang.updateLang('page-editor', langEn, 'en');

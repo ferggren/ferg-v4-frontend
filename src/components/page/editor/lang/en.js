@@ -1,8 +1,8 @@
 'use strict';
 
 export default {
-  tags_tags: 'tag',
-  tags_location: 'location',
+  tags_tags: 'Tag',
+  tags_location: 'Location',
   page_gps: 'Coordinates (lat, lng)',
   page_date: 'Date (Y.m.d)',
   update_preview: 'Update cover',

@@ -12,6 +12,7 @@ import Lang from 'libs/lang';
 import langRu from './lang/ru';
 import langEn from './lang/en';
 
+const META_WIDTH = '240px';
 const PHOTOSTREAM_PHOTO_API_URL = '/api/photostream/getPhoto';
 const PHOTOSTREAM_PHOTO_API_KEY = 'photostream_photo';
 
@@ -166,17 +167,17 @@ class FergGalleryPhoto extends React.PureComponent {
 
     return (
       <div>
-        <ContentWrapper navigationOverlap fullWidth>
+        <ContentWrapper navigationPadding={false} fullWidth>
           {this.makePhoto()}
         </ContentWrapper>
 
         <ContentWrapper>
           <Grid>
-            <GridItem width="70%">
-              {this.makeDesc()}
-            </GridItem>
-            <GridItem width="30%">
+            <GridItem order="2" width={META_WIDTH}>
               {this.makeMeta()}
+            </GridItem>
+            <GridItem order="1" width={`calc(100% - ${META_WIDTH} - 30px)`}>
+              {this.makeDesc()}
             </GridItem>
           </Grid>
         </ContentWrapper>

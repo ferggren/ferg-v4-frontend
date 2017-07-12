@@ -157,7 +157,7 @@ class FergPhotostream extends React.PureComponent {
 
     return (
       <Block id="ferg-photostream">
-        <ItemsGrid items={list} spacing="3" maxRatio={5} />
+        <ItemsGrid items={list} />
       </Block>
     );
   }

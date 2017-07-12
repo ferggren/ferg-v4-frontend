@@ -160,7 +160,7 @@ class FergLanding extends React.PureComponent {
 
     return (
       <Block id="ferg-feed">
-        <ItemsGrid items={list} spacing="10" maxRatio={5} />
+        <ItemsGrid items={list} />
       </Block>
     );
   }

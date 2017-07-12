@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ContentWrapper, Block, BlockTitle } from 'components/ui';
 import { PageHeader } from 'components/page';
-import { MediaContent } from 'components/media';
+import MediaContent from 'components/media/content';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
 import { getPagesType } from 'libs/pages';

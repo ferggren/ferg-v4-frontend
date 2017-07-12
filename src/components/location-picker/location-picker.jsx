@@ -177,7 +177,9 @@ class LocationPicker extends React.PureComponent {
     this.last_container_w = map_width;
     this.last_container_h = map_height;
 
-    google.maps.event.trigger(this.map, 'resize');
+    if (window.google) {
+      google.maps.event.trigger(this.map, 'resize');
+    }
   }
 
   initMap() {

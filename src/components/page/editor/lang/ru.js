@@ -1,8 +1,8 @@
 'use strict';
 
 export default {
-  tags_tags: 'тег',
-  tags_location: 'место',
+  tags_tags: 'Тег',
+  tags_location: 'Место',
   page_gps: 'Координаты (lat, lng)',
   page_date: 'Дата (Y.m.d)',
   update_preview: 'Обновить фото',

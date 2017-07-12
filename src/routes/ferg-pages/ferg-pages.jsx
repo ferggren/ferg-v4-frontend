@@ -178,7 +178,7 @@ class FergPages extends React.PureComponent {
 
     return (
       <Block id="ferg-pages">
-        <ItemsGrid items={list} spacing="10" maxRatio={3} />
+        <ItemsGrid items={list} />
       </Block>
     );
   }

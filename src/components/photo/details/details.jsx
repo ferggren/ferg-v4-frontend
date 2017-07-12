@@ -36,7 +36,7 @@ class PhotoDetails extends React.PureComponent {
       </Block>
     );
   }
-
+  
   makeDesc() {
     return null;
   }

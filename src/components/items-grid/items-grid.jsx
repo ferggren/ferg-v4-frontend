@@ -16,8 +16,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-  spacing: 5,
-  maxRatio: 4,
+  spacing: 3,
+  maxRatio: 5,
 };
 
 class ItemsGrid extends React.PureComponent {
