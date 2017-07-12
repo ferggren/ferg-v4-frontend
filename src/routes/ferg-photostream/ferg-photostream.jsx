@@ -15,13 +15,13 @@ import deepClone from 'libs/deep-clone';
 import langRu from './lang/ru';
 import langEn from './lang/en';
 
-const GALLERY_TAGS_API_KEY = 'gallery_tags';
-const GALLERY_TAGS_API_URL = '/api/tags/getTags';
-const GALLERY_API_KEY = 'gallery';
-const GALLERY_API_URL = '/api/gallery/getPhotos';
+const PHOTOSTREAM_TAGS_API_KEY = 'photostream_tags';
+const PHOTOSTREAM_TAGS_API_URL = '/api/tags/getTags';
+const PHOTOSTREAM_API_KEY = 'photostream';
+const PHOTOSTREAM_API_URL = '/api/photostream/getPhotos';
 
-Lang.updateLang('gallery', langRu, 'ru');
-Lang.updateLang('gallery', langEn, 'en');
+Lang.updateLang('photostream', langRu, 'ru');
+Lang.updateLang('photostream', langEn, 'en');
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -37,7 +37,7 @@ const propTypes = {
   ]).isRequired,
 };
 
-class FergGallery extends React.PureComponent {
+class FergPhotostream extends React.PureComponent {
   componentWillMount() {
     this.updateTitle();
   }
@@ -58,20 +58,20 @@ class FergGallery extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    this.props.dispatch(apiErrorDataClear(GALLERY_API_KEY));
-    this.props.dispatch(apiErrorDataClear(GALLERY_TAGS_API_KEY));
+    this.props.dispatch(apiErrorDataClear(PHOTOSTREAM_API_KEY));
+    this.props.dispatch(apiErrorDataClear(PHOTOSTREAM_TAGS_API_KEY));
   }
 
   updateTags() {
     const tags = this.props.tags;
-    const group = 'gallery';
+    const group = 'photostream';
 
     if (tags && tags.options.group === group) {
       return;
     }
 
     this.props.dispatch(apiFetch(
-      GALLERY_TAGS_API_KEY, GALLERY_TAGS_API_URL, { group, cache: true }
+      PHOTOSTREAM_TAGS_API_KEY, PHOTOSTREAM_TAGS_API_URL, { group, cache: true }
     ));
   }
 
@@ -91,10 +91,10 @@ class FergGallery extends React.PureComponent {
     }
 
     this.props.dispatch(apiFetch(
-      GALLERY_API_KEY, GALLERY_API_URL, { page, tag, cache: true }
+      PHOTOSTREAM_API_KEY, PHOTOSTREAM_API_URL, { page, tag, cache: true }
     ));
     
-    const block = document.getElementById('ferg-gallery');
+    const block = document.getElementById('ferg-photostream');
     if (block) {
       const offset_top = block.offsetTop - 55;
       const window_scroll = window.scrollY;
@@ -106,7 +106,7 @@ class FergGallery extends React.PureComponent {
   }
 
   updateTitle() {
-    this.props.dispatch(titleSet(Lang('gallery.title')));
+    this.props.dispatch(titleSet(Lang('photostream.title')));
   }
 
   makeTags() {
@@ -116,16 +116,16 @@ class FergGallery extends React.PureComponent {
     if (tags.loading) return <Loader />;
     if (tags.error) return tags.error;
     if (!Object.keys(tags.results).length) {
-      return Lang('gallery.tags_not_found');
+      return Lang('photostream.tags_not_found');
     }
 
-    const url = `/${this.props.lang}/gallery/?tag=%tag%`;
-    const selected_url = `/${this.props.lang}/gallery/`;
+    const url = `/${this.props.lang}/photostream/?tag=%tag%`;
+    const selected_url = `/${this.props.lang}/photostream/`;
 
     return (
       <Block>
         <TagsCloud
-          group={'gallery'}
+          group={'photostream'}
           tags={tags.results}
           selected={this.props.photos ? this.props.photos.options.tag : ''}
           tagUrl={url}
@@ -142,11 +142,11 @@ class FergGallery extends React.PureComponent {
     if (!photos.results.photos && photos.loading) return null;
     if (photos.error) return photos.error;
     if (!photos.results.photos.length) {
-      return Lang('gallery.photos_not_found');
+      return Lang('photostream.photos_not_found');
     }
 
     const list = deepClone(photos.results.photos).map((item) => {
-      item.url = `/${this.props.lang}/gallery/${item.id}/`;
+      item.url = `/${this.props.lang}/photostream/${item.id}/`;
 
       if (photos.options.tag) {
         item.url += '?tag=' + encodeURIComponent(photos.options.tag);
@@ -156,7 +156,7 @@ class FergGallery extends React.PureComponent {
     });
 
     return (
-      <Block id="ferg-gallery">
+      <Block id="ferg-photostream">
         <ItemsGrid items={list} spacing="3" maxRatio={5} />
       </Block>
     );
@@ -172,7 +172,7 @@ class FergGallery extends React.PureComponent {
       return null;
     }
 
-    let url = `/${this.props.lang}/gallery/?`;
+    let url = `/${this.props.lang}/photostream/?`;
     if (photos.options.tag) {
       url += `tag=${encodeURIComponent(photos.options.tag)}&`;
     }
@@ -222,17 +222,17 @@ class FergGallery extends React.PureComponent {
   }
 }
 
-FergGallery.propTypes = propTypes;
+FergPhotostream.propTypes = propTypes;
 
-FergGallery.fetchData = function (store, params) {
+FergPhotostream.fetchData = function (store, params) {
   const state = store.getState();
   const ret = [];
   const api = state.api;
 
-  if (!api[GALLERY_API_KEY]) {
+  if (!api[PHOTOSTREAM_API_KEY]) {
     ret.push(
       store.dispatch(apiFetch(
-        GALLERY_API_KEY, GALLERY_API_URL, {
+        PHOTOSTREAM_API_KEY, PHOTOSTREAM_API_URL, {
           page: parseInt(params.page, 10) || 1,
           tag: params.tag || '',
           cache: true,
@@ -241,11 +241,11 @@ FergGallery.fetchData = function (store, params) {
     );
   }
 
-  if (!api[GALLERY_TAGS_API_KEY]) {
+  if (!api[PHOTOSTREAM_TAGS_API_KEY]) {
     ret.push(
       store.dispatch(apiFetch(
-        GALLERY_TAGS_API_KEY, GALLERY_TAGS_API_URL, {
-          group: 'gallery',
+        PHOTOSTREAM_TAGS_API_KEY, PHOTOSTREAM_TAGS_API_URL, {
+          group: 'photostream',
           cache: true,
         }
       ))
@@ -253,7 +253,7 @@ FergGallery.fetchData = function (store, params) {
   }
 
   if (!state.title) {
-    store.dispatch(titleSet(Lang('gallery.title', {}, state.lang)));
+    store.dispatch(titleSet(Lang('photostream.title', {}, state.lang)));
   }
 
   return ret;
@@ -262,7 +262,7 @@ FergGallery.fetchData = function (store, params) {
 export default connect((state) => {
   return {
     lang: state.lang,
-    photos: state.api[GALLERY_API_KEY] || false,
-    tags: state.api[GALLERY_TAGS_API_KEY] || false,
+    photos: state.api[PHOTOSTREAM_API_KEY] || false,
+    tags: state.api[PHOTOSTREAM_TAGS_API_KEY] || false,
   };
-})(FergGallery);
+})(FergPhotostream);

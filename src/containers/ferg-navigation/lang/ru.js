@@ -4,5 +4,5 @@ export default {
   landing: 'Главная',
   blog: 'Блог',
   travel: 'Трэвел',
-  gallery: 'Фотопоток',
+  photostream: 'Фотопоток',
 };

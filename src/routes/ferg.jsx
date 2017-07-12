@@ -6,7 +6,7 @@ import FergContainer from 'containers/ferg-container';
 import { makeFetchParams, fetchRoutesData } from 'libs/fetch-data';
 // import FergPages from './ferg-pages';
 // import FergPagesPage from './ferg-pages-page';
-// import FergGallery from './ferg-gallery';
+import FergPhotostream from './ferg-photostream';
 // import FergGalleryPhoto from './ferg-gallery-photo';
 import FergLanding from './ferg-landing';
 
@@ -47,7 +47,7 @@ function fetchData(nextState, replace, callback) {
 
 const routes = [
   <IndexRoute component={FergLanding} key="index" onEnter={fetchData} />,
-  // <Route path="gallery" component={FergGallery} key="gallery" onEnter={fetchData} />,
+  <Route path="photostream" component={FergPhotostream} key="photostream" onEnter={fetchData} />,
   // <Route path="gallery/:photo_id" component={FergGalleryPhoto} key="gallery_photo" onEnter={fetchData} />,
   // <Route path="travel" component={FergPages} key="travel" onEnter={fetchData} />,
   // <Route path="travel/:page_id" component={FergPagesPage} key="travel_page" onEnter={fetchData} />,

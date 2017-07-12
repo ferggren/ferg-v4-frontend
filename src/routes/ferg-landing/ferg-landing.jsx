@@ -214,14 +214,14 @@ class FergLanding extends React.PureComponent {
   render() {
     return (
       <div>
-        <ContentWrapper navigationOverlap fullWidth>
+        {/* <ContentWrapper navigationOverlap fullWidth>
           <PhotosMap
             lang={this.props.lang}
             photos={[]}
             heightSmall="40vh"
             heightFull="100vh"
           />
-        </ContentWrapper>
+        </ContentWrapper> */}
 
         <ContentWrapper>
           {this.makeTitle()}
