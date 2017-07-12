@@ -345,7 +345,7 @@ class PageEditor extends React.PureComponent {
         },
 
         data: {
-          id: this.state.id,
+          id: this.props.page_id,
         },
       }
     );
