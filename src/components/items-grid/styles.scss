@@ -23,7 +23,13 @@
     }
 
     &-wrapper {
-      float: left;
+      @include respond_to(desktop) {
+        float: left;
+      }
+      
+      @include respond_to(mobile) {
+        width: 100% !important;
+      }
     }
 
     &--detailed:before {
