@@ -300,7 +300,7 @@ class LocationPicker extends React.PureComponent {
       this.marker = new google.maps.Marker({
         position: location,
         map: this.map,
-        draggable: true,
+        draggable: !!this.props.onChange,
       });
 
       google.maps.event.addListener(this.marker, 'dragend', this.handleMarkerDragged);
