@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'components/loader';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import './styles';
 
 const propTypes = {
@@ -27,6 +27,68 @@ const propTypes = {
 };
 
 class PhotoExposition extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  getNextPhotoLink() {
+    if (!this.props.prev || !this.props.prev.length) {
+      return null;
+    }
+
+    const prev = this.props.prev[0].id;
+    let url = `/${this.props.lang}/photostream/${prev}`;
+
+    if (this.props.tag) {
+      url += `?tag=${encodeURIComponent(this.props.tag)}`;
+    }
+
+    return url;
+  }
+
+  getPrevPhotoLink() {
+    if (!this.props.next || !this.props.next.length) {
+      return null;
+    }
+
+    const next = this.props.next[0].id;
+    let url = `/${this.props.lang}/photostream/${next}`;
+
+    if (this.props.tag) {
+      url += `?tag=${encodeURIComponent(this.props.tag)}`;
+    }
+
+    return url;
+  }
+
+  handleKeyDown(e) {
+    if (e.keyCode === 37) {
+      const prev = this.getPrevPhotoLink();
+
+      if (prev) {
+        browserHistory.push(prev);
+      }
+    }
+
+    if (e.keyCode === 39) {
+      const next = this.getNextPhotoLink();
+
+      if (next) {
+        browserHistory.push(next);
+      }
+    }
+  }
+
   makePhoto() {
     const photo = this.props.photo;
 
@@ -65,19 +127,16 @@ class PhotoExposition extends React.PureComponent {
   }
 
   makeNavigationNext() {
-    if (!this.props.prev || !this.props.prev.length) return null;
+    const next = this.getNextPhotoLink();
 
-    const prev = this.props.prev[0].id;
-    let url = `/${this.props.lang}/photostream/${prev}`;
-
-    if (this.props.tag) {
-      url += `?tag=${encodeURIComponent(this.props.tag)}`;
+    if (!next) {
+      return null;
     }
 
     return (
       <Link
         className="photo-exposition__navigation-button photo-exposition__navigation-button--next"
-        to={url}
+        to={next}
       >
         &gt;
       </Link>
@@ -85,19 +144,16 @@ class PhotoExposition extends React.PureComponent {
   }
 
   makeNavigationPrev() {
-    if (!this.props.next || !this.props.next.length) return null;
+    const prev = this.getPrevPhotoLink();
 
-    const next = this.props.next[0].id;
-    let url = `/${this.props.lang}/photostream/${next}`;
-
-    if (this.props.tag) {
-      url += `?tag=${encodeURIComponent(this.props.tag)}`;
+    if (!prev) {
+      return null;
     }
 
     return (
       <Link
         className="photo-exposition__navigation-button photo-exposition__navigation-button--prev"
-        to={url}
+        to={prev}
       >
         &lt;
       </Link>
