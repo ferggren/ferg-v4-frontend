@@ -30,11 +30,11 @@ class PhotoExposition extends React.PureComponent {
   makePhoto() {
     const photo = this.props.photo;
 
-    if (!photo || !photo.photo) return null;
+    if (!photo || !photo.photo_big) return null;
 
     const props = {
       className: 'photo-exposition__photo',
-      src: photo.photo,
+      src: photo.photo_big,
     };
 
     if (photo.width) {
@@ -46,7 +46,7 @@ class PhotoExposition extends React.PureComponent {
     }
 
     return (
-      <a href="/" target="_blank" rel="noreferrer noopener" className="photo-exposition__photo-wrapper">
+      <a href={photo.photo_big} target="_blank" rel="noreferrer noopener" className="photo-exposition__photo-wrapper">
         <img {...props} />
       </a>
     );

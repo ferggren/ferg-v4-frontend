@@ -12,12 +12,16 @@ const propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  maxRatio: PropTypes.number,
+  width: PropTypes.number,
+  minHeight: PropTypes.number,
+  maxHeight: PropTypes.number,
 };
 
 const defaultProps = {
   spacing: 3,
-  maxRatio: 5,
+  width: 1200,
+  minHeight: 200,
+  maxHeight: 300,
 };
 
 class ItemsGrid extends React.PureComponent {
@@ -25,34 +29,40 @@ class ItemsGrid extends React.PureComponent {
     if (!items.length) return;
 
     for (let i = 0; i < items.length; ++i) {
-      const rnd = Math.sin(i);
-      const c = Math.floor((rnd * (110 - 90)) + 90) / 100;
+      const rnd = (Math.sin(i) + 1) / 2;
+      const c = (Math.floor((rnd * (115 - 85)) + 85) / 100) - 1;
 
       items[i].width = 100;
-      items[i].ratio *= c;
+      
+      if (items[i].ratio) {
+        items[i].ratio += c;
+      }
     }
 
     const length = items.length;
     let position = 0;
 
     while (position < length) {
-      let ratio = 0;
+      let total_width = 0;
       let stop = position;
 
       if (!items[stop].ratio) {
         items[stop].width = 100;
+        items[stop].height = this.props.maxHeight;
         ++position;
         continue;
       }
 
       for (; stop < length; ++stop) {
-        if (ratio === 0) {
-          ratio += items[stop].ratio;
+        items[stop].min_width = Math.floor(items[stop].ratio * this.props.minHeight);
+
+        if (total_width === 0) {
+          total_width += items[stop].min_width;
           continue;
         }
 
-        if (items[stop].ratio && (ratio + items[stop].ratio <= this.props.maxRatio)) {
-          ratio += items[stop].ratio;
+        if (items[stop].ratio && ((total_width + items[stop].min_width) <= this.props.width)) {
+          total_width += items[stop].min_width;
           continue;
         }
 
@@ -60,9 +70,12 @@ class ItemsGrid extends React.PureComponent {
       }
 
       let width_left = 100;
+      let height = (this.props.width * this.props.minHeight) / total_width;
+      height = Math.round(Math.min(this.props.maxHeight, height));
 
       for (;position < stop; ++position) {
-        items[position].width = Math.floor((items[position].ratio * 100) / ratio);
+        items[position].width = Math.floor((items[position].min_width * 100) / total_width);
+        items[position].height = height;
         width_left -= items[position].width;
       }
 

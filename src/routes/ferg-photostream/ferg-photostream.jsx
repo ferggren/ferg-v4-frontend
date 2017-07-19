@@ -147,6 +147,7 @@ class FergPhotostream extends React.PureComponent {
 
     const list = deepClone(photos.results.photos).map((item) => {
       item.url = `/${this.props.lang}/photostream/${item.id}/`;
+      item.preview = item.photo_small;
 
       if (photos.options.tag) {
         item.url += '?tag=' + encodeURIComponent(photos.options.tag);

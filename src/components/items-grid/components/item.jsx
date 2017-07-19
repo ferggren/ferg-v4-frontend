@@ -68,6 +68,7 @@ class ItemsGridItem extends React.PureComponent {
       className: 'items-grid__item',
       style: {
         margin: `0px 0px ${this.props.spacing}px ${this.props.spacing}px`,
+        height: `${item.height - 6}px`,
       },
     };
 

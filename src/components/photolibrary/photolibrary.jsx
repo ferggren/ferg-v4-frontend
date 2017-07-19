@@ -485,7 +485,7 @@ class PhotoLibrary extends React.PureComponent {
     if (this.state.collection !== photo.collection_id) {
       return;
     }
-
+    
     const photos = deepClone(this.state.photos);
     photos.unshift(photo);
 
