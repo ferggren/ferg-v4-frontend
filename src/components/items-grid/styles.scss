@@ -20,17 +20,10 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      height: 180px !important;
     }
 
     &-wrapper {
-      @include respond_to(desktop) {
-        float: left;
-      }
-
-      @include respond_to(mobile) {
-        width: 100% !important;
-      }
+      float: left;
     }
 
     &--detailed:before {

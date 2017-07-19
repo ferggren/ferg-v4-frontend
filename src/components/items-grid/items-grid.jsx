@@ -12,19 +12,72 @@ const propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  width: PropTypes.number,
+  width: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   minHeight: PropTypes.number,
   maxHeight: PropTypes.number,
 };
 
 const defaultProps = {
   spacing: 3,
-  width: 1200,
+  width: 'auto',
   minHeight: 200,
   maxHeight: 300,
 };
 
 class ItemsGrid extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    const width = parseInt(props.width, 10);
+
+    this.state = {
+      width: isNaN(width) ? 1110 : width,
+      locked: !isNaN(width),
+    };
+
+    this.ref_grid = false;
+    this.update_interval = false;
+
+    this.setGridRef = this.setGridRef.bind(this);
+    this.updateGridWidth = this.updateGridWidth.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateGridWidth();
+
+    this.update_interval = setInterval(this.updateGridWidth, 500);
+    window.addEventListener('resize', this.updateGridWidth);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.update_interval);
+    document.removeEventListener('resize', this.updateGridWidth);
+
+    this.update_interval = false;
+    this.ref_grid = false;
+  }
+
+  setGridRef(c) {
+    this.ref_grid = c;
+  }
+
+  updateGridWidth() {
+    if (!this.ref_grid || this.state.locked) {
+      return;
+    }
+
+    const width = this.ref_grid.offsetWidth;
+
+    if (!width || width === this.state.width) {
+      return;
+    }
+
+    this.setState({ width });
+  }
+
   updateItemsWidth(items) {
     if (!items.length) return;
 
@@ -61,7 +114,7 @@ class ItemsGrid extends React.PureComponent {
           continue;
         }
 
-        if (items[stop].ratio && ((total_width + items[stop].min_width) <= this.props.width)) {
+        if (items[stop].ratio && ((total_width + items[stop].min_width) <= this.state.width)) {
           total_width += items[stop].min_width;
           continue;
         }
@@ -70,7 +123,7 @@ class ItemsGrid extends React.PureComponent {
       }
 
       let width_left = 100;
-      let height = (this.props.width * this.props.minHeight) / total_width;
+      let height = (this.state.width * this.props.minHeight) / total_width;
       height = Math.round(Math.min(this.props.maxHeight, height));
 
       for (;position < stop; ++position) {
@@ -104,9 +157,11 @@ class ItemsGrid extends React.PureComponent {
     };
 
     return (
-      <div className="items-grid" style={style}>
-        {list}
-        <div style={{ clear: 'both' }} />
+      <div className="items-grid__wrapper" ref={this.setGridRef}>
+        <div className="items-grid" style={style}>
+          {list}
+          <div style={{ clear: 'both' }} />
+        </div>
       </div>
     );
   }
