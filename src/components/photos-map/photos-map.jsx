@@ -38,6 +38,9 @@ const propTypes = {
     PropTypes.func,
     PropTypes.bool,
   ]),
+  defaultLat: PropTypes.number,
+  defaultLng: PropTypes.number,
+  defaultZoom: PropTypes.number,
 };
 
 const defaultProps = {
@@ -47,6 +50,9 @@ const defaultProps = {
   heightSmall: '30vh',
   heightFull: '100vh',
   onTagSelect: false,
+  defaultLat: 55.014578,
+  defaultLng: 82.919764,
+  defaultZoom: 4,
 };
 
 class PhotosMap extends React.PureComponent {
@@ -56,7 +62,7 @@ class PhotosMap extends React.PureComponent {
     this.state = {
       change_zoom: true,
       expanded: false,
-      zoom: 4,
+      zoom: props.defaultZoom,
       locked: true,
     };
     
@@ -279,7 +285,7 @@ class PhotosMap extends React.PureComponent {
     this.map = new google.maps.Map(this.ref_map, {
       clickableIcons: false,
       disableDefaultUI: true,
-      center: { lat: 55.014578, lng: 82.919764 },
+      center: { lat: this.props.defaultLat, lng: this.props.defaultLng },
       zoom: 4,
       mapTypeControlOptions: {
         mapTypeIds: [
@@ -349,9 +355,11 @@ class PhotosMap extends React.PureComponent {
     }
 
     const bounds = new google.maps.LatLngBounds();
+    let found = false;
 
     Object.keys(this.markers).forEach((key) => {
       const info = this.markers[key].info;
+      found = true;
 
       bounds.extend({
         lat: info.lat,
@@ -359,9 +367,14 @@ class PhotosMap extends React.PureComponent {
       });
     });
 
-    this.map.fitBounds(bounds);
-    this.map.panTo(bounds.getCenter());
-    this.map.panBy(0, -60);
+    if (found) {
+      this.map.fitBounds(bounds);
+      this.map.panTo(bounds.getCenter());
+      this.map.panBy(0, -60);
+    } else {
+      const latlng = new google.maps.LatLng(this.props.defaultLat, this.props.defaultLng);
+      this.map.panTo(latlng);
+    }
   }
 
   updateContainerSize() {

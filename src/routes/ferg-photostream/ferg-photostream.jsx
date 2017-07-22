@@ -2,12 +2,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import PhotosMap from 'components/photos-map';
 import { connect } from 'react-redux';
 import { ContentWrapper, Block, BlockTitle } from 'components/ui';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
 import ItemsGrid from 'components/items-grid';
 import TagsCloud from 'components/tags-cloud';
+import { browserHistory } from 'react-router';
 import Paginator from 'components/paginator';
 import Loader from 'components/loader';
 import Lang from 'libs/lang';
@@ -17,6 +19,8 @@ import langEn from './lang/en';
 
 const PHOTOSTREAM_TAGS_API_KEY = 'photostream_tags';
 const PHOTOSTREAM_TAGS_API_URL = '/api/tags/getTags';
+const PHOTOSTREAM_MARKERS_API_KEY = 'photostream_markers';
+const PHOTOSTREAM_MARKERS_API_URL = '/api/photostream/getMarkers';
 const PHOTOSTREAM_API_KEY = 'photostream';
 const PHOTOSTREAM_API_URL = '/api/photostream/getPhotos';
 
@@ -27,6 +31,10 @@ const propTypes = {
   dispatch: PropTypes.func.isRequired,
   lang: PropTypes.string.isRequired,
   location: PropTypes.object.isRequired,
+  markers: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]).isRequired,
   photos: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
@@ -38,6 +46,12 @@ const propTypes = {
 };
 
 class FergPhotostream extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.handleTagSelect = this.handleTagSelect.bind(this);
+  }
+
   componentWillMount() {
     this.updateTitle();
   }
@@ -46,6 +60,7 @@ class FergPhotostream extends React.PureComponent {
     this.updateTitle();
     this.updateTags();
     this.updatePhotos();
+    this.loadMarkers();
   }
 
   componentDidUpdate(prevProps) {
@@ -60,6 +75,22 @@ class FergPhotostream extends React.PureComponent {
   componentWillUnmount() {
     this.props.dispatch(apiErrorDataClear(PHOTOSTREAM_API_KEY));
     this.props.dispatch(apiErrorDataClear(PHOTOSTREAM_TAGS_API_KEY));
+  }
+
+  handleTagSelect(tag = false) {
+    let url = `/${this.props.lang}/photostream/`;
+
+    if (tag) {
+      url += `?tag=${encodeURIComponent(tag)}`;
+    }
+
+    browserHistory.push(url);
+  }
+
+  loadMarkers() {
+    this.props.dispatch(apiFetch(
+      PHOTOSTREAM_MARKERS_API_KEY, PHOTOSTREAM_MARKERS_API_URL
+    ));
   }
 
   updateTags() {
@@ -210,15 +241,50 @@ class FergPhotostream extends React.PureComponent {
     );
   }
 
+  makePhotosMap() {
+    const markers = this.props.markers;
+
+    let photos = [];
+    let loading = false;
+
+    if (markers) {
+      if (markers.loading || !markers.loaded) {
+        loading = true;
+      }
+
+      if (markers.results && Array.isArray(markers.results)) {
+        photos = markers.results;
+      }
+    }
+
+    return (
+      <PhotosMap
+        lang={this.props.lang}
+        tag={this.props.location.query.tag || ''}
+        markers={photos}
+        loading={loading}
+        onTagSelect={this.handleTagSelect}
+        heightSmall="40vh"
+        heightFull="80vh"
+      />
+    );
+  }
+
   render() {
     return (
-      <ContentWrapper>
-        {this.makeTitle()}
-        {this.makeLoader()}
-        {this.makePhotos()}
-        {this.makePagination()}
-        {this.makeTags()}
-      </ContentWrapper>
+      <div>
+        <ContentWrapper navigationOverlap fullWidth>
+          {this.makePhotosMap()}
+        </ContentWrapper>
+
+        <ContentWrapper>
+          {this.makeTitle()}
+          {this.makeLoader()}
+          {this.makePhotos()}
+          {this.makePagination()}
+          {this.makeTags()}
+        </ContentWrapper>
+      </div>
     );
   }
 }
@@ -265,5 +331,6 @@ export default connect((state) => {
     lang: state.lang,
     photos: state.api[PHOTOSTREAM_API_KEY] || false,
     tags: state.api[PHOTOSTREAM_TAGS_API_KEY] || false,
+    markers: state.api[PHOTOSTREAM_MARKERS_API_KEY] || false,
   };
 })(FergPhotostream);
