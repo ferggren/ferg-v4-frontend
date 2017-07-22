@@ -78,8 +78,14 @@ class FergLanding extends React.PureComponent {
     this.props.dispatch(apiErrorDataClear(FEED_TAGS_API_KEY));
   }
 
-  handleTagSelect(tag) {
-    browserHistory.push(`/${this.props.lang}/?tag=${encodeURIComponent(tag)}`);
+  handleTagSelect(tag = false) {
+    let url = `/${this.props.lang}/`;
+
+    if (tag) {
+      url += `?tag=${encodeURIComponent(tag)}`;
+    }
+
+    browserHistory.push(url);
   }
 
   loadMarkers() {

@@ -5,6 +5,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'components/loader';
+import { openModal } from 'actions/modals';
+import { connect } from 'react-redux';
 import gooleMapStyle from 'data/google-map-style';
 import Lang from 'libs/lang';
 import { browserHistory } from 'react-router';
@@ -18,6 +20,7 @@ Lang.updateLang('photos-map', langRu, 'ru');
 Lang.updateLang('photos-map', langEn, 'en');
 
 const propTypes = {
+  dispatch: PropTypes.func.isRequired,
   loading: PropTypes.bool,
   tag: PropTypes.string,
   lang: PropTypes.string.isRequired,
@@ -68,6 +71,7 @@ class PhotosMap extends React.PureComponent {
     this.last_container_h = false;
     this.markers = {};
 
+    this.handleClearTag = this.handleClearTag.bind(this);
     this.handleDragStart = this.handleDragStart.bind(this);
     this.handleTilesLoaded = this.handleTilesLoaded.bind(this);
     this.handleZoomChanged = this.handleZoomChanged.bind(this);
@@ -169,6 +173,10 @@ class PhotosMap extends React.PureComponent {
     this.setState({ expanded: !this.state.expanded });
   }
 
+  handleClearTag() {
+    this.props.onTagSelect('');
+  }
+
   handleResize() {
     if (this.resize_timer) {
       clearTimeout(this.resize_timer);
@@ -189,8 +197,13 @@ class PhotosMap extends React.PureComponent {
       return;
     }
 
-    if (info.type === 'photostream') {
-      console.log('photostream');
+    if (!(e.ctrlKey || e.metaKey || e.ctrlKey) && info.type === 'photostream') {
+      this.props.dispatch(openModal({
+        type: 'PHOTOLIBRARY',
+        data: { id: info.id, tag: this.props.tag },
+        replace: true,
+        style: 'minimal',
+      }));
       return;
     }
 
@@ -324,7 +337,7 @@ class PhotosMap extends React.PureComponent {
     });
 
     if (!found) {
-      console.log('not found');
+      // console.log('not found');
     }
 
     this.updateBounds();
@@ -443,8 +456,16 @@ class PhotosMap extends React.PureComponent {
     return <div className="photos-map__shadow" />;
   }
 
-  makeTagSelect() {
-    return null;
+  makeTagClear() {
+    if (!this.props.tag) {
+      return null;
+    }
+
+    return (
+      <div className="photos-map__clear-tag" onClick={this.handleClearTag}>
+        {Lang('photos-map.clear_tag', this.props.lang)}
+      </div>
+    );
   }
 
   makeLoader() {
@@ -485,7 +506,7 @@ class PhotosMap extends React.PureComponent {
         <div className="photos-map__map" ref={this.setRefMap} />
         {this.makeShadow()}
         {this.makeLoader()}
-        {this.makeTagSelect()}
+        {this.makeTagClear()}
         {this.makeExpand()}
       </div>
     );
@@ -495,4 +516,9 @@ class PhotosMap extends React.PureComponent {
 PhotosMap.propTypes = propTypes;
 PhotosMap.defaultProps = defaultProps;
 
-export default PhotosMap;
+export default connect(() => {
+  return {
+
+  };
+})(PhotosMap);
+

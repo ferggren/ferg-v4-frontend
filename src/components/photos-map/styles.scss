@@ -103,6 +103,23 @@ $marker_size: 55px;
     justify-content: center;
   }
 
+  &__clear-tag {
+    position: absolute;
+    bottom: $default_padding;
+    left: $default_padding;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: rgba(#999, .3);
+    color: #333;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background $transition_duration $transition_function;
+
+    &:hover {
+      background: rgba(#999, .4);
+    }
+  }
+
   &__expand {
     position: absolute;
     bottom: $default_padding;
