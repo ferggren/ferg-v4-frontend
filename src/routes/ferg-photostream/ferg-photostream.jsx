@@ -74,6 +74,7 @@ class FergPhotostream extends React.PureComponent {
 
   componentWillUnmount() {
     this.props.dispatch(apiErrorDataClear(PHOTOSTREAM_API_KEY));
+    this.props.dispatch(apiErrorDataClear(PHOTOSTREAM_MARKERS_API_KEY));
     this.props.dispatch(apiErrorDataClear(PHOTOSTREAM_TAGS_API_KEY));
   }
 
@@ -88,6 +89,10 @@ class FergPhotostream extends React.PureComponent {
   }
 
   loadMarkers() {
+    if (this.props.markers) {
+      return;
+    }
+    
     this.props.dispatch(apiFetch(
       PHOTOSTREAM_MARKERS_API_KEY, PHOTOSTREAM_MARKERS_API_URL
     ));

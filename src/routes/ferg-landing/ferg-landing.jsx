@@ -89,6 +89,10 @@ class FergLanding extends React.PureComponent {
   }
 
   loadMarkers() {
+    if (this.props.markers) {
+      return;
+    }
+    
     this.props.dispatch(apiFetch(FEED_MARKERS_API_KEY, FEED_MARKERS_API_URL));
   }
 
