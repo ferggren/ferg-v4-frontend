@@ -7,7 +7,8 @@ import ItemsGrid from 'components/items-grid';
 import TagsCloud from 'components/tags-cloud';
 import Loader from 'components/loader';
 import Paginator from 'components/paginator';
-// import PhotosMap from 'components/photos-map';
+import PhotosMap from 'components/photos-map';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { titleSet } from 'actions/title';
 import { apiFetch, apiErrorDataClear } from 'actions/api';
@@ -18,6 +19,8 @@ import langEn from './lang/en';
 
 const FEED_TAGS_API_KEY = 'feed_tags';
 const FEED_TAGS_API_URL = '/api/tags/getTags';
+const FEED_MARKERS_API_KEY = 'feed_map';
+const FEED_MARKERS_API_URL = '/api/feed/getMarkers';
 const FEED_API_KEY = 'feed';
 const FEED_API_URL = '/api/feed/getFeed';
 
@@ -28,6 +31,10 @@ const propTypes = {
   lang: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
+  markers: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]).isRequired,
   feed: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
@@ -39,6 +46,12 @@ const propTypes = {
 };
 
 class FergLanding extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.handleTagSelect = this.handleTagSelect.bind(this);
+  }
+
   componentWillMount() {
     this.updateTitle();
   }
@@ -47,6 +60,7 @@ class FergLanding extends React.PureComponent {
     this.updateTags();
     this.updateFeed();
     this.updateTitle();
+    this.loadMarkers();
   }
 
   componentDidUpdate(prevProps) {
@@ -60,7 +74,16 @@ class FergLanding extends React.PureComponent {
 
   componentWillUnmount() {
     this.props.dispatch(apiErrorDataClear(FEED_API_KEY));
+    this.props.dispatch(apiErrorDataClear(FEED_MARKERS_API_KEY));
     this.props.dispatch(apiErrorDataClear(FEED_TAGS_API_KEY));
+  }
+
+  handleTagSelect(tag) {
+    browserHistory.push(`/${this.props.lang}/?tag=${encodeURIComponent(tag)}`);
+  }
+
+  loadMarkers() {
+    this.props.dispatch(apiFetch(FEED_MARKERS_API_KEY, FEED_MARKERS_API_URL));
   }
 
   updateTitle() {
@@ -211,17 +234,41 @@ class FergLanding extends React.PureComponent {
     );
   }
 
+  makePhotosMap() {
+    const markers = this.props.markers;
+
+    let photos = [];
+    let loading = false;
+
+    if (markers) {
+      if (markers.loading || !markers.loaded) {
+        loading = true;
+      }
+
+      if (markers.results && Array.isArray(markers.results)) {
+        photos = markers.results;
+      }
+    }
+
+    return (
+      <PhotosMap
+        lang={this.props.lang}
+        tag={this.props.location.query.tag || ''}
+        markers={photos}
+        loading={loading}
+        onTagSelect={this.handleTagSelect}
+        heightSmall="40vh"
+        heightFull="80vh"
+      />
+    );
+  }
+
   render() {
     return (
       <div>
-        {/* <ContentWrapper navigationOverlap fullWidth>
-          <PhotosMap
-            lang={this.props.lang}
-            photos={[]}
-            heightSmall="40vh"
-            heightFull="100vh"
-          />
-        </ContentWrapper> */}
+        <ContentWrapper navigationOverlap fullWidth>
+          {this.makePhotosMap()}
+        </ContentWrapper>
 
         <ContentWrapper>
           {this.makeTitle()}
@@ -276,6 +323,7 @@ export default connect((state) => {
   return {
     lang: state.lang,
     feed: state.api[FEED_API_KEY] || false,
+    markers: state.api[FEED_MARKERS_API_KEY] || false,
     tags: state.api[FEED_TAGS_API_KEY] || false,
   };
 })(FergLanding);
