@@ -7,6 +7,7 @@ import { closeModal } from 'actions/modals';
 import PopupWindow from 'components/popup-window';
 import Popup from 'components/popup';
 import ModalImage from 'modals/image';
+import ModalPhotolibrary from 'modals/photolibrary';
 
 const propTypes = {
   modals: PropTypes.array.isRequired,
@@ -17,6 +18,7 @@ class Modals extends React.PureComponent {
   render() {
     const map = {
       IMAGE: ModalImage,
+      PHOTOLIBRARY: ModalPhotolibrary,
     };
 
     const components = this.props.modals.map((modal) => {
