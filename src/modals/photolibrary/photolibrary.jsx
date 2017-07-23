@@ -40,8 +40,8 @@ class PhotolibraryModal extends React.PureComponent {
       error: false,
     };
 
-    this.onClick = this.onClick.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.handleImageClick = this.handleImageClick.bind(this);
+    this.handleModalClick = this.handleModalClick.bind(this);
   }
 
   componentDidMount() {
@@ -61,7 +61,7 @@ class PhotolibraryModal extends React.PureComponent {
     }
   }
 
-  onClick(e) {
+  handleImageClick(e) {
     const info = this.state.info;
     let url = `/${this.props.lang}/photostream/${info.id}`;
 
@@ -77,15 +77,15 @@ class PhotolibraryModal extends React.PureComponent {
     this.props.dispatch(closeModal('PHOTOLIBRARY'));
   }
 
-  closeModal(e) {
-    if (e.target.className !== 'image-modal') {
+  handleModalClick(e) {
+    if (e.target.className !== 'photolibrary-modal') {
       return;
     }
 
     e.preventDefault();
     e.stopPropagation();
     
-    this.props.dispatch(closeModal('IMAGE'));
+    this.props.dispatch(closeModal('PHOTOLIBRARY'));
   }
 
   loadInfo() {
@@ -136,13 +136,13 @@ class PhotolibraryModal extends React.PureComponent {
     }
 
     const linkProps = {
-      className: 'image-modal__link',
-      onClick: this.onClick,
+      className: 'photolibrary-modal__link',
+      onClick: this.handleImageClick,
       href: url,
     };
 
     const imageProps = {
-      className: 'image-modal__image',
+      className: 'photolibrary-modal__image',
       src: info.photo_big,
     };
 
@@ -174,7 +174,7 @@ class PhotolibraryModal extends React.PureComponent {
 
   render() {
     return (
-      <div className="image-modal" onClick={this.closeModal}>
+      <div className="photolibrary-modal" onClick={this.handleModalClick}>
         {this.makeLoader()}
         {this.makeError()}
         {this.makeImage()}

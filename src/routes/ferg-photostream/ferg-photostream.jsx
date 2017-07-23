@@ -129,16 +129,8 @@ class FergPhotostream extends React.PureComponent {
     this.props.dispatch(apiFetch(
       PHOTOSTREAM_API_KEY, PHOTOSTREAM_API_URL, { page, tag, cache: true }
     ));
-    
-    const block = document.getElementById('ferg-photostream');
-    if (block) {
-      const offset_top = block.offsetTop - 55;
-      const window_scroll = window.scrollY;
 
-      if (window_scroll > offset_top) {
-        window.scrollTo(0, offset_top);
-      }
-    }
+    window.scrollTo(0, 0);
   }
 
   updateTitle() {

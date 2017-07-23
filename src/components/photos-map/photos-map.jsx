@@ -60,10 +60,9 @@ class PhotosMap extends React.PureComponent {
     super(props);
 
     this.state = {
-      change_zoom: true,
+      error: false,
       expanded: false,
-      zoom: props.defaultZoom,
-      locked: true,
+      display: this.calcDisplay(props.defaultZoom),
     };
     
     this.map = false;
@@ -78,7 +77,6 @@ class PhotosMap extends React.PureComponent {
     this.markers = {};
 
     this.handleClearTag = this.handleClearTag.bind(this);
-    this.handleDragStart = this.handleDragStart.bind(this);
     this.handleTilesLoaded = this.handleTilesLoaded.bind(this);
     this.handleZoomChanged = this.handleZoomChanged.bind(this);
     this.handleMarkerClick = this.handleMarkerClick.bind(this);
@@ -94,7 +92,6 @@ class PhotosMap extends React.PureComponent {
 
   componentDidMount() {
     this.initMap();
-    this.updateContainerSize();
     this.updateMarkers();
 
     window.addEventListener('resize', this.checkContainerSize);
@@ -103,19 +100,12 @@ class PhotosMap extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if ((prevProps.markers !== this.props.markers && objectsCmp(prevProps.markers, this.props.markers)) ||
+    if (!objectsCmp(prevProps.markers, this.props.markers) ||
         prevProps.tag !== this.props.tag) {
-      if (!this.state.locked) {
-        /* eslint-disable react/no-did-update-set-state */
-        this.setState({ locked: true });
-      }
-
       this.updateMarkers();
-    } else if (prevState.zoom !== this.state.zoom) {
+      this.updateBounds();
+    } else if (prevState.display !== this.state.display) {
       this.updateMarkers();
-    }
-
-    if (prevState.locked !== this.state.locked) {
       this.updateBounds();
     }
   }
@@ -139,7 +129,6 @@ class PhotosMap extends React.PureComponent {
 
     if (this.map) {
       google.maps.event.clearListeners(this.map, 'tilesloaded');
-      google.maps.event.clearListeners(this.map, 'dragstart');
       google.maps.event.clearListeners(this.map, 'zoom_changed');
       google.maps.event.clearListeners(this.map, 'resize');
 
@@ -168,6 +157,10 @@ class PhotosMap extends React.PureComponent {
 
   setRefContainer(c) {
     this.ref_container = c;
+  }
+
+  calcDisplay(zoom) {
+    return (zoom >= 11 || this.props.tag) ? 'single' : 'group';
   }
 
   toggleExpand() {
@@ -218,6 +211,12 @@ class PhotosMap extends React.PureComponent {
 
   handleZoomChanged() {
     const zoom = this.map.getZoom();
+    const display = this.calcDisplay(zoom);
+
+    if (zoom > 7 && !this.props.tag) {
+      this.map.setZoom(7);
+      return;
+    }
 
     if (zoom > 17) {
       this.map.setZoom(17);
@@ -229,25 +228,14 @@ class PhotosMap extends React.PureComponent {
       return;
     }
 
-    if (zoom !== this.state.zoom) {
-      this.setState({ zoom });
+    if (display !== this.state.display) {
+      this.setState({ display });
     }
   }
 
   handleTilesLoaded() {
     google.maps.event.clearListeners(this.map, 'tilesloaded');
-
-    this.updateContainerSize();
     this.updateMarkers();
-    this.updateBounds();
-  }
-
-  handleDragStart() {
-    if (!this.state.locked) {
-      return;
-    }
-
-    this.setState({ locked: false });
   }
 
   checkContainerSize() {
@@ -286,7 +274,8 @@ class PhotosMap extends React.PureComponent {
       clickableIcons: false,
       disableDefaultUI: true,
       center: { lat: this.props.defaultLat, lng: this.props.defaultLng },
-      zoom: 4,
+      zoom: this.props.defaultZoom,
+      zoomControl: true,
       mapTypeControlOptions: {
         mapTypeIds: [
           'roadmap',
@@ -302,13 +291,10 @@ class PhotosMap extends React.PureComponent {
     this.map.setMapTypeId('styled_map');
 
     this.map.addListener('tilesloaded', this.handleTilesLoaded);
-    this.map.addListener('dragstart', this.handleDragStart);
     this.map.addListener('zoom_changed', this.handleZoomChanged);
     this.map.addListener('resize', this.handleResize);
 
-    this.updateContainerSize();
     this.updateMarkers();
-    this.updateBounds();
   }
 
   updateMarkers() {
@@ -321,6 +307,9 @@ class PhotosMap extends React.PureComponent {
     });
 
     const list = this.makeMarkersList();
+    let found = false;
+    let changed = false;
+    let error = false;
 
     Object.keys(list).forEach((key) => {
       if (this.markers[key]) {
@@ -329,9 +318,9 @@ class PhotosMap extends React.PureComponent {
       }
 
       this.addMarker(key, list[key]);
+      changed = true;
     });
 
-    let found = false;
 
     Object.keys(this.markers).forEach((key) => {
       if (this.markers[key].valid) {
@@ -340,17 +329,24 @@ class PhotosMap extends React.PureComponent {
       }
 
       this.removeMarker(key);
+      changed = true;
     });
 
-    if (!found) {
-      // console.log('not found');
+    if (changed) {
+      this.updateBounds();
     }
 
-    this.updateBounds();
+    if (!found) {
+      error = Lang('photos-map.not_found', this.props.lang);
+    }
+
+    if (error !== this.state.error) {
+      this.setState({ error });
+    }
   }
 
   updateBounds() {
-    if (!this.map || !this.state.locked) {
+    if (!this.map) {
       return;
     }
 
@@ -370,16 +366,11 @@ class PhotosMap extends React.PureComponent {
     if (found) {
       this.map.fitBounds(bounds);
       this.map.panTo(bounds.getCenter());
-      this.map.panBy(0, -60);
+      this.map.panBy(0, -40);
     } else {
       const latlng = new google.maps.LatLng(this.props.defaultLat, this.props.defaultLng);
       this.map.panTo(latlng);
     }
-  }
-
-  updateContainerSize() {
-    if (!this.map) return;
-    google.maps.event.trigger(this.map, 'resize');
   }
 
   makeMarkersList(mode) {
@@ -462,7 +453,7 @@ class PhotosMap extends React.PureComponent {
   }
 
   makeShadow() {
-    if (!this.props.loading) {
+    if (!this.props.loading && !this.state.error) {
       return null;
     }
 
@@ -487,6 +478,14 @@ class PhotosMap extends React.PureComponent {
     }
 
     return <div className="photos-map__loader"><Loader /></div>;
+  }
+
+  makeError() {
+    if (!this.state.error) {
+      return null;
+    }
+
+    return <div className="photos-map__error">{this.state.error}</div>;
   }
 
   makeExpand() {
@@ -517,10 +516,11 @@ class PhotosMap extends React.PureComponent {
     return (
       <div {...props}>
         <div className="photos-map__map" ref={this.setRefMap} />
+        {this.makeExpand()}
         {this.makeShadow()}
         {this.makeLoader()}
+        {this.makeError()}
         {this.makeTagClear()}
-        {this.makeExpand()}
       </div>
     );
   }
