@@ -62,7 +62,7 @@ class PhotosMap extends React.PureComponent {
     this.state = {
       error: false,
       expanded: false,
-      display: this.calcDisplay(props.defaultZoom),
+      zoom: props.defaultZoom,
     };
     
     this.map = false;
@@ -93,6 +93,7 @@ class PhotosMap extends React.PureComponent {
   componentDidMount() {
     this.initMap();
     this.updateMarkers();
+    this.updateBounds();
 
     window.addEventListener('resize', this.checkContainerSize);
     this.watch_container_size = setInterval(this.checkContainerSize, 1000);
@@ -104,9 +105,8 @@ class PhotosMap extends React.PureComponent {
         prevProps.tag !== this.props.tag) {
       this.updateMarkers();
       this.updateBounds();
-    } else if (prevState.display !== this.state.display) {
+    } else if (prevState.zoom !== this.state.zoom) {
       this.updateMarkers();
-      this.updateBounds();
     }
   }
 
@@ -159,10 +159,6 @@ class PhotosMap extends React.PureComponent {
     this.ref_container = c;
   }
 
-  calcDisplay(zoom) {
-    return (zoom >= 11 || this.props.tag) ? 'single' : 'group';
-  }
-
   toggleExpand() {
     if (!this.props.expandable) {
       this.setState({ expanded: false });
@@ -188,10 +184,24 @@ class PhotosMap extends React.PureComponent {
     e.preventDefault();
     e.stopPropagation();
 
-    if (info.display === 'group') {
+    if (info.display === 'location') {
       if (this.props.onTagSelect) {
-        this.props.onTagSelect(info.loc);
+        this.props.onTagSelect(info.title);
       }
+
+      return;
+    }
+
+    if (info.bounds.length > 1) {
+      const bounds = new google.maps.LatLngBounds();
+
+      info.bounds.forEach((bound) => {
+        bounds.extend({ lat: bound[0], lng: bound[1] });
+      });
+
+      this.map.fitBounds(bounds);
+      this.map.panTo(bounds.getCenter());
+      this.map.panBy(0, -40);
 
       return;
     }
@@ -211,15 +221,9 @@ class PhotosMap extends React.PureComponent {
 
   handleZoomChanged() {
     const zoom = this.map.getZoom();
-    const display = this.calcDisplay(zoom);
 
-    if (zoom > 7 && !this.props.tag) {
-      this.map.setZoom(7);
-      return;
-    }
-
-    if (zoom > 17) {
-      this.map.setZoom(17);
+    if (zoom > 20) {
+      this.map.setZoom(20);
       return;
     }
 
@@ -228,18 +232,20 @@ class PhotosMap extends React.PureComponent {
       return;
     }
 
-    if (display !== this.state.display) {
-      this.setState({ display });
+    if (zoom !== this.state.zoom) {
+      this.setState({ zoom });
     }
   }
 
   handleTilesLoaded() {
     google.maps.event.clearListeners(this.map, 'tilesloaded');
+
     this.updateMarkers();
+    this.updateBounds();
   }
 
   checkContainerSize() {
-    if (!this.ref_container || !this.ref_map) {
+    if (!this.ref_container || !this.ref_map || !this.map) {
       return;
     }
 
@@ -274,7 +280,7 @@ class PhotosMap extends React.PureComponent {
       clickableIcons: false,
       disableDefaultUI: true,
       center: { lat: this.props.defaultLat, lng: this.props.defaultLng },
-      zoom: this.props.defaultZoom,
+      zoom: this.state.zoom,
       zoomControl: true,
       mapTypeControlOptions: {
         mapTypeIds: [
@@ -295,6 +301,7 @@ class PhotosMap extends React.PureComponent {
     this.map.addListener('resize', this.handleResize);
 
     this.updateMarkers();
+    this.updateBounds();
   }
 
   updateMarkers() {
@@ -333,7 +340,7 @@ class PhotosMap extends React.PureComponent {
     });
 
     if (changed) {
-      this.updateBounds();
+      // this.updateBounds();
     }
 
     if (!found) {
@@ -374,8 +381,29 @@ class PhotosMap extends React.PureComponent {
   }
 
   makeMarkersList(mode) {
+    const zoom = this.state.zoom;
+
+    const breaks = {
+      4: [6, 10],
+      5: [3, 5],
+      6: [1.6, 2.8],
+      7: [0.8, 1.4],
+      8: [0.4, 0.8],
+      9: [0.17, 0.3],
+      10: [0.08, 0.15],
+      11: [0.05, 0.08],
+      12: [0.022, 0.04],
+      13: [0.011, 0.02],
+      14: [0.005, 0.01],
+      15: [0.003, 0.005],
+      16: [0.0014, 0.003],
+      17: [0.0007, 0.0015],
+      18: [0.0007, 0.0015],
+      19: [0.0003, 0.0008],
+    };
+
     if (!mode) {
-      mode = (this.state.zoom >= 11 || this.props.tag) ? 'single' : 'group';
+      mode = (zoom >= 8 || this.props.tag) ? 'single' : 'location';
     }
 
     const ret = {};
@@ -394,23 +422,36 @@ class PhotosMap extends React.PureComponent {
       }
 
       found = true;
+      const lat = parseFloat(latlng[0]) || 0;
+      const lng = parseFloat(latlng[1]) || 0;
       let key = false;
 
-      if (mode === 'single') {
-        key = `s_${marker.id}`;
+      if (mode === 'location') {
+        key = `l_${marker.loc}`;
       } else {
-        key = `g_${marker.loc}`;
+        key = `g_${marker.id}`;
+
+        if (breaks[zoom]) {
+          const lat_c = 1 / (breaks[zoom][0] * 1);
+          const lng_c = 1 / (breaks[zoom][1] * 1);
+
+          const g_lat = Math.round((Math.floor(lat * lat_c) / lat_c) * 100000) / 100000;
+          const g_lng = Math.round((Math.floor(lng * lng_c) / lng_c) * 100000) / 100000;
+
+          key = `g_${g_lat}_${g_lng}`;
+        }
       }
 
-      if (mode === 'single' || !ret[key]) {
+      if (!ret[key]) {
         ret[key] = {
-          lat: parseFloat(latlng[0]) || 0,
-          lng: parseFloat(latlng[1]) || 0,
           url: marker.url,
-          loc: mode === 'group' ? marker.loc : false,
+          title: mode === 'location' ? marker.loc : false,
           display: mode,
           type: marker.type,
           id: marker.id,
+          bounds: [
+            [lat, lng],
+          ],
           pics: [
             marker.pic,
           ],
@@ -420,11 +461,29 @@ class PhotosMap extends React.PureComponent {
       }
 
       ret[key].pics.push(marker.pic);
+      ret[key].bounds.push([lat, lng]);
     });
 
     if (!found && mode === 'single') {
       return this.makeMarkersList('group');
     }
+
+    Object.keys(ret).forEach((key) => {
+      const marker = ret[key];
+
+      marker.lat = 0;
+      marker.lng = 0;
+
+      marker.bounds.forEach((bounds) => {
+        marker.lat += bounds[0];
+        marker.lng += bounds[1];
+      });
+
+      if (marker.bounds.length > 1) {
+        marker.lat /= marker.bounds.length;
+        marker.lng /= marker.bounds.length;
+      }
+    });
 
     return ret;
   }

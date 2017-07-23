@@ -2,6 +2,9 @@
 
 import { ANIMATION_SPEED } from 'data/config';
 
+const TIMEOUT_MIN = 2000;
+const TIMEOUT_MAX = 3000;
+
 /* global google */
 
 function getRandomInt(min, max) {
@@ -27,7 +30,7 @@ export default function (info, onClick) {
     const pic = info.pics[getRandomInt(0, info.pics.length - 1)];
     photo.style.backgroundImage = `url('${pic}')`;
 
-    bg_timeout = setTimeout(updateBg, getRandomInt(3000, 7000));
+    bg_timeout = setTimeout(updateBg, getRandomInt(TIMEOUT_MIN, TIMEOUT_MAX));
   }
 
   markerLocation.onAdd = function () {
@@ -53,12 +56,19 @@ export default function (info, onClick) {
     photo.style.backgroundImage = `url('${info.pics[0]}')`;
     container.appendChild(photo);
 
-    if (info.display === 'group') {
+    if (info.display === 'location') {
       const text = document.createElement('div');
       text.className = 'photos-map__marker-text';
-      text.innerHTML = info.loc;
+      text.innerHTML = info.title;
       container.appendChild(text);
 
+      const amount = document.createElement('div');
+      amount.className = 'photos-map__marker-amount';
+      amount.innerHTML = info.pics.length;
+      container.appendChild(amount);
+    }
+
+    if (info.display === 'single' && info.pics.length > 1) {
       const amount = document.createElement('div');
       amount.className = 'photos-map__marker-amount';
       amount.innerHTML = info.pics.length;
@@ -70,7 +80,7 @@ export default function (info, onClick) {
         clearInterval(bg_timeout);
       }
 
-      bg_timeout = setTimeout(updateBg, getRandomInt(3000, 7000));
+      bg_timeout = setTimeout(updateBg, getRandomInt(TIMEOUT_MIN, TIMEOUT_MAX));
     }
 
     this.getPanes().overlayMouseTarget.appendChild(container);
