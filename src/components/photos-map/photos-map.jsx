@@ -397,8 +397,6 @@ class PhotosMap extends React.PureComponent {
       15: [0.003, 0.005],
       16: [0.0014, 0.003],
       17: [0.0007, 0.0015],
-      18: [0.0007, 0.0015],
-      19: [0.0003, 0.0008],
     };
 
     if (!mode) {
@@ -431,11 +429,15 @@ class PhotosMap extends React.PureComponent {
         key = `g_${marker.id}`;
 
         if (breaks[zoom]) {
-          const lat_c = 1 / (breaks[zoom][0] * 1.1);
-          const lng_c = 1 / (breaks[zoom][1] * 0.9);
-
-          const g_lat = Math.round((Math.floor((lat - breaks[zoom][0]) * lat_c) / lat_c) * 100000) / 100000;
-          const g_lng = Math.round((Math.floor((lng - breaks[zoom][1]) * lng_c) / lng_c) * 100000) / 100000;
+          const acc = 1000000;
+          const lat_c = Math.round((breaks[zoom][0] * 1) * acc);
+          const lng_c = Math.round((breaks[zoom][1] * 1) * acc);
+          
+          let g_lat = Math.round(lat * acc);
+          g_lat = (g_lat - (g_lat % lat_c)) / acc;
+          
+          let g_lng = Math.round(lng * acc);
+          g_lng = (g_lng - (g_lng % lng_c)) / acc;
 
           key = `g_${g_lat}_${g_lng}`;
         }
@@ -484,6 +486,19 @@ class PhotosMap extends React.PureComponent {
       delete ret[key];
 
       ret[new_key] = marker;
+
+      if (len > 1) {
+        let lat = 0;
+        let lng = 0;
+
+        marker.bounds.forEach((bound) => {
+          lat += bound[0];
+          lng += bound[1];
+        });
+
+        marker.lat = lat / len;
+        marker.lng = lng / len;
+      }
     });
 
     return ret;

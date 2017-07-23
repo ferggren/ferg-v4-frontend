@@ -24,6 +24,11 @@ $marker_size: 55px;
     line-height: $marker_size;
     color: #FFF;
     font-size: 13px;
+    z-index: $z_index_content + 1;
+
+    &:hover {
+      z-index: $z_index_content + 2;
+    }
 
     /*&--single &-pill {
       position: absolute;
