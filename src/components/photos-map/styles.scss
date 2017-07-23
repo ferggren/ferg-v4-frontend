@@ -16,7 +16,7 @@ $marker_size: 55px;
     position: absolute;
     height: $marker_size;
     width: $marker_size;
-    margin-top: -1 * ($marker_size) - 11px;
+    margin-top: -1 * ($marker_size / 2);
     margin-left: -1 * ($marker_size / 2);
     background: rgb(57, 78, 93);
     border-radius: 50%;
@@ -25,7 +25,7 @@ $marker_size: 55px;
     color: #FFF;
     font-size: 13px;
 
-    &--single &-pill {
+    /*&--single &-pill {
       position: absolute;
       top: 2px;
       left: 0px;
@@ -34,7 +34,7 @@ $marker_size: 55px;
       transform: rotate(-45deg);
       border-radius: 50% 50% 50% 0;
       background: rgb(57, 78, 93);
-    }
+    }*/
 
     &-image {
       position: absolute;

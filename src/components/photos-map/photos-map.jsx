@@ -328,7 +328,6 @@ class PhotosMap extends React.PureComponent {
       changed = true;
     });
 
-
     Object.keys(this.markers).forEach((key) => {
       if (this.markers[key].valid) {
         found = true;
@@ -432,11 +431,11 @@ class PhotosMap extends React.PureComponent {
         key = `g_${marker.id}`;
 
         if (breaks[zoom]) {
-          const lat_c = 1 / (breaks[zoom][0] * 1);
-          const lng_c = 1 / (breaks[zoom][1] * 1);
+          const lat_c = 1 / (breaks[zoom][0] * 1.1);
+          const lng_c = 1 / (breaks[zoom][1] * 0.9);
 
-          const g_lat = Math.round((Math.floor(lat * lat_c) / lat_c) * 100000) / 100000;
-          const g_lng = Math.round((Math.floor(lng * lng_c) / lng_c) * 100000) / 100000;
+          const g_lat = Math.round((Math.floor((lat - breaks[zoom][0]) * lat_c) / lat_c) * 100000) / 100000;
+          const g_lng = Math.round((Math.floor((lng - breaks[zoom][1]) * lng_c) / lng_c) * 100000) / 100000;
 
           key = `g_${g_lat}_${g_lng}`;
         }
@@ -444,6 +443,8 @@ class PhotosMap extends React.PureComponent {
 
       if (!ret[key]) {
         ret[key] = {
+          lat,
+          lng,
           url: marker.url,
           title: mode === 'location' ? marker.loc : false,
           display: mode,
@@ -468,21 +469,21 @@ class PhotosMap extends React.PureComponent {
       return this.makeMarkersList('group');
     }
 
-    Object.keys(ret).forEach((key) => {
+    const keys = Object.keys(ret);
+
+    keys.forEach((key) => {
       const marker = ret[key];
+      const len = marker.bounds.length;
+      const new_key = len === 1 ? `g_${marker.id}` : `${key}_${len}`;
 
-      marker.lat = 0;
-      marker.lng = 0;
-
-      marker.bounds.forEach((bounds) => {
-        marker.lat += bounds[0];
-        marker.lng += bounds[1];
-      });
-
-      if (marker.bounds.length > 1) {
-        marker.lat /= marker.bounds.length;
-        marker.lng /= marker.bounds.length;
+      if (marker.display !== 'single') {
+        return;
       }
+
+      ret[key] = null;
+      delete ret[key];
+
+      ret[new_key] = marker;
     });
 
     return ret;
