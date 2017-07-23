@@ -201,7 +201,7 @@ class PhotosMap extends React.PureComponent {
 
       this.map.fitBounds(bounds);
       this.map.panTo(bounds.getCenter());
-      this.map.panBy(0, -40);
+      this.map.panBy(0, -20);
 
       return;
     }
@@ -372,7 +372,7 @@ class PhotosMap extends React.PureComponent {
     if (found) {
       this.map.fitBounds(bounds);
       this.map.panTo(bounds.getCenter());
-      this.map.panBy(0, -40);
+      this.map.panBy(0, -20);
     } else {
       const latlng = new google.maps.LatLng(this.props.defaultLat, this.props.defaultLng);
       this.map.panTo(latlng);

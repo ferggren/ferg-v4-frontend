@@ -261,8 +261,8 @@ class FergPhotostream extends React.PureComponent {
         markers={photos}
         loading={loading}
         onTagSelect={this.handleTagSelect}
-        heightSmall="40vh"
-        heightFull="80vh"
+        heightSmall="30vh"
+        heightFull="70vh"
       />
     );
   }
