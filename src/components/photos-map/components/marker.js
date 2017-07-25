@@ -1,7 +1,5 @@
 'use strict';
 
-import { ANIMATION_SPEED } from 'data/config';
-
 const TIMEOUT_MIN = 2000;
 const TIMEOUT_MAX = 3000;
 
@@ -14,7 +12,6 @@ function getRandomInt(min, max) {
 export default function (info, onClick) {
   let container = null;
   let photo = null;
-  let styles_timeout = false;
   let bg_timeout = false;
 
   const latlng = new google.maps.LatLng(info.lat, info.lng);
@@ -39,8 +36,6 @@ export default function (info, onClick) {
     }
 
     container = document.createElement('a');
-    container.style.opacity = '0.01';
-    container.style.transition = `opacity ${ANIMATION_SPEED}ms ease`;
     container.className = `photos-map__marker photos-map__marker--${info.display}`;
 
     if (info.url) {
@@ -88,11 +83,6 @@ export default function (info, onClick) {
     google.maps.event.addDomListener(container, 'click', (e) => {
       onClick(e, info);
     });
-
-    styles_timeout = setTimeout(() => {
-      styles_timeout = false;
-      container.style.opacity = '1';
-    }, 5);
   };
 
   markerLocation.draw = function () {
@@ -109,21 +99,12 @@ export default function (info, onClick) {
       return;
     }
 
-    if (styles_timeout) {
-      clearTimeout(styles_timeout);
-    }
-
     if (bg_timeout) {
       clearTimeout(bg_timeout);
     }
 
-    container.style.opacity = '0.01';
-
-    styles_timeout = setTimeout(() => {
-      styles_timeout = false;
-      container.parentNode.removeChild(container);
-      container = null;
-    }, ANIMATION_SPEED);
+    container.parentNode.removeChild(container);
+    container = null;
   };
 
   return markerLocation;

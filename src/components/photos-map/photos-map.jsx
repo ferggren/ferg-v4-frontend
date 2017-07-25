@@ -199,9 +199,8 @@ class PhotosMap extends React.PureComponent {
         bounds.extend({ lat: bound[0], lng: bound[1] });
       });
 
-      this.map.fitBounds(bounds);
-      this.map.panTo(bounds.getCenter());
-      this.map.panBy(0, -20);
+      this.map.fitBounds(bounds, 40);
+      // this.map.panTo(bounds.getCenter());
 
       return;
     }
@@ -282,6 +281,7 @@ class PhotosMap extends React.PureComponent {
       center: { lat: this.props.defaultLat, lng: this.props.defaultLng },
       zoom: this.state.zoom,
       zoomControl: true,
+      animatedZoom: false,
       mapTypeControlOptions: {
         mapTypeIds: [
           'roadmap',
@@ -370,9 +370,8 @@ class PhotosMap extends React.PureComponent {
     });
 
     if (found) {
-      this.map.fitBounds(bounds);
-      this.map.panTo(bounds.getCenter());
-      this.map.panBy(0, -20);
+      this.map.fitBounds(bounds, 40);
+      // this.map.panTo(bounds.getCenter());
     } else {
       const latlng = new google.maps.LatLng(this.props.defaultLat, this.props.defaultLng);
       this.map.panTo(latlng);
@@ -383,6 +382,9 @@ class PhotosMap extends React.PureComponent {
     const zoom = this.state.zoom;
 
     const breaks = {
+      1: [6, 10],
+      2: [6, 10],
+      3: [6, 10],
       4: [6, 10],
       5: [3, 5],
       6: [1.6, 2.8],

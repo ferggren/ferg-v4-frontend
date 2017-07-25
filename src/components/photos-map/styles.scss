@@ -25,9 +25,11 @@ $marker_size: 55px;
     color: #FFF;
     font-size: 13px;
     z-index: $z_index_content + 1;
+    transition: transform $transition_duration $transition_function;
 
     &:hover {
       z-index: $z_index_content + 2;
+      transform: scale(1.1);
     }
 
     /*&--single &-pill {
